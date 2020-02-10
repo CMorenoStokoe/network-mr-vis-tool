@@ -4,9 +4,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="resources/css/style.css">
+        <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="resources/css/all.css">
         
         <title>MiRANA</title>
     </head>
@@ -18,28 +17,46 @@
             
             <!--title-->
             <span class="navbar-brand mb-0 h1">MiRANA <em>Network visualisation tool</em></span>
+             
+            <!-- Generate graph btn -->
+            
         </nav>
         
         <!-- buttons -->
         <nav class="navbar navbar-light bg-light">
             <!-- form to upload csv -->
-            <form enctype="multipart/form-data">
-                <input id="image-file" type="file" />
-            </form>
-            <!-- Generate graph btn -->
-            <button class="btn btn-danger" id="btn-action">Generate graph</button>
+         
         </nav>
         
-        <!--GUIs-->
         <div class="row">
+            
+            <div class="col-sm-2">
+                <div class="card" style="width: 30rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">Custom graph producer</h5>
+                    <p>1) Upload your data</p>
+                      <form enctype="multipart/form-data" id="uploadForm">
+                        <input id="image-file" type="file" />
+                    </form>
+                    <p>2) Generate graph</p>
+                    <button class="btn btn-primary" id="btn-action">Generate graph</button>
+                  </div>
+                </div>
+            </div> 
 
-            <!-- center GUI -->  
-            <div class="container-fluidd col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <svg width="800" height="800" id="svgMain"></svg>
+            <div class="col-sm-8">
+                <svg width="1000" height="800" id="svgMain"></svg>
             </div>
+
+            <div class="col-sm-2"></div>
             
         </div>
-            
+      
+    <footer class="footer" id="footContainer">
+        <nav class="navbar navbar-custom">
+        <span class="text-muted">Place affiliation icons here.</span>
+        </nav>
+    </footer>
         
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -49,9 +66,9 @@
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <script src="resources/visualisation/generate_graph.js"></script>
-    <script src="resources/visualisation/main.js"></script>
-    
+    <script src="https://unpkg.com/papaparse@latest/papaparse.min.js"></script>
+    <script src="scripts/generate_graph.js"></script>
+    <script src="scripts/main.js"></script>
     </body>
     
 </html>

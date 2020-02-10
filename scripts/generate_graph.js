@@ -5,7 +5,7 @@ function FDG (uploadedData) {
     var URL = "http://127.0.0.1:5000/simulation";
     var svgId = "#svgMain";
     var view = "normal";
-    var data = JSON.parse(uploadedData);
+    var data = uploadedData;
     
     //Debug controls
     var debug_visualisation = 'True';
@@ -30,7 +30,7 @@ function FDG (uploadedData) {
     var graphCohesion = -2000;
     var edgeWidth = 1;
     var fontSize = "18px";
-    var textShadowClass = "shadow_v_normal";
+    var textShadowClass = "shadow_v_none";
     var circleRadius = 3;
     var arrowPlacement = 30;
     var arrowSize = 7;

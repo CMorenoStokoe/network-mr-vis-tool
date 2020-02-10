@@ -1,0 +1,141 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        
+        
+        <title>MiRANA</title>
+    </head>
+    
+    <body>  
+        
+        <!-- navbar -->
+        <nav class="navbar navbar-custom">
+            
+            <!--title-->
+            <span class="navbar-brand mb-0 h1">MiRANA <em>Network visualisation tool</em></span>
+        </nav>
+        
+        <!--main-->
+        <div class="row">
+            <div class="col-sm-2"></div>
+            
+            <div class="col-sm-4"> 
+                <div class="card" style="width: 30rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">About MiRANA</h5>
+                    <p class="card-text">
+                        This tool is intended to help visualise Mendelian Randomisation (MR) estimates, in particular where multiple estimates interact with eachother (e.g., Network MR).
+                        <br><br>
+                        It has been developed by the Dynamic Genetics lab group at the MRC Integrative Epidemiology Units (University of Bristol).
+                        <br><br>
+                        There are just three steps:
+                        <ol>
+                            <li>Store MR estimates in a table (.csv file)</li>
+                            <li>Upload the file to the tool</li>
+                            <li>Click generate graph</li>
+                        </ol>
+                        This is open-source project and the git-hub repository is located <a href="https://github.com/CMorenoStokoe/network-mr-vis-tool">here</a>
+                    </p>
+                  </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-4">
+                
+                <div class="card" style="width: 30rem;">
+                  <img class="card-img-top" id="mainImg" src="example1.png" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Gallery</h5>
+                    <p class="card-text">View examples of MiRANA visualisations of MR estimates.</p>
+                    <button type="button" class="btn btn-primary" disabled>Browse gallery (coming soon)</button>
+                  </div>
+                </div>
+            </div> 
+            
+            <div class="col-sm-2"></div>
+        </div>
+        
+        <div class="row">
+            
+            <div class="container-fluidd col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            </div>
+            
+            <div class="container-fluidd col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                
+            <div class="card" style="width: 75rem;">
+              <div class="card-body">
+                <h5 class="card-title">Getting started</h5>
+                <p class="card-text">Please ensure that your data is a .csv file formatted with columns in order exactly like this example data (i.e., the default output from the mr method in R).</p>
+                  
+                  <table id="helpTable" style="width:100%">
+                  <tr>
+                    <th>id.exposure</th>
+                    <th>id.outcome</th>
+                    <th>outcome</th>
+                    <th>exposure</th>
+                    <th>method</th>
+                    <th>nsnp</th>
+                    <th>b</th>
+                    <th>se</th>
+                    <th>pval</th>
+                  </tr>
+                  <tr>
+                    <td>1018</td>
+                    <td>1189</td>
+                    <td>Obsessive Compulsive Disorder || id:1189</td>
+                    <td>Subjective well being || id:1018</td>
+                    <td>Wald ratio</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1.78</td>
+                    <td>0.89</td>
+                  </tr>
+                  <tr>
+                    <td>1018</td>
+                    <td>1239</td>
+                    <td>Years of schooling || id:1239</td>
+                    <td>Subjective well being || id:1018</td>
+                    <td>Wald ratio</td>
+                    <td>1</td>
+                    <td>-0.37</td>
+                    <td>0.0089</td>
+                    <td>4.39E-05</td>
+                  </tr>
+                </table>
+                  
+                  <br>
+                  
+                <a href="visualisation.html" class="btn btn-primary">Enter tool</a>
+                  
+              </div>
+            </div>
+                               
+            <div class="container-fluidd col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            </div>
+                
+            </div>
+            
+        </div>
+    
+    <footer class="footer" id="footContainer">
+        <nav class="navbar navbar-custom">
+        <span class="text-muted">Place affiliation icons here.</span>
+        </nav>
+    </footer>
+        
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://d3js.org/d3-color.v1.min.js"></script>
+    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    </body>
+    
+</html>

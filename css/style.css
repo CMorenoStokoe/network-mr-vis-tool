@@ -1,0 +1,84 @@
+/*GLOBAL*/
+.centerTxts{
+    text-align: center;
+}
+.svg{
+    background-color: white;
+}
+#helpTable{
+    background-color: antiquewhite;
+    border-radius: 5px;
+}
+th,td{
+    padding: 5px;
+}
+
+#mainImg{
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+/*HEAD*/
+.navbar-brand{
+    text-align:center;
+    color: white !important;
+}
+.navbar-custom{
+    background-color: #007bff;
+    border: none;
+    border-color: ghostwhite !Important;
+    width: 100%;
+}
+
+/*FOOT*/
+#footContainer{
+    position: fixed;
+    Width: 100%;
+    bottom: 0;
+}
+
+/*BODY*/
+
+    /* All */
+
+    #GUIcontainer{
+        width: 700px;
+        margin: 10% auto;
+    }
+    #GUIcenter{
+        height: 150px;
+        width: 250px;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 40px;
+        margin: 10px;
+        border: solid;
+        border-width: 5px;
+        border-color: black;
+    }
+    .card{
+        margin: 5px;
+        border-color: whitesmoke !important;
+    }
+
+/*FDG*/
+
+text.shadow_v_collapsed{
+    stroke: white;
+    stroke-width: 0.5px;
+    opacity: 0.8;
+    pointer-events: none;
+}
+text.shadow_v_normal{
+    stroke: white;
+    stroke-width: 0.1px;
+    opacity: 0.8;
+    pointer-events: none;
+}
+text.shadow_v_compact{
+    stroke: white;
+    stroke-width: 0.1px;
+    opacity: 0.8;
+    pointer-events: none;
+}
