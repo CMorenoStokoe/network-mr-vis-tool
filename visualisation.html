@@ -16,53 +16,44 @@
         <nav class="navbar navbar-custom">
             
             <!--title-->
-            <a href="index.html" style="text-decoration: none;"><span class="navbar-brand mb-0 h1"><img class="icon-brand" src="img/MiRANA_white.png"> </span></a>
+            <a href="index.html" style="text-decoration: none;"><span class="navbar-brand mb-0 h1"><img class="icon-brand" src="img/MiRANA_white.png"><em>beta</em> </span></a>
             <a href="index.html" style="text-decoration: none;"><h1 id="title" class="centerTxts">Network visualisation tool</h1></a>
             <a href="http://www.bristol.ac.uk/integrative-epidemiology/" target="_blank"><img class="icon-footer" src="img/ieu.png"></a>
         </nav>
         
-        <!-- buttons -->
-        <nav class="navbar navbar-light bg-light">
-            <!-- form to upload csv -->
-         
-        </nav>
-        
         <div class="row">
             
-            <div class="col-sm-2">
-                <div class="card" style="width: 20rem;">
+            <div class="col-sm-3" >
+                <div class="card" id="leftMenu">
                   <div class="card-body">
-                    <h5 class="card-title">Custom graph producer</h5>
-                      <ol>
-                        <li><p>Upload your data</p></li>
-                            <form enctype="multipart/form-data" id="uploadForm">
-                                <input id="image-file" type="file" />
-                            </form> 
-                        <li><p>Set pval cut-off</p></li>
-                        <input type="number" id="pval_limit" name="quantity" min="0" max="1" value=0.05>
-                        <li><p>Generate graph</p></li>
-                        <button class="btn btn-primary" id="btn-action">Generate graph</button>
-                        <div class="dropdown">
-                          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Cite this
-                          </button>
-                          <div class="dropdown-menu" onClick="this.select();">
-                              Moreno-Stokoe, C.M., (2020). MiRANA: Network MR visualisation tool. GitHub repository: https://github.com/CMorenoStokoe/network-mr-vis-tool.
-                          </div>
-                        </div>  
-                      </ol>
-                    
-                      
-                    
+                    <h5 class="card-title">Custom graph</h5>
+                    <p>1) Upload your data</p>
+                        <form enctype="multipart/form-data" id="uploadForm">
+                            <input id="image-file" type="file" />
+                        </form> 
+                    <p>2) Set pval cut-off</p>
+                    <input type="number" id="pval_limit" name="quantity" min="0" max="1" value=0.05>
+                    <div class="spacer-5"></div>
+                    <p>3) Generate graph
+                    <br><small>Tip: Drag circles to rearrange the graph</small></p>
+                    <button class="btn btn-primary" id="btn-action">Generate graph</button>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Cite this
+                        </button>
+                        <div class="dropdown-menu" onClick="this.select();">
+                          Moreno-Stokoe, C.M., (2020). MiRANA: Network MR visualisation tool. GitHub repository: https://github.com/CMorenoStokoe/network-mr-vis-tool.
+                        </div>
+                    </div> 
+                    <div class="spacer-75"> </div>
+                    <small class="text-muted"> <em>Note:</em> Circles represent traits and red lines represent a positive causal relationship between two traits, whereas blue lines represent negative relationships. Arrowheads indicate the direction of causality. Bidirectional relationships are represented with arrows pointing in both directions. </small>
                   </div>
                 </div>
             </div> 
 
-            <div class="col-sm-8">
-                <svg width="1000" height="800" id="svgMain"></svg>
+            <div class="col-sm-9">
+                <svg width="900" height="600" id="svgMain"></svg>
             </div>
-
-            <div class="col-sm-2"></div>
             
         </div>
       

@@ -12,9 +12,6 @@
 th,td{
     padding: 5px;
 }
-li{
-    margin-top:5px;
-}
 
 #mainImg{
     max-width: 100%;
@@ -43,6 +40,9 @@ li{
 .spacer-50{
     margin: 50px !important;
 }
+.spacer-5{
+    margin: 5px !important;
+}
 .icon-brand{
     width:200px;
 }
@@ -64,6 +64,9 @@ li{
 }
 .spacer-75{
         margin: 75px !important;
+}
+.spacer-150{
+        margin: 150px !important;
 }
 /*BODY*/
 
@@ -89,7 +92,19 @@ li{
         margin: 5px;
         border-color: whitesmoke !important;
     }
+    .card-deck{
+        margin-bottom: 15px;
+    }
+
 /*FDG*/
+#leftMenu{
+    width: 100%; 
+    height: 100%;
+    background-color: #e1e1e1;
+    margin: 0;
+}
+
+/*FDG shadows*/
 
 text.shadow_v_collapsed{
     stroke: white;
