@@ -6,6 +6,8 @@
 
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        
         
         <title>MiRANA</title>
     </head>
@@ -21,51 +23,66 @@
             <a href="http://www.bristol.ac.uk/integrative-epidemiology/" target="_blank"><img class="icon-footer" src="img/ieu.png"></a>
         </nav>
         
-        <!-- buttons -->
-        <nav class="navbar navbar-light bg-light">
-            <!-- form to upload csv -->
-         
-        </nav>
+        <!--main-->
+        <div class="row align-items-center">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8"></div>
+            <div class="col-sm-2"></div>
+        </div>
+        
+        <div class="spacer-50"> </div>
         
         <div class="row">
+            <div class="col-sm-2"></div>
             
-            <div class="col-sm-2">
-                <div class="card" style="width: 20rem;">
+            <div class="col-sm-4"> 
+                <div class="card">
+                  <img class="card-img-top" id="mainImg" src="example3.png" alt="Card image cap">
                   <div class="card-body">
-                    <h5 class="card-title">Custom graph producer</h5>
-                      <ol>
-                        <li><p>Upload your data</p></li>
-                            <form enctype="multipart/form-data" id="uploadForm">
-                                <input id="image-file" type="file" />
-                            </form> 
-                        <li><p>Set pval cut-off</p></li>
-                        <input type="number" id="pval_limit" name="quantity" min="0" max="1" value=0.05>
-                        <li><p>Generate graph</p></li>
-                        <button class="btn btn-primary" id="btn-action">Generate graph</button>
-                        <div class="dropdown">
-                          <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Cite this
-                          </button>
-                          <div class="dropdown-menu" onClick="this.select();">
-                              Moreno-Stokoe, C.M., (2020). MiRANA: Network MR visualisation tool. GitHub repository: https://github.com/CMorenoStokoe/network-mr-vis-tool.
-                          </div>
-                        </div>  
-                      </ol>
-                    
-                      
-                    
+                    <h5 class="card-title">Example 1: Pathway</h5>
+                    <p class="card-text">An arragement of behavioural and personal factors suggesting a path-like relationship between variables.</p>
+                  </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-4">
+                <div class="card">
+                  <img class="card-img-top" id="mainImg" src="example2.png" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Example 2: Simple network</h5>
+                    <p class="card-text">An arrangement of estimates suggesting that schizophrenia causes three different traits, without any other interactions or bi-directional associations.</p>
                   </div>
                 </div>
             </div> 
-
-            <div class="col-sm-8">
-                <svg width="1000" height="800" id="svgMain"></svg>
-            </div>
-
+            
             <div class="col-sm-2"></div>
+        </div>
+        
+        <div class="row">
+            
+            <div class="container-fluidd col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            </div>
+            
+            <div class="container-fluidd col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                
+            <div class="card btmCard">
+                  <img class="card-img-top" id="mainImg" src="example1.png" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">Example 3: Massive network</h5>
+                    <p class="card-text">A massively interactive network of mental health, wellbeing and behavioural factors.</p>
+                  </div>
+                </div>
+
+            <div class="spacer-75"> </div>
+                               
+            <div class="container-fluidd col-sm-2 col-md-2 col-lg-2 col-xl-2">
+            </div>
+                
+            </div>
             
         </div>
-      
+    </div>
+    
     <footer class="footer" id="footContainer">
         <nav class="navbar navbar-custom-foot">
         <a href="https://dynamicgenetics.org/" target="_blank" ><img class="icon-footer" src="img/dynamicGenetics.png"></a>
@@ -80,9 +97,6 @@
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <script src="https://unpkg.com/papaparse@latest/papaparse.min.js"></script>
-    <script src="scripts/generate_graph.js"></script>
-    <script src="scripts/main.js"></script>
     </body>
     
 </html>

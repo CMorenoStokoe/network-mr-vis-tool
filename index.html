@@ -6,6 +6,7 @@
 
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
         
         
         <title>MiRANA</title>
@@ -17,15 +18,25 @@
         <nav class="navbar navbar-custom">
             
             <!--title-->
-            <span class="navbar-brand mb-0 h1">MiRANA <em>Network visualisation tool</em></span>
+            <a href="index.html" style="text-decoration: none;"><span class="navbar-brand mb-0 h1"><img class="icon-brand" src="img/MiRANA_white.png"> </span></a>
+            <a href="index.html" style="text-decoration: none;"><h1 id="title" class="centerTxts">Network visualisation tool</h1></a>
+            <a href="http://www.bristol.ac.uk/integrative-epidemiology/" target="_blank"><img class="icon-footer" src="img/ieu.png"></a>
         </nav>
         
         <!--main-->
+        <div class="row align-items-center">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8"></div>
+            <div class="col-sm-2"></div>
+        </div>
+        
+        <div class="spacer-50"> </div>
+        
         <div class="row">
             <div class="col-sm-2"></div>
             
             <div class="col-sm-4"> 
-                <div class="card" style="width: 30rem;">
+                <div class="card">
                   <div class="card-body">
                     <h5 class="card-title">About MiRANA</h5>
                     <p class="card-text">
@@ -33,13 +44,14 @@
                         <br><br>
                         It has been developed by the Dynamic Genetics lab group at the MRC Integrative Epidemiology Units (University of Bristol).
                         <br><br>
-                        There are just three steps:
+                        Develop a graph in just a few steps:
                         <ol>
                             <li>Store MR estimates in a table (.csv file)</li>
                             <li>Upload the file to the tool</li>
                             <li>Click generate graph</li>
+                            <li>Optionally, the nodes will stick so you can re-arrange the graph as you wish</li>
                         </ol>
-                        This is open-source project and the git-hub repository is located <a href="https://github.com/CMorenoStokoe/network-mr-vis-tool">here</a>
+                        This is open-source project and the git-hub repository is located <a href="https://github.com/CMorenoStokoe/network-mr-vis-tool">here</a>.
                     </p>
                   </div>
                 </div>
@@ -47,12 +59,12 @@
             
             <div class="col-sm-4">
                 
-                <div class="card" style="width: 30rem;">
+                <div class="card">
                   <img class="card-img-top" id="mainImg" src="example1.png" alt="Card image cap">
                   <div class="card-body">
                     <h5 class="card-title">Gallery</h5>
                     <p class="card-text">View examples of MiRANA visualisations of MR estimates.</p>
-                    <button type="button" class="btn btn-primary" disabled>Browse gallery (coming soon)</button>
+                    <a href="gallery.html"><button type="button" class="btn btn-primary">Browse gallery</button></a>
                   </div>
                 </div>
             </div> 
@@ -67,7 +79,7 @@
             
             <div class="container-fluidd col-sm-8 col-md-8 col-lg-8 col-xl-8">
                 
-            <div class="card" style="width: 75rem;">
+            <div class="card btmCard">
               <div class="card-body">
                 <h5 class="card-title">Getting started</h5>
                 <p class="card-text">Please ensure that your data is a .csv file formatted with columns in order exactly like this example data (i.e., the default output from the mr method in R).</p>
@@ -114,6 +126,8 @@
                   
               </div>
             </div>
+
+            <div class="spacer-75"> </div>
                                
             <div class="container-fluidd col-sm-2 col-md-2 col-lg-2 col-xl-2">
             </div>
@@ -121,10 +135,11 @@
             </div>
             
         </div>
+    </div>
     
     <footer class="footer" id="footContainer">
-        <nav class="navbar navbar-custom">
-        <span class="text-muted">Place affiliation icons here.</span>
+        <nav class="navbar navbar-custom-foot">
+        <a href="https://dynamicgenetics.org/" target="_blank" ><img class="icon-footer" src="img/dynamicGenetics.png"></a>
         </nav>
     </footer>
         

@@ -3,16 +3,19 @@ document.getElementById("btn-action").addEventListener("click", generateGraph);
 
 //Define function to run on button press i.e., upload data, parse and pass into FDG funct
 function generateGraph () {  
-
+    
+    var pval_limit = document.getElementById("pval_limit").value
+    console.log(pval_limit)
+    
     var fileReader = new FileReader();
         fileReader.onload = function (e) {
             uploaded_file = fileReader.result;
             var data = Papa.parse(uploaded_file);
             
             console.log("got upload: ", data);
-            
+            FDG("destruction");
             json = buildJson(data['data']);
-            FDG(json)
+            FDG(json);
             
             //FDG(data)
         };
@@ -46,7 +49,7 @@ function generateGraph () {
                 })
             }
             //links
-            if (csv[i][0] != "id.exposure" && csv[i][0] != undefined && csv[i][0] != ""){
+            if (csv[i][0] != "id.exposure" && csv[i][0] != undefined && csv[i][0] != "" && csv[i][8] < pval_limit){
                 links.push({
                     "id" : counter,
                     "source" : csv[i][0],

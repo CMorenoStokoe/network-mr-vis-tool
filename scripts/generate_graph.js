@@ -21,7 +21,7 @@ function FDG (uploadedData) {
     height = +svg.attr("height");
     
     //Clear function
-    if (spell == "destruction"){    
+    if (uploadedData == "destruction"){    
         svg.selectAll("*").remove();
         return;
     };
