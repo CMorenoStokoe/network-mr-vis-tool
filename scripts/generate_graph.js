@@ -7,6 +7,8 @@ function FDG (uploadedData) {
     var view = "normal";
     var data = uploadedData;
     
+    var node_shape = "circle";
+    
     //Debug controls
     var debug_visualisation = 'True';
         
@@ -30,11 +32,11 @@ function FDG (uploadedData) {
     var graphCohesion = -2000;
     var edgeWidth = 1;
     var fontSize = "18px";
-    var textShadowClass = "shadow_v_none";
-    var circleRadius = 3;
+    var textShadowClass = "shadow_v_normal";
+    var circleRadius = 15;
     var arrowPlacement = 30;
     var arrowSize = 7;
-    var arrowColor = '#999';
+    var arrowColor = 'rgba(150, 150, 150, 0.5)';
     var iconSize = "50";
     var iconPlacement = -25;
     if (view=="collapsed"){
@@ -126,10 +128,22 @@ function FDG (uploadedData) {
       .call(drag(simulation));
 
     const circles = node.append("circle")
-      .attr("r", 5 * circleRadius) //d => Math.abs(d.activation)*circleRadius
-      .attr("stroke", "#d1d1d1")
-      .attr("fill", "white");
-        
+        .attr("r", circleRadius) //d => Math.abs(d.activation)*circleRadius
+        .attr("stroke", "rgba(150, 150, 150, 0.5)")
+        .attr("fill", "white");
+    
+    /*
+    const rectangles = node.append("rect")
+        .attr("r", circleRadius) //d => Math.abs(d.activation)*circleRadius
+        .attr("fill", "rgba(255,255,255,0.5)")
+        .attr("width", 150)
+        .attr("height", 25)
+        .attr('rx', 5)
+        .attr('ry', 5)
+        .attr('x', -75)
+        .attr('y', -12.5);
+    */
+   
     var nodeText = node.append("text")
         .text(function(d) {
           return d.short_name;
@@ -137,8 +151,8 @@ function FDG (uploadedData) {
         .attr("class", textShadowClass)
         .style("font-size", fontSize)
         .attr("text-anchor", "middle")
-        .attr('x', 6)
-        .attr('y', 3);
+        .attr('x', 0)
+        .attr('y', 6);
     
      /*var nodeImage = node.append("image")
          .attr("xlink:href", d => d.iconId)
@@ -183,7 +197,7 @@ function FDG (uploadedData) {
           .attr("y2", d => d.target.y);
 
       node
-          .attr("transform", d => `translate(${d.x}, ${d.y})`);
+          .attr("transform", d => `translate(${Math.max(circleRadius*2, Math.min(width - circleRadius*2, d.x))}, ${Math.max(circleRadius, Math.min(height - circleRadius, d.y))})`);
     }
         
     //var path = svg.selectAll("path"); 

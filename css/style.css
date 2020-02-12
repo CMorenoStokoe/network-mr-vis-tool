@@ -117,6 +117,9 @@ text.shadow_v_normal{
     stroke-width: 0.1px;
     opacity: 0.8;
     pointer-events: none;
+    background: solid;
+    background-color: rgba(100,100,100,0.5) !important;
+    border-radius: 5px !important;
 }
 text.shadow_v_compact{
     stroke: white;
