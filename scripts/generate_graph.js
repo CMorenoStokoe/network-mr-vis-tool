@@ -30,13 +30,13 @@ function FDG (uploadedData) {
     
     //Views - set scale factors and classes
     var graphCohesion = -2000;
-    var edgeWidth = 1;
+    var edgeWidth = 2;
     var fontSize = "18px";
     var textShadowClass = "shadow_v_normal";
     var circleRadius = 15;
     var arrowPlacement = 30;
     var arrowSize = 7;
-    var arrowColor = 'rgba(150, 150, 150, 0.5)';
+    var arrowColor = 'rgba(150, 150, 150, 0.75)';
     var iconSize = "50";
     var iconPlacement = -25;
     if (view=="collapsed"){
@@ -105,7 +105,8 @@ function FDG (uploadedData) {
         enter => enter.append("line")
           .attr("stroke-width", edgeWidth)
           .attr("stroke", d => d.color)//edge color as function of beta weight sign//
-          .attr("stroke-opacity", d => 0.1 + Math.abs(d.value))//edge opacity as function of beta weight value//
+          .attr("stroke-opacity", 0.75)//edge opacity as function of beta weight value//
+          .style("stroke-dasharray", (d=>d.dash)) //d=>d.dash
           .attr("marker-end", "url(#end)"),
         /*
         update => update
@@ -129,8 +130,9 @@ function FDG (uploadedData) {
 
     const circles = node.append("circle")
         .attr("r", circleRadius) //d => Math.abs(d.activation)*circleRadius
-        .attr("stroke", "rgba(150, 150, 150, 0.5)")
-        .attr("fill", "white");
+        .attr("stroke", "rgba(0, 0, 0, 0.9)")
+        .attr("fill", "white")
+        .attr("stroke-width", 2);
     
     /*
     const rectangles = node.append("rect")
@@ -150,8 +152,7 @@ function FDG (uploadedData) {
         })
         .attr("class", textShadowClass)
         .style("font-size", fontSize)
-        .attr("text-anchor", "middle")
-        .attr('x', 0)
+        .attr('x', circleRadius + 2)
         .attr('y', 6);
     
      /*var nodeImage = node.append("image")

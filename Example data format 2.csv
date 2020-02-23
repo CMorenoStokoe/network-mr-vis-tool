@@ -1,4 +1,4 @@
-id.exposure,id.outcome,outcome,exposure,method,nsnp,b,se,pval
-22,1187,Depression,Schizophrenia || id:22,Inverse variance weighted,4,0.269308329,0.166877605,0.106569189
-22,1189,OCD,Schizophrenia || id:22,Inverse variance weighted,72,0.31996248,0.073392929,1.30E-05
-22,UKB-b:6519,Anxiety,Schizophrenia || id:22,Inverse variance weighted,71,0.011542487,0.004838022,0.01704265
+dash_,id.outcome,outcome,exposure,method,nsnp,b,se,pval,dash_my_line?
+22,1187,Depression,Schizophrenia || id:22,Inverse variance weighted,4,0.269308329,0.166877605,0.106569189,Yes
+22,1189,OCD,Schizophrenia || id:22,Inverse variance weighted,72,0.31996248,0.073392929,1.30E-05,No
+22,UKB-b:6519,Anxiety,Schizophrenia || id:22,Inverse variance weighted,71,0.011542487,0.004838022,0.01704265,No

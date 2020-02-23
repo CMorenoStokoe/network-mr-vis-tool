@@ -21,14 +21,16 @@ function generateGraph () {
     
     function buildJson (csv) {
         
-        
         nodesList = ["id.exposure", "id.outcome", undefined, "",]
+        relationships=[]
         nodes = []
         links = []
+        zList = {}
         counter = 0
+        counter2 = 0
         
         for (i in csv) {
-
+            
             //nodes
             if (nodesList.includes(csv[i][0])==false){
                 nodesList.push(csv[i][0])
@@ -46,6 +48,12 @@ function generateGraph () {
             }
             //links
             if (csv[i][0] != "id.exposure" && csv[i][0] != undefined && csv[i][0] != "" && csv[i][8] < pval_limit){
+                
+                //relationships.push([csv[i][0],csv[i][1]])
+                //bidirectional=relationships.includes([csv[i][1],csv[i][0]])
+                //console.log(bidirectional)
+                bidirectional=false;
+                
                 links.push({
                     "id" : counter,
                     "source" : csv[i][0],
@@ -57,7 +65,8 @@ function generateGraph () {
                     "b" : csv[i][6],
                     "se" : csv[i][7],
                     "pval" : csv[i][8],
-                    "color": colourThisNode(csv[i][6])
+                    "color" : colourThisNode(bidirectional, csv[i][6]),
+                    "dash" : decorateThisLink(csv[i][9])
                 })
             }
             
@@ -91,9 +100,14 @@ function generateGraph () {
         
     }
     
-    function colourThisNode(b){
-        if (b<0){return("rgba(248, 131, 121, 0.5)");}
+    function colourThisNode(bidirectional, b){
+        if (bidirectional==true){return("rgba(250, 125, 250, 0.5)");}
+        else if (b<0){return("rgba(248, 131, 121, 0.5)");}
         else {return ("rgba(100, 149, 237, 0.5)");}
     }
     
+    function decorateThisLink(response){
+        if (response=='Yes'){return(3, 3);}
+        else {return (null);}
+    }
 };

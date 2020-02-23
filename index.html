@@ -81,8 +81,15 @@
             <div class="card btmCard">
               <div class="card-body">
                 <h5 class="card-title">Getting started</h5>
-                <p class="card-text">Please ensure that your data is a .csv file formatted with columns in order exactly like this example data (i.e., the default output from the mr method in R).</p>
-                  
+                <p class="card-text">Please ensure that your data is a .csv file formatted with columns in order exactly like this example data (i.e., the default output from the mr method in R).
+                    <button class="btn btn-secondary btn-sm" type="button" id="btn-help" onclick="$('#txt-help').show();">
+                        Help >
+                    </button>
+                    <div id="txt-help" style="display: none;">
+                        Help: Exposure and outcome names will display exactly as shown, pelase shorten them for viewability. The dash_my_line? property will dash these lines for example to highlight biased links or caveats. Columns MUST be in order but may have different heading titles.
+                    </div>
+                    </div>
+                  </p>
                   <table id="helpTable" style="width:100%">
                   <tr>
                     <th>id.exposure</th>
@@ -94,28 +101,31 @@
                     <th>b</th>
                     <th>se</th>
                     <th>pval</th>
+                    <th>dash_my_line?</th>
                   </tr>
                   <tr>
                     <td>1018</td>
                     <td>1189</td>
-                    <td>Obsessive Compulsive Disorder || id:1189</td>
-                    <td>Subjective well being || id:1018</td>
+                    <td>OCD</td>
+                    <td>Well-being</td>
                     <td>Wald ratio</td>
                     <td>1</td>
                     <td>1</td>
                     <td>1.78</td>
                     <td>0.89</td>
+                    <td>Yes</td>
                   </tr>
                   <tr>
                     <td>1018</td>
                     <td>1239</td>
-                    <td>Years of schooling || id:1239</td>
-                    <td>Subjective well being || id:1018</td>
+                    <td>Education</td>
+                    <td>Well-being</td>
                     <td>Wald ratio</td>
                     <td>1</td>
                     <td>-0.37</td>
                     <td>0.0089</td>
                     <td>4.39E-05</td>
+                    <td>No</td>
                   </tr>
                 </table>
                   
@@ -126,7 +136,7 @@
               </div>
             </div>
 
-            <div class="spacer-75"> </div>
+            <div class="spacer-150"> </div>
                                
             <div class="container-fluidd col-sm-2 col-md-2 col-lg-2 col-xl-2">
             </div>
