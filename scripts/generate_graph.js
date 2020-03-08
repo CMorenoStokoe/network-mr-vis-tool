@@ -34,8 +34,8 @@ function FDG (uploadedData) {
     var fontSize = "18px";
     var textShadowClass = "shadow_v_normal";
     var circleRadius = 15;
-    var arrowPlacement = 30;
-    var arrowSize = 7;
+    var arrowPlacement = 15;
+    var arrowSize = 5;
     var arrowColor = 'rgba(150, 150, 150, 0.75)';
     var iconSize = "50";
     var iconPlacement = -25;

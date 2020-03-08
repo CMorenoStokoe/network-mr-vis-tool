@@ -31,6 +31,8 @@ function generateGraph () {
         
         for (i in csv) {
             
+            if(csv[i][4] != 'Inverse variance weighted' && csv[i][4] != 'Wald ratio'){ continue;}
+            
             //nodes
             if (nodesList.includes(csv[i][0])==false){
                 nodesList.push(csv[i][0])
@@ -83,21 +85,26 @@ function generateGraph () {
             return;
         }
         
+        console.log("name transformation begins for: ", name)
         if (name.includes(" || ")){
-            cleanName = name.split(" || ")[0];
-        } else {cleanName = name;}
-        console.log("cleanname: ", cleanName)
+            name_bracketless = name.split(" || ")[0];
+        } else {name_bracketless = name;}
         
-        if (cleanName.includes(":")){
-            specificName = cleanName.split(":")[1];
-        } else {specificName = cleanName;}
-        console.log(specificName);
+        console.log("||-less: ", name_bracketless)
         
-        if(specificName.length > 20){
-            console.log(specificName.substring(0,20)+'.');
-            return(specificName.substring(0,20)+'.');
-        } else {return (specificName);}
+        if (name_bracketless.includes(":")){
+            name_colonless = name_bracketless.split(":")[1];
+        } else {name_colonless = name_bracketless;}
         
+        console.log(":-less: ", name_colonless)
+        
+        if(name_colonless.length > 20){
+            name_u20char = name_colonless.substring(0,20)+'.';
+        } else {name_u20char = name_colonless;}
+        
+        console.log("-20char: ", name_u20char)
+        
+        return(name_u20char);
     }
     
     function colourThisNode(bidirectional, b){
