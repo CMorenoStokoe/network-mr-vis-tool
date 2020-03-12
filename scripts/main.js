@@ -21,6 +21,10 @@ function generateGraph () {
     
     function buildJson (csv) {
         
+        console.log("GOT File: ", document.getElementById('image-file').files[0])
+        
+        console.log("GOT PVAL: ", pval_limit)
+        
         nodesList = ["id.exposure", "id.outcome", undefined, "",]
         relationships=[]
         nodes = []
@@ -32,6 +36,8 @@ function generateGraph () {
         for (i in csv) {
             
             if(csv[i][4] != 'Inverse variance weighted' && csv[i][4] != 'Wald ratio'){ continue;}
+            
+            console.log("GOT IVW/WALD estimate: ", csv[i])
             
             //nodes
             if (nodesList.includes(csv[i][0])==false){
@@ -49,27 +55,34 @@ function generateGraph () {
                 })
             }
             //links
-            if (csv[i][0] != "id.exposure" && csv[i][0] != undefined && csv[i][0] != "" && csv[i][8] < pval_limit){
+            if (csv[i][0] != "id.exposure" && csv[i][0] != undefined && csv[i][0] != "" && Number(csv[i][8]) < pval_limit){
                 
+                console.log("GOT valid link: ", csv[i])
+                
+                //Identify and mark bidirectional relationships for future flagging
                 //relationships.push([csv[i][0],csv[i][1]])
                 //bidirectional=relationships.includes([csv[i][1],csv[i][0]])
                 //console.log(bidirectional)
                 bidirectional=false;
                 
-                links.push({
+                link = {
                     "id" : counter,
                     "source" : csv[i][0],
                     "target" : csv[i][1],
                     "source_name" : shortenName(csv[i][2]),
                     "target_name" : shortenName(csv[i][3]),
                     "method" : csv[i][4],
-                    "nsnp" : csv[i][5],
-                    "b" : csv[i][6],
-                    "se" : csv[i][7],
-                    "pval" : csv[i][8],
+                    "nsnp" : Number(csv[i][5]),
+                    "b" : Number(csv[i][6]),
+                    "se" : Number(csv[i][7]),
+                    "pval" : Number(csv[i][8]),
                     "color" : colourThisNode(bidirectional, csv[i][6]),
-                    "dash" : decorateThisLink(csv[i][9])
-                })
+                    "dash" : 'No'
+                }
+                
+                console.log("PUSHING link : ", link)
+                
+                links.push(link)
             }
             
             counter++
@@ -109,7 +122,7 @@ function generateGraph () {
     
     function colourThisNode(bidirectional, b){
         if (bidirectional==true){return("rgba(250, 125, 250, 0.5)");}
-        else if (b<0){return("rgba(248, 131, 121, 0.5)");}
+        else if (b>0){return("rgba(248, 131, 121, 0.5)");}
         else {return ("rgba(100, 149, 237, 0.5)");}
     }
     
