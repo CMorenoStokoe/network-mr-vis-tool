@@ -31,8 +31,8 @@ function FDG (uploadedData) {
     //Views - set scale factors and classes
     var graphCohesion = -2000;
     var edgeWidth = 2;
-    var fontSize = "18px";
-    var textShadowClass = "shadow_v_normal";
+    var fontSize = "19px";
+    var textShadowClass = "none";
     var circleRadius = 15;
     var arrowPlacement = 25;
     var arrowSize = 5;
