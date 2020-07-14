@@ -4,77 +4,116 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <!-- Stylesheets -->
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/visualisation.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
         
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        <link rel='stylesheet' href='css/all.css'>
+
         <title>MiRANA</title>
     </head>
     
     <body>  
         
-        <!-- navbar -->
-        <nav class="navbar navbar-custom">
-            
-            <!--title-->
-            <a href="index.html" style="text-decoration: none;"><span class="navbar-brand mb-0 h1"><img class="icon-brand" src="img/MiRANA_white.png"><em>beta</em> </span></a>
-            <a href="index.html" style="text-decoration: none;"><h1 id="title" class="centerTxts">Network visualisation tool</h1></a>
-            <a href="http://www.bristol.ac.uk/integrative-epidemiology/" target="_blank"><img class="icon-footer" src="img/ieu.png"></a>
-        </nav>
-        
+        <div class="container-fluid">
         <div class="row">
             
-            <div class="col-sm-3" >
-                <div class="card" id="leftMenu">
-                  <div class="card-body">
-                    <h5 class="card-title">Custom graph</h5>
-                    <p>1) Upload your data</p>
-                        <form enctype="multipart/form-data" id="uploadForm">
-                            <input id="image-file" type="file" />
-                        </form> 
-                    <p>2) Set pval cut-off</p>
-                    <input type="number" id="pval_limit" name="quantity" min="0" max="1" value=0.05>
-                    <div class="spacer-5"></div>
-                    <p>3) Generate graph
-                    <br><small>Tip: Drag circles to rearrange the graph</small></p>
-                    <button class="btn btn-primary" id="btn-action">Generate graph</button>
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Cite this
-                        </button>
-                        <div class="dropdown-menu" onClick="this.select();">
-                          Moreno-Stokoe, C.M., (2020). MiRANA: Network MR visualisation tool. GitHub repository: https://github.com/CMorenoStokoe/network-mr-vis-tool.
-                        </div>
-                    </div> 
-                    <div class="spacer-75"> </div>
-                    <small class="text-muted"> <em>Note:</em> Circles represent traits and red lines represent a positive causal relationship between two traits, whereas blue lines represent negative relationships. Arrowheads indicate the direction of causality. Bidirectional relationships are represented with arrows pointing in both directions. </small>
-                  </div>
-                </div>
-            </div> 
+            <!-- Sidebar -->
+            <div class="col-md-3" id="sidebar">
+                <div class="d-flex h-100 flex-column">
 
-            <div class="col-sm-9">
-                <svg width="900" height="550" id="svgMain"></svg>
+                    <!-- Logo at top of sidebar-->
+                    <div class='mb-auto text-center justify-content-center align-items-center'>
+                        
+                        <div> <!-- Logo -->
+                            <a href="index.html" style="text-decoration: none;">
+                                <span class="navbar-brand mb-0 h1">
+                                    <img class="icon-brand" src="img/MiRANA_white.png">
+                                </span>
+                            </a>
+                            <h5 class="card-title">Create graph</h5>
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar menu -->
+                    <div class='h-40 text-center justify-content-center align-items-center'>
+
+                        <div class='my-md-5'> <!-- 1) Upload data -->
+                            <label for="upload-mr" class="sidebar-button-style">
+                                <i class="fas fa-file-upload p-2" style='font-size:4em;'></i>
+                                <h5>Upload data</h5>
+                            </label>
+                            <form enctype="multipart/form-data" id="uploadForm" style="display: none"><br>
+                                <input id="upload-mr" type="file"/><br>
+                            </form> 
+                        </div>
+
+                        <div class='my-md-5'> <!-- 2) Set Pval -->
+                            Pval=<input type="text" id="pval_limit" value='auto' size='2' class='sidebar-form'>
+                        </div>
+
+                        <div class='my-md-5'> <!-- 3) Generate graph -->
+                            <button class="btn sidebar-button-style2" id="btn-action">Generate graph</button>
+                        </div>
+                    </div>
+
+                    <!-- Content at bottom of sidebar -->
+                    <div class="mt-auto p-2 text-center justify-content-center align-items-center" id="sidebar-end">
+                        <div>
+                            <!--
+                                <a href="http://www.bristol.ac.uk/integrative-epidemiology/" target="_blank"><img class="icon-footer" src="img/ieu.png"></a>
+                            -->
+                            <a href="https://dynamicgenetics.org/" target="_blank" ><img class="icon-footer" src="img/dynamicgenetics-white.png"></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Graph -->
+            <div class="col-md-9" style='background-color: #666;' id='film-panel'>
+
+                
+                <!-- Cite button -->
+                <div class="dropleft" style='position: absolute; top: 10; right: 10;'>
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-quote-right"></i> Cite
+                    </button>
+                    <div class="dropdown-menu" onClick="this.select();">
+                    Moreno-Stokoe, C.M., Davis, O.S.P. (2020). MiRANA: Network MR visualisation tool. GitHub repository: https://github.com/CMorenoStokoe/network-mr-vis-tool.
+                    </div>
+                </div> 
+
+                <img src='img/MiRANA_white.png' class='logo-emboss' id='film-logo'>
+                <svg width="900" height="800" id="svg-main"></svg>
             </div>
             
         </div>
-      
-    <footer class="footer" id="footContainer">
-        <nav class="navbar navbar-custom-foot">
-        <a href="https://dynamicgenetics.org/" target="_blank" ><img class="icon-footer" src="img/dynamicGenetics.png"></a>
-        </nav>
-    </footer>
         
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://d3js.org/d3-color.v1.min.js"></script>
-    <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <script src="https://unpkg.com/papaparse@latest/papaparse.min.js"></script>
-    <script src="scripts/generate_graph.js"></script>
-    <script src="scripts/main.js"></script>
+        <!-- External dependencies -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-color.v1.min.js"></script>
+        <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script src="scripts/PapaParse/papaparse.min.js"></script>
+
+        <!-- MiRANA scripts -->
+        <script src="scripts/graph-settings.js"></script>
+        <script src="scripts/graph.js"></script>
+        <script src="scripts/csvToJson.js"></script>
+        <script src="scripts/node-properties.js"></script>
+        <script src="scripts/data-cleaning.js"></script>
+        <script src="scripts/d3-formatting.js"></script>
+        <script src="scripts/main.js"></script>
+    
     </body>
+
+    <footer></footer>
     
 </html>

@@ -98,36 +98,4 @@ th,td{
     }
     .card-deck{
         margin-bottom: 15px;
-    }
-
-/*FDG*/
-#leftMenu{
-    width: 100%; 
-    height: 100%;
-    background-color: #e1e1e1;
-    margin: 0;
-}
-
-/*FDG shadows*/
-
-text.shadow_v_collapsed{
-    stroke: white;
-    stroke-width: 0.5px;
-    opacity: 0.8;
-    pointer-events: none;
-}
-text.shadow_v_normal{
-    stroke: white;
-    stroke-width: 0.05px;
-    opacity: 0.8;
-    pointer-events: none;
-    background: solid;
-    background-color: rgba(100,100,100,0.5) !important;
-    border-radius: 5px !important;
-}
-text.shadow_v_compact{
-    stroke: white;
-    stroke-width: 0.1px;
-    opacity: 0.8;
-    pointer-events: none;
 }

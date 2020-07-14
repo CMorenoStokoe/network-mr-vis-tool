@@ -1,0 +1,67 @@
+#sidebar{
+    height: 100vh;
+    z-index: 999;
+    background:  rgb(2, 2, 39);
+    background-image: linear-gradient(to bottom right, rgb(2, 2, 39), rgb(0, 0, 20));
+    min-width: 250px;
+    color: ghostwhite;
+    width: 100%;
+}
+
+.sidebar-button-style{
+    border-radius: 5px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.sidebar-button-style:hover{
+    color: black;
+    background-color: ghostwhite;
+    cursor: pointer;
+}
+.sidebar-button-style2{
+    border: 1px solid ghostwhite !important;
+    border-radius: 5px;
+    background: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: white;
+}
+
+.sidebar-form{
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.icon-footer{
+    height: 50px;
+    opacity: 0.25;
+}
+
+.logo-emboss{
+    position: absolute; 
+    bottom: calc(50% - 40px); 
+    right: calc(50% - 125px); 
+    opacity: 0.5; 
+    filter: grayscale(100%) brightness(75%); 
+    max-width: 250px; 
+    max-height: auto;
+}
+
+
+/* FDG */
+
+text.shadow1{
+    stroke: white;
+    stroke-width: 0.05px;
+    opacity: 0.8;
+    pointer-events: none;
+    background: solid;
+    background-color: rgba(100,100,100,0.5) !important;
+    border-radius: 5px !important;
+}
+text.shadow2{
+    stroke: white;
+    stroke-width: 0.1px;
+    opacity: 0.8;
+    pointer-events: none;
+}
