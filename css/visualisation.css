@@ -37,7 +37,7 @@
     opacity: 0.25;
 }
 
-.logo-emboss{
+#film-logo{
     position: absolute; 
     bottom: calc(50% - 40px); 
     right: calc(50% - 125px); 
@@ -45,6 +45,14 @@
     filter: grayscale(100%) brightness(75%); 
     max-width: 250px; 
     max-height: auto;
+}
+#film-text{
+    position: absolute; 
+    bottom: calc(50% - 40px - 2rem); 
+    right: calc(50% - 125px); 
+    opacity: 0.5; 
+    filter: brightness(75%); 
+    color: black;
 }
 
 
