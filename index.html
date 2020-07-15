@@ -4,10 +4,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <!-- Stylesheets -->
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
         
+        <!-- Webfonts -->
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        <link rel='stylesheet' href='css/all.css'> <!-- Font Awesome icons -->
         
         <title>MiRANA</title>
     </head>
@@ -51,7 +54,7 @@
                             <li>Click generate graph</li>
                             <li>Optionally, the nodes will stick so you can re-arrange the graph as you wish</li>
                         </ol>
-                        This is open-source project and the git-hub repository is located <a href="https://github.com/CMorenoStokoe/network-mr-vis-tool">here</a>.
+                        This is open-source project and the git-hub repository is located <a href="https://github.com/CMorenoStokoe/network-mr-vis-tool">here <i class="fab fa-github"></i></a>.
                     </p>
                   </div>
                 </div>
@@ -59,7 +62,7 @@
             
             <div class="col-sm-4">
                 <div class="card">
-                  <img class="card-img-top" id="mainImg" src="example1.png" alt="Card image cap">
+                  <img class="card-img-top" id="mainImg" src="img/examples/example7.png" alt="Card image cap">
                   <div class="card-body">
                     <h5 class="card-title">Gallery</h5>
                     <p class="card-text">View examples of MiRANA visualisations of MR estimates.</p>
@@ -82,13 +85,9 @@
               <div class="card-body">
                 <h5 class="card-title">Getting started</h5>
                 <p class="card-text">Please ensure that your data is a .csv file formatted with columns in order exactly like this example data (i.e., the default output from the mr method in R).
-                    <button class="btn btn-secondary btn-sm" type="button" id="btn-help" onclick="$('#txt-help').show();">
-                        Help >
-                    </button>
-                    <div id="txt-help" style="display: none;">
-                        Exposure and outcome names will display exactly as shown, pelase shorten them for viewability. Columns MUST be in order but may have different heading titles.
-                    </div>
-                    </div>
+                    <a href='https://osf.io/tr62v/wiki/home/'><button class="btn btn-secondary btn-sm" type="button" id="btn-help">
+                      <i class="fab fa-wikipedia-w"></i> Help <i class="fas fa-angle-right"></i>
+                    </button></a>
                   </p>
                   <table id="helpTable" style="width:100%">
                   <tr>

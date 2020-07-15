@@ -12,6 +12,7 @@ This is called by the main script, given the result of processing the uploaded f
 
 function formatForD3(nodes, edges){
 
+    // Rename properties to source and target which are expected by d3
     for(const edge of edges){
         edge.source = edge['id.exposure'];
         edge.target = edge['id.outcome'];

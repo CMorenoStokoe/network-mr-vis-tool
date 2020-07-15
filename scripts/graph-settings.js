@@ -12,7 +12,8 @@ function configureFDG(newSettings){
 			fill: 'white',
 			labels: {
 				enabled: true,
-				content: d => d.id,
+                content: d => d.label,
+                position: 19, // Node radius + padding
 				fontSize: '19px',
 				textClass: '', // Gives labels a custom CSS class
 			},

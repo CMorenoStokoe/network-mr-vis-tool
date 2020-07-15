@@ -1,3 +1,9 @@
+/* CSS variables */
+:root {
+    --100pct-in-px: calc(100% - 0px);
+}
+
+/* Sidebar */
 #sidebar{
     height: 100vh;
     z-index: 999;
@@ -37,6 +43,29 @@
     opacity: 0.25;
 }
 
+/* Graph area */
+#svg-main{
+    height: var(--100pct-in-px);
+    width: var(--100pct-in-px);
+}
+text.shadow1{
+    stroke: white;
+    stroke-width: 0.05px;
+    opacity: 0.8;
+    pointer-events: none;
+    background: solid;
+    background-color: rgba(100,100,100,0.5) !important;
+    border-radius: 5px !important;
+}
+text.shadow2{
+    stroke: white;
+    stroke-width: 0.1px;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+/* Graph film */
+
 #film-logo{
     position: absolute; 
     bottom: calc(50% - 40px); 
@@ -54,22 +83,10 @@
     filter: brightness(75%); 
     color: black;
 }
-
-
-/* FDG */
-
-text.shadow1{
-    stroke: white;
-    stroke-width: 0.05px;
-    opacity: 0.8;
-    pointer-events: none;
-    background: solid;
-    background-color: rgba(100,100,100,0.5) !important;
-    border-radius: 5px !important;
-}
-text.shadow2{
-    stroke: white;
-    stroke-width: 0.1px;
-    opacity: 0.8;
-    pointer-events: none;
+#film-panel{
+    background-color: #666;                 
+    -moz-box-shadow: inset 5px 6px 7px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: inset 5px 6px 7px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 5px 6px 7px rgba(0, 0, 0, 0.3);
+    height: 100vh;
 }

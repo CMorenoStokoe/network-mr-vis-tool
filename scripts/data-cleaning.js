@@ -19,7 +19,6 @@ function filterByPval(edges, pval){
     // Use given pvalue or calculate bonferroni value
     if(pval=='auto'){
         pval=0.05/edges.length; // Bonferroni value
-        console.log(`Auto pval detected, using Bonferroni p=${0.05/edges.length}`)
     }else{
         pval=parseFloat(pval); // Parse given p value even if in text
     }
@@ -30,7 +29,20 @@ function filterByPval(edges, pval){
     }
 
     // Return only significant edges
+    console.log(`P filter: ${edges.length-significantEdges.length}/${edges.length} edges removed (p=${pval})`)
     return(significantEdges);
+}
+
+function filterByHasEdges(nodes){
+    usedNodes=[];
+    
+    // Find number of edges per node
+    for(const node of nodes){
+        if(node.edgeCount>0){usedNodes.push(node);}
+    }
+    
+    // Return only nodes which have edges
+    return(usedNodes);
 }
 
 function makeNamesSafe(edges){
@@ -49,7 +61,6 @@ function makeNamesSafe(edges){
             edge[field] = removeCategory(edge[field]); // Remove identified categories following structure typical for UKB variables (cat:name)
             edge[field] = shorten(edge[field], 20); // Shorten if over n chars
         }
-
     }
 
     return(edges);
@@ -60,9 +71,9 @@ function makeNamesSafe(edges){
         else {return(name)}
     }
 
-    // Remove ID from names in MR base labels (by divider ' || ')
+    // Remove ID from names in MR base labels (by divider '||')
     function removeMRBaseId(name){
-        if (name.includes(" || ")){return(name.split(" || ")[0]);} 
+        if (name.includes("||")){;return(name.split("||")[0]);} 
         else {return(name)}
     }
     

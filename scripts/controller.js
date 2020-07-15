@@ -17,6 +17,11 @@ bonferroni pval = togglable; y/n
 different arrow types = setting;
 text in node placement location = toggleable; right/center;
 node size = togglable; factor*
+remove unlinked nodes = togglable; y/n;
+
+TODO: new logo
+TODO: transitions for steps
+BUG: fix random markers from no node? - inspect nodes and edges
 
 shadow on label = togglable
 .attr("class", settings.nodes.shad)

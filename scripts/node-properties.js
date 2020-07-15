@@ -15,20 +15,34 @@ The main script calls these functions for processing nodes:
 // Function to extract nodes from edge list
 function extractNodes(edges){   
     const nodes=[];
+    const nodesRecorded=[];
+    const edgesPerNode={};
 
     // Identify unique nodes in edges
     for(const edge of edges){
         for(const field of ['exposure', 'outcome']){ // Search exposure and outcome nodes in edge
+            const id = edge[`id.${field}`];
 
-            // Build node from exposure / outcome information in edge
-            const node = {
-                id: edge[`id.${field}`],
-                label: edge[field],
-            }
-
+            // Record edges per node
+            if(edgesPerNode[id]){edgesPerNode[id].push(edge)}// If no record found, make one
+            else{edgesPerNode[id]=[edge]}
+            
+            
             // Record if not already recorded
-            if(!(nodes.includes(node))){nodes.push(node);}
+            if(!(nodesRecorded.includes(id))){
+                nodes.push({ // Build node from exposure / outcome information in edge
+                    id: id,
+                    label: edge[field],
+                });
+                nodesRecorded.push(id);
+            }  
         }
+    }
+
+    // Record final number of edges for each node
+    for(const node of nodes){
+        node.edges = edgesPerNode[node.id];
+        node.edgeCount = edgesPerNode[node.id].length;
     }
 
     return(nodes);
