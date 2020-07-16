@@ -29,6 +29,19 @@ Uploaded CSV contains the columns:
     svgContainerWidth = document.getElementById('film-panel').offsetWidth;
     document.getElementById('svg-main').setAttribute('width', svgContainerWidth);
 
+    // Get default settings
+    var settings = defaultSettings;
+
+    // Create settings buttons
+    const options = [ // List of options {label on btn:, function to run:, type of btn:,}
+        { 
+            txt: 'Hide unused nodes', 
+            funct: function(){settings.data.hideUnusedNodes=false},
+        },
+        
+    ]
+    for(const opt of options){createCheckbox(opt.txt, opt.funct)}
+
 
 /* Draw graph */
 
@@ -57,21 +70,25 @@ function generateGraph(){
         nodes = extractNodes(edges);
 
         // Data cleaning - nodes
-        nodes = filterByHasEdges(nodes); // Filter out nodes without edges
+        console.log(settings.data.hideUnusedNodes)/*
+        if(settings.data.hideUnusedNodes){ // If enabled
+            console.log('filtering out edges')
+            nodes = filterByHasEdges(nodes); // Filter out nodes without edges
+        };*/
 
-        // Clear gray film over canvas
-        document.getElementById('film-panel').style.background = 'none';
-        document.getElementById('film-text').style.display = 'none';
-        document.getElementById('film-logo').style.display = 'none';
+        // Clear gray film over canvas area
+        clearDecorativeFilm('film-panel', 'film-text', 'film-logo');
 
         // Format edges and nodes for D3
         data = formatForD3(nodes, edges);
 
         // Draw graph
-        clearFDG('#svg-main');
-        settings = configureFDG([]);
-        drawFDG(data, '#svg-main', settings);    
+        clearFDG('#svg-main'); // Clear any already drawn graphs from SVG
+        drawFDG(data, '#svg-main', settings); // Draw data to svg with settings
+        
+        
     };
+
     // Get most recent file uploaded and invoke above function
     fileReader.readAsText(document.getElementById('upload-mr').files[0]);
 

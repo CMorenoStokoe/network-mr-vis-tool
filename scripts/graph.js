@@ -33,7 +33,7 @@ function drawFDG (data, svgId, settings) {
 	const svg = d3.select(svgId),
         width = +svg.attr("width"),
         height = +svg.attr("height");
-    console.log(width, height);
+    console.log(`Got SVG (${width} x ${height})`);
 
 	// Set up simulation 
 	const simulation = d3.forceSimulation(nodes)

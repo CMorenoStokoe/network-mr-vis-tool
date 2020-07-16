@@ -59,6 +59,13 @@
                         </div>
                     </div>
 
+                    <!-- Settings -->
+                    <div class='mb-md-5 pb-md-5 h-40 text-center justify-content-center align-items-center'>
+
+                        <div class='my-md-5' id='sidebar-settings'></div>
+
+                    </div>
+
                     <!-- Content at bottom of sidebar -->
                     <div class="mt-auto p-2 text-center justify-content-center align-items-center" id="sidebar-end">
                         <div>
@@ -77,14 +84,18 @@
 
                 <!-- Cite button -->
                 <div class="dropleft" style='position: absolute; top: 10; right: 10;'>
+                    <button id='saveButton' type="button" class="btn btn-secondary">
+                        <i class="fas fa-file-download"></i> Save
+                    </button>
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-quote-right"></i> Cite
                     </button>
+                    
                     <div class="dropdown-menu" onClick="this.select();">
                     Moreno-Stokoe, C.M., Davis, O.S.P. (2020). MiRANA: Network MR visualisation tool. GitHub repository: https://github.com/CMorenoStokoe/network-mr-vis-tool.
                     </div>
                 </div> 
-
+                <svg height='100', width='300' id='test-svg'></svg>
                 <img src='img/MiRANA_white.png' id='film-logo'>
                 <h5 id='film-text'>Graph making tool</h5>
                 <svg height='600' width='800' id="svg-main"></svg>
@@ -101,14 +112,19 @@
         <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
         <script src="scripts/PapaParse/papaparse.min.js"></script>
+        <script src="scripts/ExportD3Vis/export-visualisation.js"></script>
+        <script src='scripts/FileSaver.js/dist/FileSaver.min.js'></script>
+        <script src='scripts/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js'></script>
 
         <!-- MiRANA scripts -->
-        <script src="scripts/graph-settings.js"></script>
-        <script src="scripts/graph.js"></script>
+        <script src="scripts/decorative-film.js"></script>
         <script src="scripts/csvToJson.js"></script>
         <script src="scripts/node-properties.js"></script>
         <script src="scripts/data-cleaning.js"></script>
         <script src="scripts/d3-formatting.js"></script>
+        <script src="scripts/settings-btn-builder.js"></script>
+        <script src="scripts/settings-defaults.js"></script>
+        <script src="scripts/graph.js"></script>
         <script src="scripts/main.js"></script>
     
     </body>
