@@ -11,6 +11,7 @@
         
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap" rel="stylesheet">
         <link rel='stylesheet' href='css/all.css'>
 
         <title>MiRANA</title>
@@ -18,6 +19,7 @@
     
     <body>  
         
+        <!-- Content container and bootstrap row -->
         <div class="container-fluid">
         <div class="row">
             
@@ -26,11 +28,11 @@
                 <div class="d-flex h-100 flex-column">
 
                     <!-- Logo at top of sidebar-->
-                    <div class='mb-auto text-center justify-content-center align-items-center'>
+                    <div class='h-10 text-center justify-content-center align-items-center'>
                         
                         <div> <!-- Logo -->
                             <a href="index.html" style="text-decoration: none;">
-                                <span class="navbar-brand mb-0 h1">
+                                <span class="navbar-brand">
                                     <img class="icon-brand" src="img/MiRANA_white.png">
                                 </span>
                             </a>
@@ -38,9 +40,10 @@
                     </div>
                     
                     <!-- Sidebar menu -->
-                    <div class='mb-md-5 pb-md-5 h-40 text-center justify-content-center align-items-center'>
+                    <div class='mt-auto h-30 text-center justify-content-center align-items-center'>
 
-                        <div class='my-md-5'> <!-- 1) Upload data -->
+                        <!-- Upload data button -->
+                        <div class='my-auto p-2'> 
                             <label for="upload-mr" class="sidebar-button-style">
                                 <i class="fas fa-file-upload p-2" style='font-size:4em;'></i>
                                 <h5>Upload data</h5>
@@ -50,29 +53,38 @@
                             </form> 
                         </div>
 
-                        <div class='my-md-5'> <!-- 2) Set Pval -->
-                            Pval=<input type="text" id="pval_limit" value='auto' size='2' class='sidebar-form'>
-                        </div>
-
-                        <div class='my-md-5'> <!-- 3) Generate graph -->
-                            <button class="btn sidebar-button-style2" id="btn-action">Generate graph</button>
-                        </div>
                     </div>
 
                     <!-- Settings -->
-                    <div class='mb-md-5 pb-md-5 h-40 text-center justify-content-center align-items-center'>
+                    <div class='mt-auto h-40 text-center justify-content-center align-items-center'>
 
-                        <div class='my-md-5' id='sidebar-settings'></div>
+                        <!-- Set Pval -->
+                        <div class='my-auto p-2'> 
+                            <h5> Options </h5><hr>
+                            Pval=<input type="text" id="pval_limit" value='auto' size='2' class='sidebar-form'>
+                        </div>
+
+                        <!-- Advanced settings button -->
+                        <button class='btn sidebar-button-style2' id='btn-settings'><i class="fas fa-cogs"></i> Advanced </button>
+
+                    </div>
+                    
+                    <div class='mt-auto h-10 text-center justify-content-center align-items-center'>
+
+                        <!-- Generate graph -->
+                        <div class='my-auto p-2'> 
+                            <button class="btn" id="btn-action">Generate graph</button>
+                        </div>
 
                     </div>
 
                     <!-- Content at bottom of sidebar -->
-                    <div class="mt-auto p-2 text-center justify-content-center align-items-center" id="sidebar-end">
+                    <div class="mt-auto h-10 text-center justify-content-center align-items-center" id="sidebar-end">
                         <div>
                             <!--
                                 <a href="http://www.bristol.ac.uk/integrative-epidemiology/" target="_blank"><img class="icon-footer" src="img/ieu.png"></a>
                             -->
-                            <a href="https://dynamicgenetics.org/" target="_blank" ><img class="icon-footer" src="img/dynamicgenetics-white.png"></a>
+                            <a href="https://dynamicgenetics.org/" target="_blank" ><img class="icon-footer p-1" src="img/dynamicgenetics-white.png"></a>
                         </div>
                     </div>
 
@@ -80,25 +92,54 @@
             </div>
 
             <!-- Graph -->
-            <div class="col-md-9" id='film-panel'>
+            <div class="col-md-9" id='film-panel' >
 
-                <!-- Cite button -->
+                <!-- On graph buttons -->
                 <div class="dropleft" style='position: absolute; top: 10; right: 10;'>
+                    
+                    <!-- Save button -->
                     <button id='saveButton' type="button" class="btn btn-secondary">
                         <i class="fas fa-file-download"></i> Save
                     </button>
+
+                    <!-- Cite button -->
                     <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-quote-right"></i> Cite
                     </button>
-                    
                     <div class="dropdown-menu" onClick="this.select();">
                     Moreno-Stokoe, C.M., Davis, O.S.P. (2020). MiRANA: Network MR visualisation tool. GitHub repository: https://github.com/CMorenoStokoe/network-mr-vis-tool.
                     </div>
+                    
                 </div> 
-                <svg height='100', width='300' id='test-svg'></svg>
+
+                <!-- svg -->
+                <svg height='600' width='800' id="svg-main"></svg>
+                
+                <!-- Grey film before graph is drawn -->
                 <img src='img/MiRANA_white.png' id='film-logo'>
                 <h5 id='film-text'>Graph making tool</h5>
-                <svg height='600' width='800' id="svg-main"></svg>
+
+                <!-- Legend -->
+                <div id='div-legend'></div>
+
+                <!-- Advanced settings -->
+                <div class='settings' id='div-settings'>
+                    
+                    <h5>Advanced settings</h5>
+                    
+                    <div class='d-flex row'>
+                        <div class='col-md-4' id='div-settings-checkboxes'>
+                            <strong>Data</strong>
+                        </div>
+                        <div class='col-md-4' id='div-settings-textForms'>
+                            <strong>Colors</strong>
+                        </div>
+                        <div class='col-md-4' id='div-settings-radios'>
+                            <strong>Trait labels</strong>
+                        </div>
+                    </div>
+
+                </div>
             </div>
             
         </div>
@@ -116,19 +157,24 @@
         <script src='scripts/FileSaver.js/dist/FileSaver.min.js'></script>
         <script src='scripts/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js'></script>
 
+        <!-- MR web app GUI library -->
+        <script src="scripts/mr-webapp/edit-element.js"></script>
+        <script src="scripts/mr-webapp/create-element.js"></script>
+        <script src="scripts/mr-webapp/event-handling.js"></script>
+
         <!-- MiRANA scripts -->
         <script src="scripts/decorative-film.js"></script>
         <script src="scripts/csvToJson.js"></script>
         <script src="scripts/node-properties.js"></script>
         <script src="scripts/data-cleaning.js"></script>
         <script src="scripts/d3-formatting.js"></script>
+        <script src="scripts/legend-builder.js"></script>
         <script src="scripts/settings-btn-builder.js"></script>
         <script src="scripts/settings-defaults.js"></script>
+        <script src="scripts/settings-options.js"></script>
         <script src="scripts/graph.js"></script>
         <script src="scripts/main.js"></script>
     
     </body>
-
-    <footer></footer>
     
 </html>

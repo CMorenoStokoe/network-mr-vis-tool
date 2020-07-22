@@ -1,8 +1,33 @@
+/*
+
+Export visualisation
+====================
+Description:
+This script uses two plugins (FileSaver and Javascript Canvas-To-Blob) to create screenshots of D3 (D3.js) SVG canvases.
+
+Uses:
+The main script uses this function to save D3 visualisations as PNG files.
+
+Adapted from Rokotyan's blocks script (Open src, MIT Licence):
+http://bl.ocks.org/Rokotyan/0556f8facbaf344507cdc45dc3622177
+
+*/
+
 // Set-up the export button
 d3.select('#saveButton').on('click', function(){
+
+	// Select SG
+	const svg = d3.select('#svg-main'),
+        width = +svg.attr("width"),
+		height = +svg.attr("height");
+		
+	// Get SVG content
 	var svgString = getSVGString(svg.node());
+	
+	// Convert SVG content to PNG
 	svgString2Image( svgString, 2*width, 2*height, 'png', save ); // passes Blob and filesize String to the callback
 
+	// Save
 	function save( dataBlob, filesize ){
 		saveAs( dataBlob, 'D3 vis exported to PNG.png' ); // FileSaver.js function
 	}

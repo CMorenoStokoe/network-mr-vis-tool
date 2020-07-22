@@ -22,7 +22,17 @@ th,td{
     margin-top: 10px;
 }
 
-/*spacers*/
+/* Text */
+*{
+    font-family: 'Rubik', sans-serif;
+    font-weight: 300;
+}
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+}
+
+/*Spacers*/
 .spacer-75{
         margin: 75px !important;
 }
@@ -46,7 +56,7 @@ th,td{
     border-bottom: 3px solid !important;
     border-color: cadetblue !important;
     width: 100%;
-    font-family: 'Lato', sans-serif;
+    /*font-family: 'Lato', sans-serif;*/
 }
 #title{
     padding: 5px;

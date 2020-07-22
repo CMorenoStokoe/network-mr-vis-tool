@@ -16,6 +16,13 @@ The main script will use these as default settings.
 var defaultSettings = {
 	data:{
 		hideUnusedNodes: true,
+		cleaning:{
+			enabled: true,
+			removeHyphens: true, // Data cleaning, removes hyphens from IDs
+			removeMRBaseId: true, // Remove MR base ID from name (e.g., default R output name)
+			removeCategory: true, // Remove identified categories following structure typical for UKB variables (cat:name)
+			shorten: true, // Shorten names if over n chars
+		}
 	},
 	nodes: {
 		shape: 'circle',

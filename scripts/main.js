@@ -20,27 +20,21 @@ Uploaded CSV contains the columns:
 
 /* Initialise DOM elements */
 
-    // Give function to generate graph button
-    document.getElementById("btn-action").addEventListener("click", generateGraph);
+    // Give function to button
+    addOnclickEvent("btn-action", generateGraph); // Btn to generate graph
+    addOnclickEvent("btn-settings", function(){toggleVisibility('div-settings')}); // Btn to open advanced settings panel
     
     // Set SVG height to fill window container
     svgContainerHeight = document.getElementById('film-panel').offsetHeight;
-    document.getElementById('svg-main').setAttribute('height', svgContainerHeight);
+        document.getElementById('svg-main').setAttribute('height', svgContainerHeight);
     svgContainerWidth = document.getElementById('film-panel').offsetWidth;
-    document.getElementById('svg-main').setAttribute('width', svgContainerWidth);
+        document.getElementById('svg-main').setAttribute('width', svgContainerWidth);
 
-    // Get default settings
+    // Use default settings
     var settings = defaultSettings;
 
-    // Create settings buttons
-    const options = [ // List of options {label on btn:, function to run:, type of btn:,}
-        { 
-            txt: 'Hide unused nodes', 
-            funct: function(){settings.data.hideUnusedNodes=false},
-        },
-        
-    ]
-    for(const opt of options){createCheckbox(opt.txt, opt.funct)}
+    // Create settings buttons for changing settings
+    createOptions(options, 'div-settings'); // options = list of settings options in settings-options
 
 
 /* Draw graph */
@@ -64,17 +58,14 @@ function generateGraph(){
         
         // Data cleaning - edges
         edges = filterByPval(edges, document.getElementById("pval_limit").value)
-        edges = makeNamesSafe(edges); // Make names display and js friendly
 
+        if(settings.data.cleaning.enabled==true){ // If enabled
+            console.log('Data cleaning: Better names')
+            edges = makeNamesSafe(edges); // Make names display and js friendly
+        }
+        
         // Extract nodes
         nodes = extractNodes(edges);
-
-        // Data cleaning - nodes
-        console.log(settings.data.hideUnusedNodes)/*
-        if(settings.data.hideUnusedNodes){ // If enabled
-            console.log('filtering out edges')
-            nodes = filterByHasEdges(nodes); // Filter out nodes without edges
-        };*/
 
         // Clear gray film over canvas area
         clearDecorativeFilm('film-panel', 'film-text', 'film-logo');
@@ -86,6 +77,12 @@ function generateGraph(){
         clearFDG('#svg-main'); // Clear any already drawn graphs from SVG
         drawFDG(data, '#svg-main', settings); // Draw data to svg with settings
         
+        // Draw legend
+        resetLegend('legend');
+        createLegend('legend', 'div-legend', settings)
+
+        // Hide settings panel
+        setVisibility('div-settings', 'hidden');
         
     };
 
