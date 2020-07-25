@@ -19,6 +19,27 @@
     
     <body>  
         
+        <!-- Error modal -->
+        <div class="modal" tabindex="-1" role="dialog" id='modal-errors'>
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">We found an error</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p id='modal-text'>Modal body text goes here.</p>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
         <!-- Content container and bootstrap row -->
         <div class="container-fluid">
         <div class="row">
@@ -113,7 +134,15 @@
                 </div> 
 
                 <!-- svg -->
-                <svg height='600' width='800' id="svg-main"></svg>
+                <svg height='600' width='800' id="svg-main">
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="0" refY="0"
+                        markerWidth="2" markerHeight="2"
+                        orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" />
+                        </marker>
+                    </defs>
+                </svg>
                 
                 <!-- Grey film before graph is drawn -->
                 <img src='img/MiRANA_white.png' id='film-logo'>
@@ -123,22 +152,15 @@
                 <div id='div-legend'></div>
 
                 <!-- Advanced settings -->
-                <div class='settings' id='div-settings'>
-                    
-                    <h5>Advanced settings</h5>
-                    
-                    <div class='d-flex row'>
-                        <div class='col-md-4' id='div-settings-checkboxes'>
-                            <strong>Data</strong>
-                        </div>
-                        <div class='col-md-4' id='div-settings-textForms'>
-                            <strong>Colors</strong>
-                        </div>
-                        <div class='col-md-4' id='div-settings-radios'>
-                            <strong>Trait labels</strong>
-                        </div>
-                    </div>
-
+                <div class='settings' id='settings-panel'>
+                    <div class='row'><div class='col-md'>
+                        <h5>Advanced settings</h5>
+                    </div></div>
+                    <div class='row' id='div-settings'></div>
+                    <div class='row'><div class='col-md'>
+                        <a href='https://www.w3schools.com/cssref/css_websafe_fonts.asp'>Font choices</a><br>
+                        <a href='https://htmlcolorcodes.com/color-names/'>Color choices</a><br>
+                    </div></div>
                 </div>
             </div>
             
@@ -163,16 +185,21 @@
         <script src="scripts/mr-webapp/event-handling.js"></script>
 
         <!-- MiRANA scripts -->
-        <script src="scripts/decorative-film.js"></script>
-        <script src="scripts/csvToJson.js"></script>
-        <script src="scripts/node-properties.js"></script>
-        <script src="scripts/data-cleaning.js"></script>
-        <script src="scripts/d3-formatting.js"></script>
-        <script src="scripts/legend-builder.js"></script>
-        <script src="scripts/settings-btn-builder.js"></script>
+            <!-- Settings -->
         <script src="scripts/settings-defaults.js"></script>
         <script src="scripts/settings-options.js"></script>
+            <!-- Data ops-->
+        <script src="scripts/csvToJson.js"></script>
+        <script src="scripts/data-cleaning.js"></script>
+        <script src="scripts/node-properties.js"></script>
+        <script src="scripts/edge-properties.js"></script>
+            <!-- GUI -->
+        <script src="scripts/decorative-film.js"></script>
+        <script src="scripts/settings-btn-builder.js"></script>
+        <script src="scripts/legend-builder.js"></script>
+            <!-- Graph -->
         <script src="scripts/graph.js"></script>
+            <!-- Main -->
         <script src="scripts/main.js"></script>
     
     </body>

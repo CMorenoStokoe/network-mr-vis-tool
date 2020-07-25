@@ -22,7 +22,7 @@ Uploaded CSV contains the columns:
 
     // Give function to button
     addOnclickEvent("btn-action", generateGraph); // Btn to generate graph
-    addOnclickEvent("btn-settings", function(){toggleVisibility('div-settings')}); // Btn to open advanced settings panel
+    addOnclickEvent("btn-settings", function(){toggleVisibility('settings-panel')}); // Btn to open advanced settings panel
     
     // Set SVG height to fill window container
     svgContainerHeight = document.getElementById('film-panel').offsetHeight;
@@ -56,14 +56,28 @@ function generateGraph(){
         // Extract MR estimate edges from CSV
         var edges = extractEdges(data);
         
-        // Data cleaning - edges
-        edges = filterByPval(edges, document.getElementById("pval_limit").value)
+        // Data cleaning and formatting
 
-        if(settings.data.cleaning.enabled==true){ // If enabled
-            console.log('Data cleaning: Better names')
-            edges = makeNamesSafe(edges); // Make names display and js friendly
-        }
-        
+            // Filter edges by pvalue threshold
+            edges = filterByPval(edges, document.getElementById("pval_limit").value)
+
+            // Filter out self loop edges
+            edges = removeSelfloopEdges(edges);
+
+            // Make names display and js friendly (if enabled)
+            if(settings.data.cleaning.enabled==true){ 
+                edges = makeNamesSafe(edges); 
+            }
+            
+            // Detect, mark and display bidirectional edges differently
+            edges = markBidirectionalEdges(edges); 
+            
+            // Scale edges to beta weights (if enabled)
+            if(!(settings.links.scaleToBeta.method=='none')){
+                settings.data.betaRange = getBetaRange(edges);
+                makeEdgeBetasProportional(edges, settings.data.betaRange, settings.links.scaleToBeta.method); // Scale edges by their beta weight proportional to the min/max beta values in the data set
+            }
+
         // Extract nodes
         nodes = extractNodes(edges);
 
@@ -71,7 +85,8 @@ function generateGraph(){
         clearDecorativeFilm('film-panel', 'film-text', 'film-logo');
 
         // Format edges and nodes for D3
-        data = formatForD3(nodes, edges);
+        edges = formatForD3(edges); // Add source and target fields
+        data = {nodes: nodes, links: edges}; // Format expected by D3 graphing utility
 
         // Draw graph
         clearFDG('#svg-main'); // Clear any already drawn graphs from SVG
@@ -82,7 +97,7 @@ function generateGraph(){
         createLegend('legend', 'div-legend', settings)
 
         // Hide settings panel
-        setVisibility('div-settings', 'hidden');
+        setVisibility('settings-panel', 'hidden');
         
     };
 

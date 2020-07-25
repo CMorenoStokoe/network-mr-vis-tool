@@ -30,7 +30,7 @@ function drawFDG (data, svgId, settings) {
 	var nodes = data.nodes;
 	
 	// Select SVG DOM element
-	const svg = d3.select(svgId),
+	const svg = d3.select(svgId).attr("viewBox", "0 0 800 800"),
         width = +svg.attr("width"),
         height = +svg.attr("height");
     console.log(`Got SVG (${width} x ${height})`);
@@ -50,10 +50,11 @@ function drawFDG (data, svgId, settings) {
 	.data(links, d => d.id)
 	.join(
 		enter => enter.append("line")
+		.attr("biDirectAdjust", d => d.biDirectAdjust)
 		.attr("stroke-width", settings.links.width)
 		.attr("stroke", settings.links.color)//edge color as function of beta weight sign//
 		.attr("stroke-opacity", settings.links.opacity)//edge opacity as function of beta weight value//
-		.attr("marker-end", "url(#end)"),
+		.attr("marker-end", settings.arrows.arrowType),
 	);
 
 	// Add nodes
@@ -71,32 +72,40 @@ function drawFDG (data, svgId, settings) {
 		.attr("r", settings.nodes.circleRadius)
 		.attr("stroke", settings.nodes.strokeColor)
 		.attr("fill", settings.nodes.fill)
+		.attr('opacity', settings.nodes.opacity)
 		.attr("stroke-width", settings.nodes.strokeWidth);
 	
 	// Add node labels
 	var nodeText = node.append("text")
 		.text(settings.nodes.labels.content)
-        .style("font-size", settings.nodes.labels.fontSize)
+		.style("font-size", settings.nodes.labels.fontSize)
+		.style("font-family", settings.nodes.labels.font)
         .style("cursor", 'default')
-        .style("user-select", 'none')
-		.attr('x', settings.nodes.labels.position) // Offset from node by radius with padding
-		.attr('y', 6);
+		.style("user-select", 'none')
+		.attr('text-anchor', settings.nodes.labels.anchor)
+		.attr('x', settings.nodes.labels.posX) // Offset from node by radius with padding
+		.attr('y', settings.nodes.labels.posY);
 
 	// Add arrows
+	
 	svg.append("svg:defs").selectAll("marker")
-		.data(["end"])     
+		.data([ // Arrow ends for positive and negative links
+			{id: "end-pos", col: settings.links.colPos}, 
+			{id: "end-neg", col: settings.links.colNeg}])     
 		.enter().append("svg:marker")
-		.attr("id", String)
-		.attr("viewBox", "0 -5 10 10")
-		.attr("refX", settings.arrows.position)
-		.attr("refY", 0) 
-		.attr("markerWidth", settings.arrows.size) 
-		.attr("markerHeight", settings.arrows.size) 
-		.attr("stroke", settings.arrows.strokeColor)
-		.attr("fill", settings.arrows.fill)
-		.attr("orient", "auto")
-		.append("svg:path")
-		.attr("d", "M0,-5L10,0L0,5");
+		.attr("markerUnits", "userSpaceOnUse") // Do not scale arrow to edge width, causes positioning troubles
+			.attr("id", d=>d.id) // Populated from given id in data above
+			.attr("viewBox", "0 -5 10 10")
+			.attr("refX", settings.arrows.position)
+			.attr("refY", 0)
+			.attr("markerWidth", 16) 
+			.attr("markerHeight", 16) 
+			.attr("stroke", settings.arrows.stroke) // Either fixed or by edge color using data above
+			.attr("fill", settings.arrows.fill) // Either fixed or by edge color using data above
+			.attr("orient", "auto")
+			.attr('opacity', settings.links.opacity)
+			.append("svg:path")
+			.attr("d", "M0,-5 L5,0 L0,0");
 
 	// Simulation properties
 	simulation
@@ -104,10 +113,10 @@ function drawFDG (data, svgId, settings) {
 		
 	function ticked() {
 	link
-		.attr("x1", d => d.source.x)
-		.attr("y1", d => d.source.y)
-		.attr("x2", d => d.target.x)
-		.attr("y2", d => d.target.y);
+		.attr("x1", d => d.source.x + d.bidirectionalOffset)
+		.attr("y1", d => d.source.y + d.bidirectionalOffset)
+		.attr("x2", d => d.target.x + d.bidirectionalOffset)
+		.attr("y2", d => d.target.y + d.bidirectionalOffset);
 
 	node // Ensure nodes cannot leave SVG
 		.attr("transform", d => `translate(

@@ -24,24 +24,46 @@ function toggleSetting(setting){
 
 /* Build buttons to change settings */
 
-// Iterating function
-function createOptions(options, parentId){
-	var btnCount = 1; // Count number of buttons for IDs
+// Identify and make groups of buttons for options
+function createOptions(options, optionPanelId){
+	var groupCount = 1; // Count number of options groups for IDs
+
+	for(const optionGroup of options){
+			
+		// Wrap group in div
+		var div = document.createElement("DIV");
+			div.id = `settGroup-div-${groupCount}`;
+			div.innerHTML = `<p><strong>${optionGroup.groupTitle}</strong></p><hr>`;
+			div.className = 'col-md';
+		document.getElementById(optionPanelId).appendChild(div);
+		
+		// Create buttons for this option group and append in this div
+		createOptionBtns(optionGroup.buttons, div.id);
+		
+		groupCount++; // Increment group count for IDs
+	}
+
+}
+
+// Create buttons for options
+var btnCount = 1; // Count number of buttons for IDs
+function createOptionBtns(options, parentId){
+	
 	// Create options forms for each setting option
 	for(const option of options){
-		console.log(option)
+
+		// Create appropriate button for each settings option
 		switch(option.type){
 			case 'checkbox':
-				createCheckbox(option, `${parentId}-checkboxes`, btnCount);
+				createCheckbox(option, parentId, btnCount);
 				break;
 			case 'radio':
-				createRadio(option, `${parentId}-radios`, btnCount)
+				createRadio(option, parentId, btnCount)
 				break;
 			case 'textForm':
-				createTextForm(option, `${parentId}-textForms`, btnCount);
+				createTextForm(option, parentId, btnCount);
 				break;
 		}
-		
 		btnCount++; // Increment button count
 	}
 }
@@ -81,6 +103,7 @@ function createTextForm(option, parentId, btnCount){
 	const name = option.name;
 	const funct = option.funct;
 	const defaultValue = option.default;
+	const size = option.size;
 
 	// Create input button
 	var btn = document.createElement("INPUT");
@@ -89,7 +112,7 @@ function createTextForm(option, parentId, btnCount){
 		btn.className = 'm-1 settings-btns'; // Spacing
 		btn.onchange = funct;
 		btn.value = defaultValue;
-		btn.size = 2;
+		btn.size = size;
 	
 	// Create label for button
 	var label = document.createElement("Label");
