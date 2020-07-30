@@ -100,7 +100,7 @@ function checkForErrors(requiredFields, fields, body, header){
 function makeJSONSavable(edgeDataFields, btnId, data){
     
     // Add node and edge data fields to list of fields we want json stringify to find
-    dataFields = edgeDataFields.concat(['edgeCount', 'edges', 'id', 'label', 'nodes']); 
+    dataFields = edgeDataFields.concat(['edgeCount', 'edges', 'id', 'label', 'nodes', 'links']); 
     
     // Form text file from json
     var jsonFile = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, dataFields));
