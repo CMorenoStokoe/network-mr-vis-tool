@@ -65,7 +65,6 @@ function createLegend_legacy(legendId, parentId, settings){
         // Get beta range
         const betaMin = Number(settings.data.betaRange.min);
         const betaMax = Number(settings.data.betaRange.max);
-        console.log(betaMin, betaMax)
         // Illustrate scaling edge widths to betas
         edgeWidthLegend = `
         <strong>Beta scale</strong>: <br> 
@@ -112,22 +111,22 @@ function createLegend_legacy(legendId, parentId, settings){
 
 }
 
-
-
 // Create legend 
 function createLegend(legendId, parentId, settings){
 
     // Select the svg area
-    var svg = d3.select("#svg-main"),
-        width = +svg.attr("width"),
-        height = +svg.attr("height");
-    
-    console.log(svg.attr("viewBox"))
-
+    var svg = d3.select("#svg-main");
+        width = svg.attr("width");
+        height = svg.attr("height");
+        
+    console.log({x: svg.attr("width"), y: svg.attr("height")})
     // Set SVG coordinates to draw legend elements to
-    const titlePos = {x: 700, y: 600};
+    
+    g = svg.append("g")
+    
+    const titlePos = {x: 0, y: 0};
         if(!(settings.links.scaleToBeta.method == 'none')){
-            titlePos.y = 500; // If need to draw scale, draw legend higher
+            titlePos.y = svg.attr("height")-300; // If need to draw scale, draw legend higher
         };
     const keyPos = {};
         keyPos.x=titlePos.x;
@@ -137,7 +136,7 @@ function createLegend(legendId, parentId, settings){
         scalePos.y=keyPos.y + 170; // Length of key is 130 units + padding = 170
 
     // Legend title
-        svg.append("text")
+        g.append("text")
         .attr("x", titlePos.x)
         .attr("y", titlePos.y)
         .text('Legend')
@@ -146,7 +145,7 @@ function createLegend(legendId, parentId, settings){
         .attr("alignment-baseline","middle")
 
     // Key title
-        svg.append("text")
+        g.append("text")
         .attr("x", keyPos.x)
         .attr("y", keyPos.y)
         .text('Key')
@@ -157,14 +156,14 @@ function createLegend(legendId, parentId, settings){
     // Build arrow color key
 
         // Positive line
-        svg.append("text")
+        g.append("text")
             .attr("x", keyPos.x)
             .attr("y", keyPos.y+20)
             .text('Positive link')
             .style("font-size", "15px")
             .attr("alignment-baseline","middle")
             .style("font-weight", 300)
-        svg.append("line")
+        g.append("line")
             .attr('x1',keyPos.x)  
             .attr('y1',keyPos.y+40) 
             .attr('x2',keyPos.x+50) 
@@ -174,14 +173,14 @@ function createLegend(legendId, parentId, settings){
             .attr("marker-end", 'url(#end-pos)');
 
         // Negative line
-        svg.append("text")
+        g.append("text")
             .attr("x", keyPos.x)
             .attr("y", keyPos.y+60)
             .text('Negative link')
             .style("font-size", "15px")
             .attr("alignment-baseline","middle")
             .style("font-weight", 300)
-        svg.append("line")
+        g.append("line")
         .attr('x1',keyPos.x)  
         .attr('y1',keyPos.y+80) 
         .attr('x2',keyPos.x+50) 
@@ -191,14 +190,14 @@ function createLegend(legendId, parentId, settings){
             .attr("marker-end", 'url(#end-neg)');
 
         // Bi-directional links
-        svg.append("text")
+        g.append("text")
             .attr("x", keyPos.x)
             .attr("y", keyPos.y+100)
             .text('Bi-directional link')
             .style("font-size", "15px")
             .attr("alignment-baseline","middle")
             .style("font-weight", 300)
-        svg.append("line")
+        g.append("line")
         .attr('x1',keyPos.x)  
         .attr('y1',keyPos.y+120) 
         .attr('x2',keyPos.x+50) 
@@ -206,7 +205,7 @@ function createLegend(legendId, parentId, settings){
             .style("stroke", settings.links.colPos)
             .style("stroke-width", settings.links.scaleToBeta.scaleFactor)
             .attr("marker-end", 'url(#end-pos)');
-        svg.append("line")
+        g.append("line")
         .attr('x1',keyPos.x+50)  
         .attr('y1',keyPos.y+130) 
         .attr('x2',keyPos.x) 
@@ -220,7 +219,7 @@ function createLegend(legendId, parentId, settings){
     if(!(settings.links.scaleToBeta.method == 'none')){
 
         // Scale title      
-        svg.append("text")
+        g.append("text")
             .attr("x", scalePos.x)
             .attr("y", scalePos.y)
             .text('Scale')
@@ -229,13 +228,13 @@ function createLegend(legendId, parentId, settings){
             .attr("alignment-baseline","middle")
             
         // Mark betas on upper side of scale
-        svg.append("text") // Beginning
+        g.append("text") // Beginning
             .attr("x", scalePos.x)
             .attr("y", scalePos.y+20)
             .text(Number(settings.data.betaRange.min).toPrecision(3))
             .style("font-size", "15px")
             .attr("alignment-baseline","middle")
-        svg.append("text") // End
+        g.append("text") // End
             .attr("x", scalePos.x+90)
             .attr("y", scalePos.y+20)
             .text(Number(settings.data.betaRange.max).toPrecision(3))
@@ -249,7 +248,7 @@ function createLegend(legendId, parentId, settings){
             const currentLineWeight = minWidth + scaleFactor*i/100;
 
             // Preview 4 example line widths
-            svg.append("line")
+            g.append("line")
                 .attr('x1',scalePos.x+i)  
                 .attr('y1',scalePos.y+40) 
                 .attr('x2',scalePos.x+2+i) 
@@ -259,13 +258,13 @@ function createLegend(legendId, parentId, settings){
         }
 
         // Mark minimum and maximum on lower side of scale 
-        svg.append("text") // Beginning
+        g.append("text") // Beginning
             .attr("x", scalePos.x)
             .attr("y", scalePos.y+60)
             .text('Min')
             .style("font-size", "15px")
             .attr("alignment-baseline","middle")
-        svg.append("text") // End
+        g.append("text") // End
             .attr("x", scalePos.x+90)
             .attr("y", scalePos.y+60)
             .text('Max')

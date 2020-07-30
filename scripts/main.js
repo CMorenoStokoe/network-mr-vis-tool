@@ -50,7 +50,7 @@ function generateGraph(){
         var data = Papa.parse(fileReader.result)['data'];
 
         // Check data contains required information
-        requiredFields = ['id.outcome','id.exposure', 'exposure', 'outcome', 'pval'];
+        requiredFields = settings.data.requiredFields;
         fields = identifyDataFields(data, requiredFields);
 
         // Extract MR estimate edges from CSV
@@ -58,8 +58,11 @@ function generateGraph(){
         
         // Data cleaning and formatting
 
+            // Filter edges by method
+            edges = filterByMethod(edges, settings.data.mrMethods);
+
             // Filter edges by pvalue threshold
-            edges = filterByPval(edges, document.getElementById("pval_limit").value)
+            edges = filterByPval(edges, document.getElementById("pval_limit").value);
 
             // Filter out self loop edges
             edges = removeSelfloopEdges(edges);
@@ -98,6 +101,9 @@ function generateGraph(){
 
         // Hide settings panel
         setVisibility('settings-panel', 'hidden');
+
+        // Make data downloadable as JSON
+        makeJSONSavable(settings.data.fields, 'save-button-json', data);
         
     };
 

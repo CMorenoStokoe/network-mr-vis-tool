@@ -17,7 +17,6 @@ function clearDecorativeFilm(svgContainer, filmText, filmLogo){
     document.getElementById(svgContainer).style.background = 'none';
 
     // Remove box shadow from SVG container
-    console.log(document.getElementById(svgContainer).style)
     document.getElementById(svgContainer).style['-moz-box-shadow'] = 'none';
     document.getElementById(svgContainer).style['-webkit-box-shadow'] = 'none';
     document.getElementById(svgContainer).style['box-shadow'] = 'none';

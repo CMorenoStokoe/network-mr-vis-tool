@@ -24,6 +24,9 @@ var defaultSettings = {
 			shorten: true, // Shorten names if over n chars
 		},
 		betaRange: null, // Range of beta weights in data set, used for scaling edges and in legend
+		mrMethods: ['Inverse variance weighted', 'Wald ratio'], // MR methods to display
+		requiredFields: ['id.outcome','id.exposure', 'exposure', 'outcome', 'pval', 'method'],
+		fields: null, // Edge properties identified in CSV data file
 	},
 	nodes: {
 		shape: 'circle',
@@ -53,14 +56,14 @@ var defaultSettings = {
 		colPos: 'red',
 		opacity: 1,
 		scaleToBeta:{
-			method: 'none',
+			method: 'percentOfMax',
 			minWidth: 0.5, // Minimum scaled edge width 
 			scaleFactor: 2, // Factor to scale beta by (e.g., the value to apply a +70% scale to)
 			calcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(b*settings.links.scaleToBeta.scaleFactor));}, // Method to calculate scale
 		},
 		colorEdge: function(b, c1, c2){if(b<0){return(c1);}else{return(c2);}},
 		color: d => settings.links.colorEdge(d.b, settings.links.colNeg, settings.links.colPos),
-		width: 2,
+		width: d => settings.links.scaleToBeta.calcScaledWidth(d.proportionalBeta),
 		bidirectional:{
 			enabled: true,
 			lineOffset: 2, // Offset for each line in bidirectional links
@@ -78,6 +81,6 @@ var defaultSettings = {
 		selectArrow: function(b){if(b<0){return('url(#end-neg)')}else{return('url(#end-pos)')}},
 	},
 	simulation: {
-		strength: -2000, // Higher values = less cohesion
+		strength: -3000, // Higher values = less cohesion
 	},
 }

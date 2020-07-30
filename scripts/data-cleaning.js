@@ -49,6 +49,22 @@ function filterByHasEdges(nodes){
 }
 
 
+// Remove edges which have a method other than the allowed methods
+function filterByMethod(edges, methods){
+    var filteredEdges = [];
+
+    // Find edge methods and remove as required
+    for(const edge of edges){
+        if(methods.includes(edge.method)){  
+            filteredEdges.push(edge)
+        }
+    }
+
+    // Return only the edges of the correct methods
+    return(filteredEdges)
+}
+
+
 // Remove self loop edges
 function removeSelfloopEdges(edges){
     var edgesWithoutSelfLoops = [];
@@ -62,7 +78,6 @@ function removeSelfloopEdges(edges){
     return(edgesWithoutSelfLoops); 
 
 }
-
 
 // Replace trait IDs and Names with safer ones for display and processing
 function makeNamesSafe(edges){

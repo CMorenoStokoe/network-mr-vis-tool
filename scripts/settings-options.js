@@ -31,11 +31,9 @@ const options = [
             },
             { 
                 name: 'Scale line width by beta', 
-                funct: function(){
-                    settings.links.scaleToBeta.method = 'percentOfMax'; 
-                    settings.links.width = d => settings.links.scaleToBeta.calcScaledWidth(d.proportionalBeta);},
+                funct: function(){settings.links.scaleToBeta.method = 'none';},
                 type: 'checkbox',
-                default: false,  
+                default: true,  
             },
             { 
                 name: 'Edge opacity', 
@@ -43,6 +41,13 @@ const options = [
                 type: 'textForm',
                 default: '100%',
                 size: 4,
+            },
+            { 
+                name: 'Methods', 
+                funct: function(){settings.data.mrMethods=this.value;},
+                type: 'textForm',
+                default: ['Inverse variance weighted', 'Wald ratio'],
+                size: 30,
             },
         ]
     },

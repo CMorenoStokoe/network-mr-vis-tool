@@ -21,10 +21,14 @@ function extractEdges(csv){
     // Construct list of dictionaries of properties for each cell in each row of the CSV
     const edges = [];
     for (const row in body) {
+
+        // Skip empty rows
+        if(body[row][0]==undefined){console.log('skipping', body[row]);continue;}
             
-        cellInfo = {id: row}; // Initiate cell information dictionary with ID
+        // Initiate cell information dictionary with ID
+        cellInfo = {id: row}; 
         
-        // Populate dictionary with properties for each row
+        // Populate dictionary with additional properties in each row
         for(const cell in body[row]){
 
             // Add dictionary with key = col header name : value = cell contents
@@ -52,7 +56,10 @@ function identifyDataFields(csv, requiredFields){
     }
 
     // Check data for errors and display to user
-    checkForErrors(requiredFields, fields, body, header);
+    checkForErrors(requiredFields, fields, body, header);    
+
+    // Save header fields
+    settings.data.fields = fields;
 
     // Return fields
     return(fields)
@@ -87,4 +94,17 @@ function checkForErrors(requiredFields, fields, body, header){
         // Trigger Modal
         $('#modal-errors').modal('show');
     }
+}
+
+// Make JSON format of data savable
+function makeJSONSavable(edgeDataFields, btnId, data){
+    
+    // Add node and edge data fields to list of fields we want json stringify to find
+    dataFields = edgeDataFields.concat(['edgeCount', 'edges', 'id', 'label', 'nodes']); 
+    
+    // Form text file from json
+    var jsonFile = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, dataFields));
+
+    // Append file to link in download button
+    document.getElementById(btnId).setAttribute("href",    jsonFile    );
 }

@@ -118,31 +118,32 @@
                 <!-- On graph buttons -->
                 <div class="dropleft" style='position: absolute; top: 10; right: 10;'>
                     
-                    <!-- Save button -->
-                    <button id='saveButton' type="button" class="btn btn-secondary">
-                        <i class="fas fa-file-download"></i> Save
-                    </button>
+                    <div class="btn-group" role="group" aria-label="Button group">
+                        
+                        <!-- Save buttons -->
+                        <button id='saveButton' title="Save image" type="button" class="btn btn-secondary">
+                            Save <i class="fas fa-file-image"></i> 
+                        </button>
+                        <a id='save-button-json' download='MiRANA_data.json' >
+                            <button title="Save JSON code" type="button" class="btn btn-secondary" style='border-left: 0.25pt solid #666; border-bottom-left-radius: 0; border-top-left-radius: 0; height: 100%; width: 100%'>
+                                <i class="far fa-file-code"></i>
+                            </button>
+                        </a>
+                    </div>
 
                     <!-- Cite button -->
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" title="View reference" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-quote-right"></i> Cite
                     </button>
-                    <div class="dropdown-menu" onClick="this.select();">
-                    Moreno-Stokoe, C.M., Davis, O.S.P. (2020). MiRANA: Network MR visualisation tool. GitHub repository: https://github.com/CMorenoStokoe/network-mr-vis-tool.
+                    <div class="dropdown-menu p-2">
+                        Moreno-Stokoe, C.M., Davis, O.S.P. (2020). MiRANA: Network MR visualisation tool. GitHub repository: https://github.com/CMorenoStokoe/network-mr-vis-tool.
                     </div>
                     
+
                 </div> 
 
                 <!-- svg -->
-                <svg height='600' width='800' id="svg-main">
-                    <defs>
-                        <marker id="arrow" viewBox="0 0 10 10" refX="0" refY="0"
-                        markerWidth="2" markerHeight="2"
-                        orient="auto-start-reverse">
-                            <path d="M 0 0 L 10 5 L 0 10 z" />
-                        </marker>
-                    </defs>
-                </svg>
+                <svg height='600' width='800' id="svg-main"></svg>
                 
                 <!-- Grey film before graph is drawn -->
                 <img src='img/MiRANA_white.png' id='film-logo'>
@@ -157,10 +158,11 @@
                         <h5>Advanced settings</h5>
                     </div></div>
                     <div class='row' id='div-settings'></div>
-                    <div class='row'><div class='col-md'>
-                        <a href='https://www.w3schools.com/cssref/css_websafe_fonts.asp'>Font choices</a><br>
-                        <a href='https://htmlcolorcodes.com/color-names/'>Color choices</a><br>
-                    </div></div>
+                    <div class='p-1 m-1'>
+                        <i class="fas fa-info"></i> |  
+                        <a href='https://www.w3schools.com/cssref/css_websafe_fonts.asp'><i class="fas fa-font p-1"></i> Fonts </a> 
+                        <a href='https://htmlcolorcodes.com/color-names/'><i class="fas fa-palette p-1"></i> Colors</a>
+                    </div>
                 </div>
             </div>
             

@@ -30,16 +30,18 @@ function drawFDG (data, svgId, settings) {
 	var nodes = data.nodes;
 	
 	// Select SVG DOM element
-	const svg = d3.select(svgId).attr("viewBox", "0 0 800 800"),
+	const svg = d3.select(svgId),
         width = +svg.attr("width"),
-        height = +svg.attr("height");
+        height = +svg.attr("height"),
+		viewBox = +svg.attr("viewBox", `0 0 ${width} ${height}`);
     console.log(`Got SVG (${width} x ${height})`);
 
 	// Set up simulation 
+	const center = [width-100, height-100];
 	const simulation = d3.forceSimulation(nodes)
 		.force("link", d3.forceLink(links).id(d => d.id))
 		.force("charge", d3.forceManyBody().strength(settings.simulation.strength))
-		.force("center", d3.forceCenter(width / 2, height / 2))
+		.force("center", d3.forceCenter(center[0] / 2, center[1] / 2))
 		.force("x", d3.forceX())
 		.force("y", d3.forceY());
 
@@ -116,13 +118,13 @@ function drawFDG (data, svgId, settings) {
 		.attr("x1", d => d.source.x + d.bidirectionalOffset)
 		.attr("y1", d => d.source.y + d.bidirectionalOffset)
 		.attr("x2", d => d.target.x + d.bidirectionalOffset)
-		.attr("y2", d => d.target.y + d.bidirectionalOffset);
+		.attr("y2", d => d.target.y + d.bidirectionalOffset); // -100 px correction for rightward drift on start
 
 	node // Ensure nodes cannot leave SVG
 		.attr("transform", d => `translate(
 			${
 				Math.max(settings.nodes.circleRadius*2, 
-				Math.min(width - settings.nodes.circleRadius*2, d.x))
+				Math.min(width - settings.nodes.circleRadius*2, d.x)) 
 			}, 
 			${
 				Math.max(settings.nodes.circleRadius, 
