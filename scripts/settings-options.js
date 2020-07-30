@@ -31,7 +31,9 @@ const options = [
             },
             { 
                 name: 'Scale line width by beta', 
-                funct: function(){settings.links.scaleToBeta.method = 'none';},
+                funct: function(){
+                    settings.links.scaleToBeta.method = 'none'; 
+                    settings.links.width = 2},
                 type: 'checkbox',
                 default: true,  
             },
@@ -47,7 +49,7 @@ const options = [
                 funct: function(){settings.data.mrMethods=this.value;},
                 type: 'textForm',
                 default: ['Inverse variance weighted', 'Wald ratio'],
-                size: 30,
+                size: 20,
             },
         ]
     },

@@ -124,9 +124,9 @@ function createLegend(legendId, parentId, settings){
     
     g = svg.append("g")
     
-    const titlePos = {x: 0, y: 0};
+    const titlePos = {x: 0, y: svg.attr("height")-200};
         if(!(settings.links.scaleToBeta.method == 'none')){
-            titlePos.y = svg.attr("height")-300; // If need to draw scale, draw legend higher
+            titlePos.y = svg.attr("height")-275; // If need to draw scale, draw legend higher
         };
     const keyPos = {};
         keyPos.x=titlePos.x;

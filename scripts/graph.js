@@ -118,7 +118,7 @@ function drawFDG (data, svgId, settings) {
 		.attr("x1", d => d.source.x + d.bidirectionalOffset)
 		.attr("y1", d => d.source.y + d.bidirectionalOffset)
 		.attr("x2", d => d.target.x + d.bidirectionalOffset)
-		.attr("y2", d => d.target.y + d.bidirectionalOffset); // -100 px correction for rightward drift on start
+		.attr("y2", d => d.target.y + d.bidirectionalOffset);
 
 	node // Ensure nodes cannot leave SVG
 		.attr("transform", d => `translate(
