@@ -17,29 +17,65 @@ function extractEdges(csv){
     // Seperate csv header from body
     const header = csv[0];
     const body = csv.slice(1);
+    console.log(csv)
 
     // Construct list of dictionaries of properties for each cell in each row of the CSV
     const edges = [];
     for (const row in body) {
-
-        // Skip empty rows
-        if(body[row][0]==undefined){console.log('skipping', body[row]);continue;}
+        blankContents = false;
             
+        // Skip undefined rows
+        if(body[row] == undefined || body[row] == ' ' || body[row] == null || body[row] == ''){console.log('Blank row removed', body[row]); continue;};
+
         // Initiate cell information dictionary with ID
-        cellInfo = {id: row}; 
+        const cellInfo = {id: row}; 
         
         // Populate dictionary with additional properties in each row
         for(const cell in body[row]){
+
+            // Skip rows with ANY empty cells
+            if(body[row][cell] == undefined || body[row][cell] == ' ' || body[row] == null || body[row] == ''){
+                blankContents = true; 
+                console.log('Row with blank cell(s) removed', body[row][cell]);
+                break;
+            }
 
             // Add dictionary with key = col header name : value = cell contents
             cellInfo[header[cell]] = body[row][cell];
         }
 
-        edges.push(cellInfo); // Add dict to list
+        if(!(blankContents)){edges.push(cellInfo)}; // Add dict to list if does NOT contain blank cell(s)
 
     }
-
     return(edges);
+}
+
+// Function to convert observational data into the format expected by MiRANA
+function convertObservationalData(edges){
+    var nodeIDs = {};
+    var counter=0;
+
+    for(const edge of edges){
+
+        if(nodeIDs[edge.measurex] == undefined){
+            nodeIDs[edge.measurex] = `node${counter}`;
+            counter++;
+        }
+
+        if(nodeIDs[edge.measurey] == undefined){
+            nodeIDs[edge.measurey] = `node${counter}`;
+            counter++;
+        }
+
+        edge.exposure = edge.measurex;
+        edge.outcome = edge.measurey;
+        edge['id.exposure'] = nodeIDs[edge.measurex];
+        edge['id.outcome'] = nodeIDs[edge.measurey];
+        edge.b = edge.effectSize;
+    }
+
+    return(edges)
+
 }
 
 // Return fields in csv

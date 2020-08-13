@@ -1,0 +1,46 @@
+measurex,measurey,effectSize,pval,color.exposure,color.outcome
+Bilingual vocab ,Bilingual vocab ,-0.2258497,0.05,#14b1ab,#14b1ab
+Bilingual vocab ,Bilingual vocab ,-0.2258497,0.05,#14b1ab,#14b1ab
+Bilingual vocab ,Bilingualism ,0.377194721,0.00015,#14b1ab,#14b1ab
+Bilingual vocab ,Bilingualism ,-0.238670849,0.05,#14b1ab,#14b1ab
+Bilingual vocab ,Bilingualism ,-0.238670849,0.05,#14b1ab,#14b1ab
+Bilingual vocab ,Bilingualism ,0.377194721,0.05,#14b1ab,#14b1ab
+Bilingual vocab ,EF Orienting ,0.255668231,0.05,#14b1ab,#f9d56e
+Bilingual vocab ,EF Orienting ,0.255668231,0.05,#14b1ab,#f9d56e
+Bilingual vocab ,Global Errors ,0.291518007,0.05,#14b1ab,#f3ecc2
+Bilingual vocab ,Global Errors ,0.227574211,0.05,#14b1ab,#f3ecc2
+Bilingual vocab ,Global Errors ,0.227574211,0.05,#14b1ab,#f3ecc2
+Bilingual vocab ,Global Errors ,0.291518007,0.05,#14b1ab,#f3ecc2
+Bilingual vocab ,Global RT ,-0.416790656,0.00015,#14b1ab,#f3ecc2
+Bilingual vocab ,Global RT ,0.346835475,0.00015,#14b1ab,#f3ecc2
+Bilingual vocab ,Global RT ,0.205407345,0.05,#14b1ab,#f3ecc2
+Bilingual vocab ,Global RT ,0.321750789,0.05,#14b1ab,#f3ecc2
+Bilingual vocab ,Global RT ,0.321750789,0.05,#14b1ab,#f3ecc2
+Bilingual vocab ,Global RT ,0.205407345,0.05,#14b1ab,#f3ecc2
+Bilingual vocab ,Global RT ,-0.416790656,0.00015,#14b1ab,#f3ecc2
+Bilingual vocab ,Global RT ,0.346835475,0.05,#14b1ab,#f3ecc2
+Bilingual vocab ,Individualism ,-0.283587673,0.05,#14b1ab,#e8505b
+Bilingualism ,EF Orienting ,0.24470138,0.05,#14b1ab,#f9d56e
+EF Alerting ,Individualism ,0.381174162,0.05,#f9d56e,#e8505b
+Bilingualism ,EF Orienting ,0.24470138,0.05,#14b1ab,#f9d56e
+EF Orienting ,Immigration ,0.277792993,0.05,#f9d56e,#e8505b
+Global Errors ,EF Conflict ,-0.284072989,0.05,#f3ecc2,#f9d56e
+Global Errors ,Global Errors ,0.393452464,0.05,#f3ecc2,#f3ecc2
+Global Errors ,Global Errors ,0.393452464,0.05,#f3ecc2,#f3ecc2
+Global Errors ,SES ,-0.225968059,0.05,#f3ecc2,#e8505b
+Global Errors ,SES ,-0.225968059,0.05,#f3ecc2,#e8505b
+Global Errors ,EF Conflict ,-0.284072989,0.05,#f3ecc2,#f9d56e
+Global RT ,Bilingualism ,-0.270833209,0.05,#f3ecc2,#14b1ab
+Global RT ,Bilingualism ,-0.205586607,0.05,#f3ecc2,#14b1ab
+Global RT ,EF Orienting ,0.261471118,0.05,#f3ecc2,#f9d56e
+Global RT ,EF Orienting ,0.243701542,0.05,#f3ecc2,#f9d56e
+Global RT ,Global Errors ,0.223965854,0.05,#f3ecc2,#f3ecc2
+Global RT ,Global RT ,0.00015,0.05,#f3ecc2,#f3ecc2
+Global RT ,Global RT ,0.477924381,0.00015,#f3ecc2,#f3ecc2
+Global RT ,Bilingualism ,-0.205586607,0.05,#f3ecc2,#14b1ab
+Global RT ,Bilingualism ,-0.270833209,0.05,#f3ecc2,#14b1ab
+Global RT ,EF Orienting ,0.261471118,0.05,#f3ecc2,#f9d56e
+Global RT ,EF Orienting ,0.243701542,0.05,#f3ecc2,#f9d56e
+Global RT ,Global Errors ,0.223965854,0.05,#f3ecc2,#f3ecc2
+Immigration ,EF Orienting ,0.277792993,0.05,#e8505b,#f9d56e
+Individualism ,EF Alerting ,0.381174162,0.05,#e8505b,#f9d56e

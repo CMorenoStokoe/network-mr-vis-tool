@@ -26,7 +26,9 @@ var defaultSettings = {
 		betaRange: null, // Range of beta weights in data set, used for scaling edges and in legend
 		mrMethods: ['Inverse variance weighted', 'Wald ratio'], // MR methods to display
 		requiredFields: ['id.outcome','id.exposure', 'exposure', 'outcome', 'pval', 'method'],
+		requiredFieldsObs: ['measurex', 'measurey', 'effectSize', 'pval'],
 		fields: null, // Edge properties identified in CSV data file
+		observational: false,
 	},
 	nodes: {
 		shape: 'circle',
@@ -35,6 +37,7 @@ var defaultSettings = {
 		strokeWidth: 2,
 		fill: 'white',
 		opacity: 1,
+		fillFromCSV: false,
 		labels: {
 			enabled: true,
 			font: 'Rubik, sans-serif',
@@ -57,8 +60,8 @@ var defaultSettings = {
 		opacity: 1,
 		scaleToBeta:{
 			method: 'percentOfMax',
-			minWidth: 0.5, // Minimum scaled edge width 
-			scaleFactor: 2, // Factor to scale beta by (e.g., the value to apply a +70% scale to)
+			minWidth: 0.3, // Minimum scaled edge width 
+			scaleFactor: 1.5, // Factor to scale width by beta
 			calcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(b*settings.links.scaleToBeta.scaleFactor));}, // Method to calculate scale
 		},
 		colorEdge: function(b, c1, c2){if(b<0){return(c1);}else{return(c2);}},
@@ -68,6 +71,10 @@ var defaultSettings = {
 			enabled: true,
 			lineOffset: 2, // Offset for each line in bidirectional links
 			calcLineOffset: function(bidirectional){switch(bidirectional){case '1st': return(settings.links.bidirectional.lineOffset); case '2nd': return(settings.links.bidirectional.lineOffset*-1); default: return(0);}},
+		},
+		multiEdges:{
+			enabled: true,
+			calcLineOffset: function(numberOfLinks, currentLink){console.log(currentLink);return(-numberOfLinks + (currentLink*2))},
 		},
 	},
 	arrows: {

@@ -50,11 +50,15 @@ function generateGraph(){
         var data = Papa.parse(fileReader.result)['data'];
 
         // Check data contains required information
-        requiredFields = settings.data.requiredFields;
+        var requiredFields = settings.data.requiredFields;
+        if(settings.data.observational){requiredFields = settings.data.requiredFieldsObs;} // If observational data expect different fields
         fields = identifyDataFields(data, requiredFields);
 
         // Extract MR estimate edges from CSV
         var edges = extractEdges(data);
+        console.log('Edges', edges)
+        if(settings.data.observational){edges = convertObservationalData(edges);} // If observational data expect different fields
+        console.log('extracted edges', edges)
         
         // Data cleaning and formatting
 
@@ -68,12 +72,22 @@ function generateGraph(){
             edges = removeSelfloopEdges(edges);
 
             // Make names display and js friendly (if enabled)
-            if(settings.data.cleaning.enabled==true){ 
-                edges = makeNamesSafe(edges); 
-            }
+            if(settings.data.cleaning.enabled==true){edges = makeNamesSafe(edges);}
+
+            // If using observational data
+            if(settings.data.observational){
+
+                // Don't display causal direction arrows
+                settings.arrows.enabled = false;
+
+                // Mark multiedges and set their offset differently (if enabled)
+                markMultiEdges(edges);
             
-            // Detect, mark and display bidirectional edges differently
-            edges = markBidirectionalEdges(edges); 
+            } else { // If using causal data
+                
+                // Detect, mark and display bidirectional edges differently (if enabled)
+                markBidirectionalEdges(edges);
+            }
             
             // Scale edges to beta weights (if enabled)
             if(!(settings.links.scaleToBeta.method=='none')){

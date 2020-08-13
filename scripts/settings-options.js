@@ -45,11 +45,36 @@ const options = [
                 size: 4,
             },
             { 
-                name: 'Methods', 
+                name: 'Show estimates from:', 
                 funct: function(){settings.data.mrMethods=this.value;},
                 type: 'textForm',
-                default: ['Inverse variance weighted', 'Wald ratio'],
+                default: 'all methods',
                 size: 20,
+            },
+            { 
+                name: 'Causal data', 
+                funct: function(){settings.data.observational = this.value},
+                type: 'radio',
+                default: true,
+                value: 'Causal data',
+                group: 'Data',
+            },
+            { 
+                name: 'Observational data', 
+                funct: function(){settings.data.observational = this.value},
+                type: 'radio',
+                default: false,
+                value: 'Observational data',
+                group: 'Data',
+            },
+            { 
+                name: 'Space out multiple edges between pairs of nodes', 
+                funct: function(){
+                    settings.links.bidirectional.enabled = !(settings.data.observational);
+                    settings.links.multiEdges.enabled = !(settings.data.observational);
+                },
+                type: 'checkbox',
+                default: true,  
             },
         ]
     },
@@ -126,6 +151,12 @@ const options = [
                 type: 'textForm',
                 default: '100%',
                 size: 4,
+            },
+            { 
+                name: 'Color from CSV*', 
+                funct: function(){settings.nodes.fillFromCSV = true; settings.nodes.fill = d => d.color;},
+                type: 'checkbox',
+                default: false,  
             },
         ]
     }

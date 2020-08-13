@@ -16,6 +16,7 @@ This is called by the main script, given the result of processing the uploaded f
 
 // Get range of edge beta weights
 function getBetaRange(edges){
+    console.log(edges)
     var bMin = edges[0].b;
     var bMax = 0;
 
@@ -67,17 +68,77 @@ function markBidirectionalEdges(edges){
                 break;
             }
         }
-
     }
     
     // Mark bidirectional relationships
     for(const edge of edges){
-        edge.bidirectionalOffset = settings.links.bidirectional.calcLineOffset(bidirectionalEdges[edge.id]);
+        edge.offset = settings.links.bidirectional.calcLineOffset(bidirectionalEdges[edge.id]);
     }
 
     return(edges); 
 }
 
+// Identify and offset multi-edge nodes (i.e., more than two edges per node pair e.g., observational data)
+function markMultiEdges(edges){
+    var multilinks = {};
+    var countedEdges=[];
+
+    // Count how many edges are exposures
+    for(const edge of edges){
+        var countOfLinks = 1;
+        const exposure = edge['exposure'];
+        const outcome = edge['outcome'];
+
+        for(const edge2 of edges){
+            const exposure2 = edge2['exposure'];
+            const outcome2 = edge2['outcome'];
+
+            // Skip already counted edges in multilinks
+            if(countedEdges.includes(edge2.id)){continue;}
+
+            // For each similar link
+            if(exposure2 == exposure && outcome2 == outcome){
+
+                // Skip self-edges
+                if(exposure2==outcome2){continue;}
+            
+                // Index multi edges
+                switch(multilinks[`${exposure},${outcome}`]){
+
+                    case undefined:
+                        multilinks[`${exposure},${outcome}`] = [];
+                    
+                    default:
+                        multilinks[`${exposure},${outcome}`].push(edge2.id);
+                        countedEdges.push(edge2.id);
+                        break;
+                }
+            }
+        }
+    }
+    console.log(multilinks, countedEdges)
+
+    // Mark multiedge relationships
+    for(const edge of edges){
+
+        // If edge is part of a multilink collection, offset it appropriately
+        if([`${edge.exposure},${edge.outcome}`] in multilinks){
+            console.log(
+                multilinks[`${edge.exposure},${edge.outcome}`].length, 
+                multilinks[`${edge.exposure},${edge.outcome}`].indexOf(edge.id)
+            )
+            
+            edge.offset = settings.links.multiEdges.calcLineOffset(
+                multilinks[`${edge.exposure},${edge.outcome}`].length, 
+                multilinks[`${edge.exposure},${edge.outcome}`].indexOf(edge.id)
+            );
+
+        } else {edge.offset=0}
+
+    }
+
+    return; 
+}
 
 // Add source and target fields for D3 formatting
 function formatForD3(edges){

@@ -88,9 +88,11 @@ function drawFDG (data, svgId, settings) {
 		.attr('x', settings.nodes.labels.posX) // Offset from node by radius with padding
 		.attr('y', settings.nodes.labels.posY);
 
-	// Add arrows
-	
-	svg.append("svg:defs").selectAll("marker")
+	// Add arrows, if enabled
+	if(settings.arrows.enabled){
+
+		// Add arrow to SVG defs for lines to use at the end
+		svg.append("svg:defs").selectAll("marker")
 		.data([ // Arrow ends for positive and negative links
 			{id: "end-pos", col: settings.links.colPos}, 
 			{id: "end-neg", col: settings.links.colNeg}])     
@@ -109,16 +111,18 @@ function drawFDG (data, svgId, settings) {
 			.append("svg:path")
 			.attr("d", "M0,-5 L5,0 L0,0");
 
+	};
+
 	// Simulation properties
 	simulation
 		.on("tick", ticked);
 		
 	function ticked() {
 	link
-		.attr("x1", d => d.source.x + d.bidirectionalOffset)
-		.attr("y1", d => d.source.y + d.bidirectionalOffset)
-		.attr("x2", d => d.target.x + d.bidirectionalOffset)
-		.attr("y2", d => d.target.y + d.bidirectionalOffset);
+		.attr("x1", d => d.source.x + d.offset)
+		.attr("y1", d => d.source.y + d.offset)
+		.attr("x2", d => d.target.x + d.offset)
+		.attr("y2", d => d.target.y + d.offset);
 
 	node // Ensure nodes cannot leave SVG
 		.attr("transform", d => `translate(

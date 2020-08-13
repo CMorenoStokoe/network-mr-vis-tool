@@ -53,6 +53,8 @@ function filterByHasEdges(nodes){
 function filterByMethod(edges, methods){
     var filteredEdges = [];
 
+    if(methods = 'all methods'){return(edges)};
+
     // Find edge methods and remove as required
     for(const edge of edges){
         if(methods.includes(edge.method)){  
