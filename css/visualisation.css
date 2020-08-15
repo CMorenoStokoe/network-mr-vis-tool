@@ -7,7 +7,7 @@
 #sidebar{
     height: 100vh;
     z-index: 999;
-    background: linear-gradient(to bottom right, rgb(10, 10, 39), rgb(0, 0, 20));
+    background: linear-gradient(to bottom right, rgb(10, 10, 43),rgb(5, 5, 30), rgb(0, 0, 30), rgb(10, 10, 43));
     min-width: 250px;
     color: ghostwhite;
     width: 100%;
@@ -63,6 +63,28 @@ text.shadow2{
     pointer-events: none;
 }
 
+/* Legend */
+.legend{
+    position: absolute;
+    bottom: 10;
+    right: 10;
+    border: 1px solid #ccc !important;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Advanced settings bar */
+.settings{
+    position: absolute;
+    bottom: 10;
+    width: 90%;
+    background-color: grey;
+    border-radius: 2px;
+    padding: 10px;
+    opacity: 90%;
+    visibility: hidden; /* Start hidden */
+}
+
 /* Graph film */
 
 #film-logo{
@@ -83,7 +105,7 @@ text.shadow2{
     color: black;
 }
 #film-panel{
-    background-color: #666;                 
+    background-color: #666;          
     -moz-box-shadow: inset 5px 6px 7px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: inset 5px 6px 7px rgba(0, 0, 0, 0.3);
     box-shadow: inset 5px 6px 7px rgba(0, 0, 0, 0.3);

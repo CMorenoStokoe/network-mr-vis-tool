@@ -27,13 +27,20 @@ function extractNodes(edges){
             if(edgesPerNode[id]){edgesPerNode[id].push(edge)}// If no record found, make one
             else{edgesPerNode[id]=[edge]}
             
-            
             // Record if not already recorded
             if(!(nodesRecorded.includes(id))){
-                nodes.push({ // Build node from exposure / outcome information in edge
+                
+                // Build node from exposure / outcome information in edge
+                var nodeInfo = {
                     id: id,
                     label: edge[field],
-                });
+                }
+
+                // If setting enabled, color node from CSV values
+                if(settings.nodes.fillFromCSV){nodeInfo.color = edge[`color.${field}`]}
+
+                // Push to list and record its creation
+                nodes.push(nodeInfo);
                 nodesRecorded.push(id);
             }  
         }

@@ -32,14 +32,16 @@ function drawFDG (data, svgId, settings) {
 	// Select SVG DOM element
 	const svg = d3.select(svgId),
         width = +svg.attr("width"),
-        height = +svg.attr("height");
-    console.log(width, height);
+        height = +svg.attr("height"),
+		viewBox = +svg.attr("viewBox", `0 0 ${width} ${height}`);
+    console.log(`Got SVG (${width} x ${height})`);
 
 	// Set up simulation 
+	const center = [width-100, height-100];
 	const simulation = d3.forceSimulation(nodes)
 		.force("link", d3.forceLink(links).id(d => d.id))
 		.force("charge", d3.forceManyBody().strength(settings.simulation.strength))
-		.force("center", d3.forceCenter(width / 2, height / 2))
+		.force("center", d3.forceCenter(center[0] / 2, center[1] / 2))
 		.force("x", d3.forceX())
 		.force("y", d3.forceY());
 
@@ -50,10 +52,11 @@ function drawFDG (data, svgId, settings) {
 	.data(links, d => d.id)
 	.join(
 		enter => enter.append("line")
+		.attr("biDirectAdjust", d => d.biDirectAdjust)
 		.attr("stroke-width", settings.links.width)
 		.attr("stroke", settings.links.color)//edge color as function of beta weight sign//
 		.attr("stroke-opacity", settings.links.opacity)//edge opacity as function of beta weight value//
-		.attr("marker-end", "url(#end)"),
+		.attr("marker-end", settings.arrows.arrowType),
 	);
 
 	// Add nodes
@@ -71,32 +74,44 @@ function drawFDG (data, svgId, settings) {
 		.attr("r", settings.nodes.circleRadius)
 		.attr("stroke", settings.nodes.strokeColor)
 		.attr("fill", settings.nodes.fill)
+		.attr('opacity', settings.nodes.opacity)
 		.attr("stroke-width", settings.nodes.strokeWidth);
 	
 	// Add node labels
 	var nodeText = node.append("text")
 		.text(settings.nodes.labels.content)
-        .style("font-size", settings.nodes.labels.fontSize)
+		.style("font-size", settings.nodes.labels.fontSize)
+		.style("font-family", settings.nodes.labels.font)
         .style("cursor", 'default')
-        .style("user-select", 'none')
-		.attr('x', settings.nodes.labels.position) // Offset from node by radius with padding
-		.attr('y', 6);
+		.style("user-select", 'none')
+		.attr('text-anchor', settings.nodes.labels.anchor)
+		.attr('x', settings.nodes.labels.posX) // Offset from node by radius with padding
+		.attr('y', settings.nodes.labels.posY);
 
-	// Add arrows
-	svg.append("svg:defs").selectAll("marker")
-		.data(["end"])     
+	// Add arrows, if enabled
+	if(settings.arrows.enabled){
+
+		// Add arrow to SVG defs for lines to use at the end
+		svg.append("svg:defs").selectAll("marker")
+		.data([ // Arrow ends for positive and negative links
+			{id: "end-pos", col: settings.links.colPos}, 
+			{id: "end-neg", col: settings.links.colNeg}])     
 		.enter().append("svg:marker")
-		.attr("id", String)
-		.attr("viewBox", "0 -5 10 10")
-		.attr("refX", settings.arrows.position)
-		.attr("refY", 0) 
-		.attr("markerWidth", settings.arrows.size) 
-		.attr("markerHeight", settings.arrows.size) 
-		.attr("stroke", settings.arrows.strokeColor)
-		.attr("fill", settings.arrows.fill)
-		.attr("orient", "auto")
-		.append("svg:path")
-		.attr("d", "M0,-5L10,0L0,5");
+		.attr("markerUnits", "userSpaceOnUse") // Do not scale arrow to edge width, causes positioning troubles
+			.attr("id", d=>d.id) // Populated from given id in data above
+			.attr("viewBox", "0 -5 10 10")
+			.attr("refX", settings.arrows.position)
+			.attr("refY", 0)
+			.attr("markerWidth", 16) 
+			.attr("markerHeight", 16) 
+			.attr("stroke", settings.arrows.stroke) // Either fixed or by edge color using data above
+			.attr("fill", settings.arrows.fill) // Either fixed or by edge color using data above
+			.attr("orient", "auto")
+			.attr('opacity', settings.links.opacity)
+			.append("svg:path")
+			.attr("d", "M0,-5 L5,0 L0,0");
+
+	};
 
 	// Simulation properties
 	simulation
@@ -104,16 +119,16 @@ function drawFDG (data, svgId, settings) {
 		
 	function ticked() {
 	link
-		.attr("x1", d => d.source.x)
-		.attr("y1", d => d.source.y)
-		.attr("x2", d => d.target.x)
-		.attr("y2", d => d.target.y);
+		.attr("x1", d => d.source.x + d.offset)
+		.attr("y1", d => d.source.y + d.offset)
+		.attr("x2", d => d.target.x + d.offset)
+		.attr("y2", d => d.target.y + d.offset);
 
 	node // Ensure nodes cannot leave SVG
 		.attr("transform", d => `translate(
 			${
 				Math.max(settings.nodes.circleRadius*2, 
-				Math.min(width - settings.nodes.circleRadius*2, d.x))
+				Math.min(width - settings.nodes.circleRadius*2, d.x)) 
 			}, 
 			${
 				Math.max(settings.nodes.circleRadius, 

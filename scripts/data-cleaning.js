@@ -13,6 +13,7 @@ The main script calls these functions to:
 
 */
 
+// Remove nodes which do not meet the pvalue threshold
 function filterByPval(edges, pval){
     significantEdges=[];
 
@@ -33,6 +34,8 @@ function filterByPval(edges, pval){
     return(significantEdges);
 }
 
+
+// Remove nodes without any edges
 function filterByHasEdges(nodes){
     usedNodes=[];
     
@@ -45,6 +48,40 @@ function filterByHasEdges(nodes){
     return(usedNodes);
 }
 
+
+// Remove edges which have a method other than the allowed methods
+function filterByMethod(edges, methods){
+    var filteredEdges = [];
+
+    if(methods = 'all methods'){return(edges)};
+
+    // Find edge methods and remove as required
+    for(const edge of edges){
+        if(methods.includes(edge.method)){  
+            filteredEdges.push(edge)
+        }
+    }
+
+    // Return only the edges of the correct methods
+    return(filteredEdges)
+}
+
+
+// Remove self loop edges
+function removeSelfloopEdges(edges){
+    var edgesWithoutSelfLoops = [];
+
+    // Add only edges which are not self-loops to list of edges
+    for(const edge of edges){
+        if(!(edge.outcome == edge.exposure)){edgesWithoutSelfLoops.push(edge);};
+    }
+
+    // Return list of edges which are not self loops
+    return(edgesWithoutSelfLoops); 
+
+}
+
+// Replace trait IDs and Names with safer ones for display and processing
 function makeNamesSafe(edges){
 
     // For each edge in data
