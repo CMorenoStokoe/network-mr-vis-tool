@@ -204,7 +204,7 @@ function createLegend(legendId, parentId, settings){
         .attr('y2',keyPos.y+120)
             .style("stroke", settings.links.colPos)
             .style("stroke-width", settings.links.scaleToBeta.scaleFactor)
-            .attr("marker-end", 'url(#end-pos)');
+            .attr("marker-end", 'url(#end-pos-bi)');
         g.append("line")
         .attr('x1',keyPos.x+50)  
         .attr('y1',keyPos.y+130) 
@@ -212,7 +212,7 @@ function createLegend(legendId, parentId, settings){
         .attr('y2',keyPos.y+130)
             .style("stroke", settings.links.colNeg)
             .style("stroke-width", settings.links.scaleToBeta.scaleFactor)
-            .attr("marker-end", 'url(#end-neg)');
+            .attr("marker-end", 'url(#end-neg-bi)');
             
 
     // Build scale for beta weights if edge scaling by beta is enabled

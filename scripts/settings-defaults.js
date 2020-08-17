@@ -84,8 +84,14 @@ var defaultSettings = {
 		sameColorAsEdge: true, // Used by legend builder
 		stroke: d=>d.col, // Color by edge color
 		fill: d=>d.col,
-		arrowType: d=>settings.arrows.selectArrow(d.b),
-		selectArrow: function(b){if(b<0){return('url(#end-neg)')}else{return('url(#end-pos)')}},
+		arrowType: d=>settings.arrows.selectArrow(d.b, d.offset),
+		selectArrow: function(b, offset){ 
+			console.log(b, offset);switch(true){
+			case b < 0 && offset == 0: console.log(1,b, offset);return('url(#end-neg)'); // Negative uni-directional estimate
+			case b >= 0 && offset == 0: console.log(2,b, offset);return('url(#end-pos)'); // Positive uni-directional estimate
+			case b >= 0 && offset != 0: console.log(3,b, offset);return('url(#end-pos-bi)'); // Negative bi-directional estimate
+			case b < 0 && offset != 0: console.log(4,b, offset);return('url(#end-neg-bi)'); // Positive bi-directional estimate
+		}}
 	},
 	simulation: {
 		strength: -3000, // Higher values = less cohesion
