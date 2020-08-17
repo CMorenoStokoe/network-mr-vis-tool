@@ -29,7 +29,17 @@
     background: none;
     padding: 6px 12px;
     cursor: pointer;
-    color: white;
+    color: ghostwhite;
+}
+.sidebar-button-style2:hover{
+    color: black;
+    background-color: ghostwhite;
+    cursor: pointer;
+}
+.sidebar-button-style3:hover{
+    color: ghostwhite;
+    background: none;
+    cursor: pointer;
 }
 
 .sidebar-form{
@@ -40,6 +50,15 @@
 .icon-footer{
     height: 50px;
     opacity: 0.25;
+}
+
+.sidebar-link{
+    color: ghostwhite;
+}
+
+.sidebar-link:hover{
+    color: cornflowerblue;
+    text-decoration: none;
 }
 
 /* Graph area */

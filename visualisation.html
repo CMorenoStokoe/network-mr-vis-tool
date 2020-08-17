@@ -65,13 +65,22 @@
 
                         <!-- Upload data button -->
                         <div class='my-auto p-2'> 
-                            <label for="upload-mr" class="sidebar-button-style">
-                                <i class="fas fa-file-upload p-2" style='font-size:4em;'></i>
-                                <h5>Upload data</h5>
+                            <label for="upload-mr" class="sidebar-button-style" id='upload-label'>
+                                <i class="fas fa-file-upload p-2" style='font-size:4em;' id='upload-label-icon'></i>
+                                <h5 id='upload-label-txt'>Upload data</h5>
                             </label>
                             <form enctype="multipart/form-data" id="uploadForm" style="display: none"><br>
-                                <input id="upload-mr" type="file"/><br>
+                            <input id="upload-mr" type="file" onchange="
+                                var filename = document.getElementById('upload-mr').value;
+                                document.getElementById('upload-label-txt').innerHTML = filename.substr(filename.lastIndexOf('\\') + 1);
+                                document.getElementById('upload-label-txt').style = 'font-size: 12px;';
+                                document.getElementById('upload-label-icon').className = 'fas fa-check-circle p-2';
+                            "/><br>
                             </form> 
+                            <br>
+                            <a class='sidebar-link p-2' href='exampleMRdata.csv' target='_blank'>
+                                <i class="fas fa-file-download"></i> Demo data
+                            </a>
                         </div>
 
                     </div>
@@ -87,14 +96,17 @@
 
                         <!-- Advanced settings button -->
                         <button class='btn sidebar-button-style2' id='btn-settings'><i class="fas fa-cogs"></i> Advanced </button>
+                        <br><br>
 
+                        <!-- User guide button -->
+                        <a class='sidebar-link' href='https://osf.io/tr62v/wiki/home/'><i class="fas fa-info-circle"></i> User guide</a>
                     </div>
                     
                     <div class='mt-auto h-10 text-center justify-content-center align-items-center'>
 
                         <!-- Generate graph -->
                         <div class='my-auto p-2'> 
-                            <button class="btn" id="btn-action">Generate graph</button>
+                            <button class="btn sidebar-button-style3" id="btn-action">Generate graph</button>
                         </div>
 
                     </div>
