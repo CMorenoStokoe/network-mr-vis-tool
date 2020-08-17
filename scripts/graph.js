@@ -94,8 +94,10 @@ function drawFDG (data, svgId, settings) {
 		// Add arrow to SVG defs for lines to use at the end
 		svg.append("svg:defs").selectAll("marker")
 		.data([ // Arrow ends for positive and negative links
-			{id: "end-pos", col: settings.links.colPos}, 
-			{id: "end-neg", col: settings.links.colNeg}])     
+			{id: "end-pos", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,3"},
+			{id: "end-neg", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,3"},
+			{id: "end-pos-bi", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,0"}, 
+			{id: "end-neg-bi", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,0"}])     
 		.enter().append("svg:marker")
 		.attr("markerUnits", "userSpaceOnUse") // Do not scale arrow to edge width, causes positioning troubles
 			.attr("id", d=>d.id) // Populated from given id in data above
@@ -109,7 +111,7 @@ function drawFDG (data, svgId, settings) {
 			.attr("orient", "auto")
 			.attr('opacity', settings.links.opacity)
 			.append("svg:path")
-			.attr("d", "M0,-5 L5,0 L0,0");
+			.attr("d", d=>d.d);
 
 	};
 
