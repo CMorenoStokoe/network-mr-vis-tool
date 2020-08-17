@@ -48,7 +48,7 @@ function generateGraph(){
         
         // Parse CSV
         var data = Papa.parse(fileReader.result)['data'];
-
+        
         // Check data contains required information
         var requiredFields = settings.data.requiredFields;
         if(settings.data.observational){requiredFields = settings.data.requiredFieldsObs;} // If observational data expect different fields
@@ -57,7 +57,9 @@ function generateGraph(){
         // Extract MR estimate edges from CSV
         var edges = extractEdges(data);
         console.log('Edges', edges)
-        if(settings.data.observational){edges = convertObservationalData(edges);} // If observational data expect different fields
+
+        // Ignore directionality of observational data so it's easier to visualise
+        if(settings.data.observational){edges = convertObservationalData(edges);} 
         console.log('extracted edges', edges)
         
         // Data cleaning and formatting
