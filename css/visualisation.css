@@ -97,10 +97,9 @@ text.shadow2{
     position: absolute;
     bottom: 10;
     width: 90%;
-    background-color: grey;
-    border-radius: 2px;
+    background-color: rgba(248, 248, 255, 0.5);
+    border-radius: 5px;
     padding: 10px;
-    opacity: 90%;
     visibility: hidden; /* Start hidden */
 }
 

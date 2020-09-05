@@ -29,7 +29,6 @@ function generateGraphFromJSON(nodes, edges, svgId, settings, pval=null){
         
         // Scale edges to beta weights (if enabled)
         if(!(settings.links.scaleToBeta.method=='none')){
-            console.log(edges)
             settings.data.betaRange = getBetaRange(edges);
             makeEdgeBetasProportional(edges, settings.data.betaRange, settings.links.scaleToBeta.method); // Scale edges by their beta weight proportional to the min/max beta values in the data set
         }
