@@ -12,6 +12,8 @@ This file can be called to generate a MiRANA visualisation without uploading CSV
 
 // Generate graph without uploading CSV, straight from JSON
 function generateGraphFromJSON(nodes, edges, svgId, settings, pval=null){ 
+    // Reset SVG to clear any previous graphs
+    clearFDG(svgId);
 
     // Data cleaning and formatting
         

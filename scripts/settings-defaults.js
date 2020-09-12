@@ -71,7 +71,20 @@ var defaultSettings = {
 			enabled: false,
 			size: function(){return(settings.nodes.circleRadius*2)},
 			position : function(){return(-settings.nodes.circleRadius)},
-		}
+		},
+		onHover: {
+			enabled: null,
+			enter:{
+				enabled: null,
+				calcCircleRadius: null,
+				calcIconSize: null,
+			},
+			exit:{
+				enabled: null,
+				calcCircleRadius: null,
+				calcIconSize: null,
+			},
+		},
 	},
 	links: {
 		colNeg: 'blue',
