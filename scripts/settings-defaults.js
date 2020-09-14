@@ -90,6 +90,11 @@ var defaultSettings = {
 		colNeg: 'blue',
 		colPos: 'red',
 		opacity: 1,
+		outline: false,
+			outlineCalcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(b*settings.links.scaleToBeta.scaleFactor));}, // Method to calculate scale
+			outlineWidth: d => settings.links.outlineCalcScaledWidth(d.proportionalBeta) + 1,
+			outlineColor: 'black',
+			outlineArrow: d=>settings.arrows.selectArrow(d.b, d.offset, outline = true),
 		scaleToBeta:{
 			method: 'percentOfMax',
 			minWidth: 0.3, // Minimum scaled edge width 
@@ -117,13 +122,23 @@ var defaultSettings = {
 		stroke: d=>d.col, // Color by edge color
 		fill: d=>d.col,
 		arrowType: d=>settings.arrows.selectArrow(d.b, d.offset),
-		selectArrow: function(b, offset){ 
-			switch(true){
-			case b < 0 && offset == 0: return('url(#end-neg)'); // Negative uni-directional estimate
-			case b >= 0 && offset == 0: return('url(#end-pos)'); // Positive uni-directional estimate
-			case b >= 0 && offset != 0: return('url(#end-pos-bi)'); // Negative bi-directional estimate
-			case b < 0 && offset != 0: return('url(#end-neg-bi)'); // Positive bi-directional estimate
-		}}
+		selectArrow: function(b, offset, outline=false){ 
+			if(outline){
+				switch(true){
+					case b < 0 && offset == 0: return('url(#end-neg_outline)'); // Negative uni-directional estimate
+					case b >= 0 && offset == 0: return('url(#end-pos_outline)'); // Positive uni-directional estimate
+					case b >= 0 && offset != 0: return('url(#end-pos-bi_outline)'); // Negative bi-directional estimate
+					case b < 0 && offset != 0: return('url(#end-neg-bi_outline)'); // Positive bi-directional estimate
+				}
+			}else{
+				switch(true){
+					case b < 0 && offset == 0: return('url(#end-neg)'); // Negative uni-directional estimate
+					case b >= 0 && offset == 0: return('url(#end-pos)'); // Positive uni-directional estimate
+					case b >= 0 && offset != 0: return('url(#end-pos-bi)'); // Negative bi-directional estimate
+					case b < 0 && offset != 0: return('url(#end-neg-bi)'); // Positive bi-directional estimate
+				}
+			}
+		}
 	},
 	simulation: {
 		strength: -3000, // Higher values = less cohesion

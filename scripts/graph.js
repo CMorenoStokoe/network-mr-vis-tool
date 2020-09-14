@@ -45,19 +45,38 @@ function drawFDG (data, svgId, settings) {
 		.force("x", d3.forceX())
 		.force("y", d3.forceY());
 
+		
+	// Add edge outlines below edges (if enabled)
+	var linkOutline = null;
+	if(settings.links.outline){
+		linkOutline = svg.append("g")
+		.attr("class", "links")
+		.selectAll("line")
+		.data(links, d => d.id)
+		.join(
+			enter => enter.append("line")
+				.attr("id", d => `edge_${d.id}_outline`)
+				.attr("biDirectAdjust", d => d.biDirectAdjust)
+				.attr("stroke-width", settings.links.outlineWidth)
+				.attr("stroke", settings.links.outlineColor) 
+				.attr("stroke-opacity", settings.links.opacity / 2) 
+				.attr("marker-end", settings.links.outlineArrow),
+		);
+	}
+
 	// Add edges
 	const link = svg.append("g")
-	.attr("class", "links")
-	.selectAll("line")
-	.data(links, d => d.id)
-	.join(
-		enter => enter.append("line")
-		.attr("id", d => `edge_${d.id}`)
-		.attr("biDirectAdjust", d => d.biDirectAdjust)
-		.attr("stroke-width", settings.links.width)
-		.attr("stroke", settings.links.color)//edge color as function of beta weight sign//
-		.attr("stroke-opacity", settings.links.opacity)//edge opacity as function of beta weight value//
-		.attr("marker-end", settings.arrows.arrowType),
+		.attr("class", "links")
+		.selectAll("line")
+		.data(links, d => d.id)
+		.join(
+			enter => enter.append("line")
+				.attr("id", d => `edge_${d.id}`)
+				.attr("biDirectAdjust", d => d.biDirectAdjust)
+				.attr("stroke-width", settings.links.width)
+				.attr("stroke", settings.links.color) 
+				.attr("stroke-opacity", settings.links.opacity) 
+				.attr("marker-end", settings.arrows.arrowType),
 	);
 
 	// Add nodes
@@ -137,39 +156,54 @@ function drawFDG (data, svgId, settings) {
 		// Add arrow to SVG defs for lines to use at the end
 		svg.append("svg:defs").selectAll("marker")
 		.data([ // Arrow ends for positive and negative links
-			{id: "end-pos", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,3"},
-			{id: "end-neg", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,3"},
-			{id: "end-pos-bi", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,0"}, 
-			{id: "end-neg-bi", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,0"}])     
+			{id: "end-pos", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,3", wgt: 0, pos:0},
+			{id: "end-neg", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,3", wgt: 0, pos:0},
+			{id: "end-pos-bi", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,0", wgt: 0, pos:0}, 
+			{id: "end-neg-bi", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,0", wgt: 0, pos:0},
+			{id: "end-pos_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,3", wgt: -0, pos:1.5},
+			{id: "end-neg_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,3", wgt: -0, pos:1.5},
+			{id: "end-pos-bi_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,0", wgt: -0, pos:1.5}, 
+			{id: "end-neg-bi_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,0", wgt: -0, pos:1.5},
+		])     
 		.enter().append("svg:marker")
 		 // Do not scale arrow to edge width, causes positioning troubles
 			.attr("id", d=>d.id) // Populated from given id in data above
 			.attr("viewBox", "0 -5 10 10")
-			.attr("refX", settings.arrows.position)
+			.attr("refX", d=>settings.arrows.position-d.pos)
 			.attr("refY", 0)
-			.attr("markerWidth", 8) 
-			.attr("markerHeight", 8) 
+			.attr("markerWidth", d=>d.wgt + 8) 
+			.attr("markerHeight", d=>d.wgt + 8) 
 			.attr("stroke", settings.arrows.stroke) // Either fixed or by edge color using data above
 			.attr("fill", settings.arrows.fill) // Either fixed or by edge color using data above
 			.attr("orient", "auto")
 			.attr('opacity', d=>d.opacity * settings.links.opacity)
 			.append("svg:path")
 			.attr("d", d=>d.d);
-
 	};
-
+	  
 	// Simulation properties
 	simulation
 		.on("tick", ticked);
 		
 	function ticked() {
+
+	if(settings.links.outline){
+		
+		linkOutline // Draw edge outline to changing node edges
+			.attr("x1", d => getNodeEdge(d, outline=true).x1)
+			.attr("y1", d => getNodeEdge(d, outline=true).y1)
+			.attr("x2", d => getNodeEdge(d, outline=true).x2)
+			.attr("y2", d => getNodeEdge(d, outline=true).y2);
+	}
+
 	link // Draw arrows to changing node edges (Adapted from: https://stackoverflow.com/questions/15495762/linking-nodes-of-variable-radius-with-arrows?rq=1)
 		.attr("x1", d => getNodeEdge(d).x1)
 		.attr("y1", d => getNodeEdge(d).y1)
 		.attr("x2", d => getNodeEdge(d).x2)
 		.attr("y2", d => getNodeEdge(d).y2);
 
-		function getNodeEdge(d) {
+		// Calculate line position to edge of node circles
+		function getNodeEdge(d, outline = false) {
 			var sourceX = d.source.x;
 			var sourceY = d.source.y;
 			var targetX = d.target.x;
@@ -180,13 +214,16 @@ function drawFDG (data, svgId, settings) {
 
 			// Custom function to return circle radii
 			function getCircleRadii(d){
+				var outlineOffset = 0;
+				if(outline){outlineOffset = -(d.b_pct*settings.links.scaleToBeta.scaleFactor/100/2)+1;}
+
 				var sourceR = d3.selectAll("circle")
 					.filter(function(i) {return i.id == d.source.id;})
 					.attr('r');
 				var targetR = d3.selectAll("circle")
 					.filter(function(i) {return i.id == d.target.id;})
 					.attr('r');
-				return({source: sourceR, target: targetR})
+				return({source: sourceR - outlineOffset, target: targetR - outlineOffset})
 			}
 
 			// Get circle radii
@@ -279,7 +316,7 @@ function drawFDG (data, svgId, settings) {
 
 			// Animations
 			d3.select(this.parentNode).select("circle").transition() // Circle animation
-				.attr("fx", d=>d.x +1)
+				.attr("fx", d=>d.x + 1)
 				.duration(300)
 				.attr("r", settings.nodes.onHover.exit.calcCircleRadius);
 			d3.select(this.parentNode).select("image").transition() // Icon animation
@@ -320,9 +357,12 @@ function drawFDG (data, svgId, settings) {
 			return thisOpacity;
 		});
 
-		// Make line and arrows transparent
-		link.style('opacity', o => (o.source === d || o.target === d ? 1 : opacity));
-		};
+		if(settings.links.outline){
+			// Make line and arrows transparent
+			linkOutline.style('opacity', o => (o.source === d || o.target === d ? 1 : opacity));
+				link.style('opacity', o => (o.source === d || o.target === d ? 1 : opacity));
+			};
+		}
 	}
 
 	/* Drag functionality module (from: https://bl.ocks.org/mbostock/2675ff61ea5e063ede2b5d63c08020c7) */
