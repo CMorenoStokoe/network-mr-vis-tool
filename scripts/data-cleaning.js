@@ -30,7 +30,7 @@ function filterByPval(edges, pval){
     }
 
     // Return only significant edges
-    console.log(`P filter: ${edges.length-significantEdges.length}/${edges.length} edges removed (p=${pval})`)
+    //console.log(`P filter: ${edges.length-significantEdges.length}/${edges.length} edges removed (p=${pval})`, significantEdges)
     return(significantEdges);
 }
 

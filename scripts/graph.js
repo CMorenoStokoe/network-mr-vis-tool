@@ -304,6 +304,7 @@ function drawFDG (data, svgId, settings) {
 				.style("opacity", 1)
 		}
 	}
+
 	// Return to normal size
 	function mouseout() { 
 		
@@ -356,12 +357,15 @@ function drawFDG (data, svgId, settings) {
 			this.setAttribute('opacity', thisOpacity);
 			return thisOpacity;
 		});
+		
+		// Make lines transparent
+		link.style('opacity', o => (o.source === d || o.target === d ? 1 : opacity));
 
 		if(settings.links.outline){
-			// Make line and arrows transparent
+			// Make line outlines transparent too (if enabled)
 			linkOutline.style('opacity', o => (o.source === d || o.target === d ? 1 : opacity));
-				link.style('opacity', o => (o.source === d || o.target === d ? 1 : opacity));
-			};
+		};
+
 		}
 	}
 

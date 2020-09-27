@@ -97,8 +97,8 @@ var defaultSettings = {
 			outlineArrow: d=>settings.arrows.selectArrow(d.b, d.offset, outline = true),
 		scaleToBeta:{
 			method: 'percentOfMax',
-			minWidth: 0.3, // Minimum scaled edge width 
-			scaleFactor: 1.5, // Factor to scale width by beta
+			minWidth: 1, // Minimum scaled edge width 
+			scaleFactor: 3, // Factor to scale width by beta
 			calcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(b*settings.links.scaleToBeta.scaleFactor));}, // Method to calculate scale
 		},
 		colorEdge: function(b, c1, c2){if(b<0){return(c1);}else{return(c2);}},
