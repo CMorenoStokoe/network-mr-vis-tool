@@ -46,7 +46,7 @@ function extractNodes(edges){
         }
     }
 
-    // Record final number of edges for each node
+    // Record edges for each node
     for(const node of nodes){
         node.edges = edgesPerNode[node.id];
         node.edgeCount = edgesPerNode[node.id].length;

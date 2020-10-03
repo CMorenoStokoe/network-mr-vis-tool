@@ -12,6 +12,8 @@ This file can be called to generate a MiRANA visualisation without uploading CSV
 
 // Generate graph without uploading CSV, straight from JSON
 function generateGraphFromJSON(nodes, edges, svgId, settings, pval=null){ 
+    // Reset SVG to clear any previous graphs
+    clearFDG(svgId);
 
     // Data cleaning and formatting
         
@@ -29,7 +31,6 @@ function generateGraphFromJSON(nodes, edges, svgId, settings, pval=null){
         
         // Scale edges to beta weights (if enabled)
         if(!(settings.links.scaleToBeta.method=='none')){
-            console.log(edges)
             settings.data.betaRange = getBetaRange(edges);
             makeEdgeBetasProportional(edges, settings.data.betaRange, settings.links.scaleToBeta.method); // Scale edges by their beta weight proportional to the min/max beta values in the data set
         }

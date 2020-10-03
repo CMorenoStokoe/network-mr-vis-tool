@@ -33,11 +33,28 @@ var defaultSettings = {
 	nodes: {
 		shape: 'circle',
 		circleRadius: 15,
+		onHover: {
+			enter:{
+				calcCircleRadius: function(){return settings.nodes.circleRadius*2},
+				circleRadius_min: 10,
+				circleRadius_max: 50,
+				calcIconSize: function(){return settings.nodes.icons.size()*2},
+				calcIconPosition: function(){return -settings.nodes.circleRadius*2},
+			},
+			exit:{
+				calcCircleRadius: function(){return settings.nodes.circleRadius},
+				circleRadius_min: 10,
+				circleRadius_max: 50,
+				calcIconSize: function(){return settings.nodes.icons.size()},
+				calcIconPosition: function(){return -settings.nodes.circleRadius},
+			}
+		},
 		strokeColor: 'rgba(0, 0, 0, 0.9)',
 		strokeWidth: 2,
 		fill: 'white',
 		opacity: 1,
 		fillFromCSV: false,
+		class: 'permanentLabels',
 		labels: {
 			enabled: true,
 			font: 'Rubik, sans-serif',
@@ -46,22 +63,42 @@ var defaultSettings = {
 			posY: 6, // Center text vertically on node
 			anchor: 'none', // Special placement of text
 			fontSize: '19px',
-			textClass: '', // Gives labels a custom CSS class
+			class: '', // Gives labels a custom CSS class
+			color: 'black', // Text color
+			background: 'none',
 		},
 		icons: {
 			enabled: false,
-			size: 50,
-			position : -25,
-		}
+			size: function(){return(settings.nodes.circleRadius*2)},
+			position : function(){return(-settings.nodes.circleRadius)},
+		},
+		onHover: {
+			enabled: null,
+			enter:{
+				enabled: null,
+				calcCircleRadius: null,
+				calcIconSize: null,
+			},
+			exit:{
+				enabled: null,
+				calcCircleRadius: null,
+				calcIconSize: null,
+			},
+		},
 	},
 	links: {
 		colNeg: 'blue',
 		colPos: 'red',
 		opacity: 1,
+		outline: false,
+			outlineCalcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(b*settings.links.scaleToBeta.scaleFactor));}, // Method to calculate scale
+			outlineWidth: d => settings.links.outlineCalcScaledWidth(d.proportionalBeta) + 1,
+			outlineColor: 'black',
+			outlineArrow: d=>settings.arrows.selectArrow(d.b, d.offset, outline = true),
 		scaleToBeta:{
 			method: 'percentOfMax',
-			minWidth: 0.3, // Minimum scaled edge width 
-			scaleFactor: 1.5, // Factor to scale width by beta
+			minWidth: 1, // Minimum scaled edge width 
+			scaleFactor: 3, // Factor to scale width by beta
 			calcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(b*settings.links.scaleToBeta.scaleFactor));}, // Method to calculate scale
 		},
 		colorEdge: function(b, c1, c2){if(b<0){return(c1);}else{return(c2);}},
@@ -74,26 +111,40 @@ var defaultSettings = {
 		},
 		multiEdges:{
 			enabled: true,
-			calcLineOffset: function(numberOfLinks, currentLink){console.log(currentLink);return(-numberOfLinks + (currentLink*2))},
+			calcLineOffset: function(numberOfLinks, currentLink){return(-numberOfLinks + (currentLink*2))},
 		},
 	},
 	arrows: {
 		enabled: true,
-		position: function(){return(settings.nodes.circleRadius)},
+		position: 5,
 		size: 7,
 		sameColorAsEdge: true, // Used by legend builder
 		stroke: d=>d.col, // Color by edge color
 		fill: d=>d.col,
 		arrowType: d=>settings.arrows.selectArrow(d.b, d.offset),
-		selectArrow: function(b, offset){ 
-			console.log(b, offset);switch(true){
-			case b < 0 && offset == 0: console.log(1,b, offset);return('url(#end-neg)'); // Negative uni-directional estimate
-			case b >= 0 && offset == 0: console.log(2,b, offset);return('url(#end-pos)'); // Positive uni-directional estimate
-			case b >= 0 && offset != 0: console.log(3,b, offset);return('url(#end-pos-bi)'); // Negative bi-directional estimate
-			case b < 0 && offset != 0: console.log(4,b, offset);return('url(#end-neg-bi)'); // Positive bi-directional estimate
-		}}
+		selectArrow: function(b, offset, outline=false){ 
+			if(outline){
+				switch(true){
+					case b < 0 && offset == 0: return('url(#end-neg_outline)'); // Negative uni-directional estimate
+					case b >= 0 && offset == 0: return('url(#end-pos_outline)'); // Positive uni-directional estimate
+					case b >= 0 && offset != 0: return('url(#end-pos-bi_outline)'); // Negative bi-directional estimate
+					case b < 0 && offset != 0: return('url(#end-neg-bi_outline)'); // Positive bi-directional estimate
+				}
+			}else{
+				switch(true){
+					case b < 0 && offset == 0: return('url(#end-neg)'); // Negative uni-directional estimate
+					case b >= 0 && offset == 0: return('url(#end-pos)'); // Positive uni-directional estimate
+					case b >= 0 && offset != 0: return('url(#end-pos-bi)'); // Negative bi-directional estimate
+					case b < 0 && offset != 0: return('url(#end-neg-bi)'); // Positive bi-directional estimate
+				}
+			}
+		}
 	},
 	simulation: {
 		strength: -3000, // Higher values = less cohesion
+		animation: { // Enabled states
+			hoverToEnlarge: true, // Animate and enlarge the node on mouseover and mouseout
+			hoverToEnlarge_opacity: false, // Remove opacity changes from hover function
+		},
 	},
 }

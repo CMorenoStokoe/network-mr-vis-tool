@@ -60,7 +60,7 @@ const options = [
                 group: 'Data',
             },
             { 
-                name: 'Observational data', 
+                name: 'Observational data*', 
                 funct: function(){settings.data.observational = this.value},
                 type: 'radio',
                 default: false,
@@ -68,7 +68,7 @@ const options = [
                 group: 'Data',
             },
             { 
-                name: 'Space out multiple edges between pairs of nodes', 
+                name: 'Alternative view for bi-directional links', 
                 funct: function(){
                     settings.links.bidirectional.enabled = !(settings.data.observational);
                     settings.links.multiEdges.enabled = !(settings.data.observational);
@@ -90,7 +90,10 @@ const options = [
             },
             { 
                 name: 'Display names', 
-                funct: function(){settings.nodes.labels.content=d => d[this.value]},
+                funct: function(){
+                    settings.nodes.labels.enabled = true;
+                    settings.nodes.labels.content=d => d[this.value];
+                    settings.nodes.icons.enabled = false;},
                 type: 'radio',
                 default: true,
                 value: 'label',
@@ -98,10 +101,23 @@ const options = [
             },
             { 
                 name: 'Display IDs', 
-                funct: function(){settings.nodes.labels.content=d => d[this.value]},
+                funct: function(){
+                    settings.nodes.labels.enabled = true;
+                    settings.nodes.labels.content=d => d[this.value];
+                    settings.nodes.icons.enabled = false;},
                 type: 'radio',
                 default: false,
                 value: 'id',
+                group: 'Trait labels',
+            },
+            { 
+                name: 'Display Icons*', 
+                funct: function(){
+                    settings.nodes.labels.enabled = false;
+                    settings.nodes.icons.enabled = true; },
+                type: 'radio',
+                default: false,
+                value: 'icon',
                 group: 'Trait labels',
             },
             { 
@@ -121,7 +137,7 @@ const options = [
                 group: 'Label placement',
             },
             { 
-                name: 'Data cleaning: Better names', 
+                name: 'Better names: Rename traits', 
                 funct: function(){settings.data.cleaning.enabled = toggleSetting(settings.data.cleaning.enabled);console.log(settings.data.cleaning.enabled)},
                 type: 'checkbox',
                 default: true,
