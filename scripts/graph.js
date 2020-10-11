@@ -45,8 +45,23 @@ function drawFDG (data, svgId, settings) {
 		.force("x", d3.forceX())
 		.force("y", d3.forceY());
 
+	// Function to force tick update the simulation
+	function simulationTick(duration = 300, frequency = 10){
+		console.log('tick')
+
+		// Start update ticks
+		var timer = setInterval(function(){
+			simulation.tick(); 
+			ticked();
+		}, frequency);
 		
-	// Add edge outlines below edges (if enabled)
+		// Stop update ticks after time period elapses
+		setTimeout(function(){
+			clearTimeout(timer);
+		}, duration);
+	}
+		
+	// Add edge outlines behind edges (if enabled)
 	var linkOutline = null;
 	if(settings.links.outline){
 		linkOutline = svg.append("g")
@@ -156,27 +171,27 @@ function drawFDG (data, svgId, settings) {
 		// Add arrow to SVG defs for lines to use at the end
 		svg.append("svg:defs").selectAll("marker")
 		.data([ // Arrow ends for positive and negative links
-			{id: "end-pos", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,3", wgt: 0, pos:0},
-			{id: "end-neg", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,3", wgt: 0, pos:0},
-			{id: "end-pos-bi", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,0", wgt: 0, pos:0}, 
-			{id: "end-neg-bi", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,0", wgt: 0, pos:0},
-			{id: "end-pos_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,3", wgt: -0, pos:1.5},
-			{id: "end-neg_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,3", wgt: -0, pos:1.5},
-			{id: "end-pos-bi_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,0", wgt: -0, pos:1.5}, 
-			{id: "end-neg-bi_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,0", wgt: -0, pos:1.5},
+			{id: "end-pos", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.arrows.size, pos: settings.arrows.position},
+			{id: "end-neg", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.arrows.size, pos: settings.arrows.position},
+			{id: "end-pos-bi", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,0", wgt: settings.arrows.size, pos: settings.arrows.position}, 
+			{id: "end-neg-bi", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,0", wgt: settings.arrows.size, pos: settings.arrows.position},
+			{id: "end-pos_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.links.outlineArrowWeight, pos: settings.links.outlineArrowPos},
+			{id: "end-neg_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.links.outlineArrowWeight, pos: settings.links.outlineArrowPos},
+			{id: "end-pos-bi_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,0", wgt: settings.links.outlineArrowWeight, pos: settings.links.outlineArrowPos}, 
+			{id: "end-neg-bi_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,0", wgt: settings.links.outlineArrowWeight, pos: settings.links.outlineArrowPos},
 		])     
 		.enter().append("svg:marker")
 		 // Do not scale arrow to edge width, causes positioning troubles
 			.attr("id", d=>d.id) // Populated from given id in data above
 			.attr("viewBox", "0 -5 10 10")
-			.attr("refX", d=>settings.arrows.position-d.pos)
+			.attr("refX", d=>d.pos)
 			.attr("refY", 0)
-			.attr("markerWidth", d=>d.wgt + 8) 
-			.attr("markerHeight", d=>d.wgt + 8) 
-			.attr("stroke", settings.arrows.stroke) // Either fixed or by edge color using data above
-			.attr("fill", settings.arrows.fill) // Either fixed or by edge color using data above
+			.attr("markerWidth", d=>d.wgt) 
+			.attr("markerHeight", d=>d.wgt) 
+			.attr("stroke", d=>d.col) // Either fixed or by edge color using data above
+			.attr("fill", d=>d.col) // Either fixed or by edge color using data above
 			.attr("orient", "auto")
-			.attr('opacity', d=>d.opacity * settings.links.opacity)
+			.attr('opacity', settings.arrows.opacity)
 			.append("svg:path")
 			.attr("d", d=>d.d);
 	};
@@ -255,7 +270,6 @@ function drawFDG (data, svgId, settings) {
 				targetX = targetX - cosPhi;
 				targetY = targetY - sinPhi;   
 			}
-		
 			
 			// Return coords in x,y
 			return ({x1: sourceX, y1:sourceY, x2:targetX, y2:targetY});
@@ -283,8 +297,7 @@ function drawFDG (data, svgId, settings) {
 		if(settings.simulation.animation.hoverToEnlarge){
 
 			// Update simulation for edges to react to different circle sizes
-			const timer = setInterval(function(){simulation.tick(); ticked();}, 10);
-			setTimeout(function(){clearTimeout(timer);}, 300);
+			simulationTick(300);
 			
 			// Animations
 			d3.select(this.parentNode).select("circle").transition() // Circle animation
@@ -312,8 +325,7 @@ function drawFDG (data, svgId, settings) {
 		if(settings.simulation.animation.hoverToEnlarge){
 
 			// Update simulation for edges to react to different circle sizes
-			const timer = setInterval(function(){simulation.tick();ticked();}, 10);
-			setTimeout(function(){clearTimeout(timer);}, 300);
+			simulationTick(300);
 
 			// Animations
 			d3.select(this.parentNode).select("circle").transition() // Circle animation
@@ -337,6 +349,7 @@ function drawFDG (data, svgId, settings) {
 					.style("opacity", 0);
 			}
 		}
+
 	}
 		
 
@@ -404,5 +417,10 @@ function drawFDG (data, svgId, settings) {
 			.on("drag", dragged)
 			.on("end", dragended);
 	} 
+
+	// Auto tick graph
+	setInterval(function(){
+		simulationTick(100, 100); // Every 3 seconds the simulation it ticks once to catch misaligned arrows in a resource effecient manner
+	}, 3000)
 
 };

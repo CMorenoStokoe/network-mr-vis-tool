@@ -91,10 +91,12 @@ var defaultSettings = {
 		colPos: 'red',
 		opacity: 1,
 		outline: false,
-			outlineCalcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(b*settings.links.scaleToBeta.scaleFactor));}, // Method to calculate scale
+			outlineCalcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(b*settings.links.scaleToBeta.scaleFactor))+2;}, // Method to calculate scale
 			outlineWidth: d => settings.links.outlineCalcScaledWidth(d.proportionalBeta) + 1,
 			outlineColor: 'black',
 			outlineArrow: d=>settings.arrows.selectArrow(d.b, d.offset, outline = true),
+			outlineArrowWeight: 8,
+			outlineArrowPos: 0,
 		scaleToBeta:{
 			method: 'percentOfMax',
 			minWidth: 1, // Minimum scaled edge width 
@@ -117,7 +119,8 @@ var defaultSettings = {
 	arrows: {
 		enabled: true,
 		position: 5,
-		size: 7,
+		size: 8,
+		opacity: function(){return settings.links.opacity},
 		sameColorAsEdge: true, // Used by legend builder
 		stroke: d=>d.col, // Color by edge color
 		fill: d=>d.col,
