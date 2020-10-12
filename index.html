@@ -1,155 +1,257 @@
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        
-        <!-- Webfonts -->
-        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap" rel="stylesheet">
-        <link rel='stylesheet' href='css/all.css'> <!-- Font Awesome icons -->
-        
-        <title>MiRANA</title>
-    </head>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     
-    <body>  
-        
-        <!-- navbar -->
-        <nav class="navbar navbar-custom">
+    <!-- Webfonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='css/all.css'> <!-- Font Awesome icons -->
+    
+    <title>MiRANA</title>
+  </head>
+  
+  <body>  
+      
+      <!-- Welcome banner svg -->
+      <div class='d-flex h-100' id='banner'>
+        <svg height='600' width='800' id="svg-intro" style='margin:0;padding:0;'></svg>
+      </div>
+      
+      <!-- Jumbotron-->
+      <div class='d-flex flex-column content-align-center justify-content-center' style='position: absolute; top:0 ; opacity: 0.9;'>
+        <div class="jumbotron" style='width: 400px'>
+          <h1 class="display-4">
+            <strong>Visualise</strong>,<br>
+            <strong>explore</strong>,<br>
+            <strong>convey</strong>.<br>
             
-            <!--title-->
-            <a href="index.html" style="text-decoration: none;"><span class="navbar-brand mb-0 h1"><img class="icon-brand" src="img/MiRANA_white.png"><em>beta</em> </span></a>
-            <a href="index.html" style="text-decoration: none;"><h1 id="title" class="centerTxts">Network visualisation tool</h1></a>
-            <a href="http://www.bristol.ac.uk/integrative-epidemiology/" target="_blank"><img class="icon-footer" src="img/ieu.png"></a>
-        </nav>
-        
-        <!--main-->
-        <div class="row align-items-center">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8"></div>
-            <div class="col-sm-2"></div>
+          </h1>
+          <hr class="my-4">
+          <p class="lead">
+            Discover interaction effects with the MiRANA network visualisation tool.</p>
+          <p>Designed for Mendelian Randomisation in Genetic Epidemiology and Psychology</p>
+          <a class="btn btn-primary btn-lg" href="#navbar" role="button">Learn more</a>
+          <a class="btn btn-secondary btn-lg" href="visualisation.html" role="button">Enter tool ></a>
         </div>
-        
-        <div class="spacer-50"> </div>
-        
-        <div class="row">
-            <div class="col-sm-2"></div>
-            
-            <div class="col-sm-4"> 
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">About MiRANA</h5>
-                    <p class="card-text">
-                        This tool is intended to help visualise Mendelian Randomisation (MR) estimates, in particular where multiple estimates interact with eachother (e.g., Multivariate, Two-step & Network MR).
-                        <br><br>
-                        It has been developed by the Dynamic Genetics lab group at the MRC Integrative Epidemiology Units (University of Bristol).
-                        <br><br>
-                        Develop a graph in just a few steps:
-                        <ol>
-                            <li>Store MR estimates in a table (.csv file)</li>
-                            <li>Upload the file to the tool</li>
-                            <li>Click generate graph</li>
-                            <li>Optionally, the nodes will stick so you can re-arrange the graph as you wish</li>
-                        </ol>
-                        This is open-source project and the git-hub repository is located <a href="https://github.com/CMorenoStokoe/network-mr-vis-tool">here <i class="fab fa-github"></i></a>.
-                    </p>
-                  </div>
-                </div>
-            </div>
-            
-            <div class="col-sm-4">
-                <div class="card">
-                  <img class="card-img-top" id="mainImg" src="img/examples/example1.png" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Gallery</h5>
-                    <p class="card-text">View examples of MiRANA visualisations of MR estimates.</p>
-                    <a href="gallery.html"><button type="button" class="btn btn-primary">Browse gallery</button></a>
-                  </div>
-                </div>
-            </div> 
-            
-            <div class="col-sm-2"></div>
-        </div>
-        
-        <div class="row">
-            
-            <div class="container-fluidd col-sm-2 col-md-2 col-lg-2 col-xl-2">
-            </div>
-            
-            <div class="container-fluidd col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                
-            <div class="card btmCard">
-              <div class="card-body">
-                <h5 class="card-title">Getting started</h5>
-                <p class="card-text">Please ensure that your data is a .csv file formatted with columns in order exactly like this example data (i.e., the default output from the mr method in R).
-                    <a href='https://osf.io/tr62v/wiki/home/'><button class="btn btn-secondary btn-sm" type="button" id="btn-help">
-                      <i class="fab fa-wikipedia-w"></i> Help <i class="fas fa-angle-right"></i>
-                    </button></a>
-                  </p>
-                  <table id="helpTable" style="width:100%">
-                  <tr>
-                    <th>id.exposure</th>
-                    <th>id.outcome</th>
-                    <th>outcome</th>
-                    <th>exposure</th>
-                    <th>method</th>
-                    <th>nsnp</th>
-                    <th>b</th>
-                    <th>se</th>
-                    <th>pval</th>
-                  </tr>
-                  <tr>
-                    <td>1018</td>
-                    <td>1189</td>
-                    <td>OCD</td>
-                    <td>Well-being</td>
-                    <td>Wald ratio</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1.78</td>
-                    <td>0.89</td>
-                  </tr>
-                  <tr>
-                    <td>1018</td>
-                    <td>1239</td>
-                    <td>Education</td>
-                    <td>Well-being</td>
-                    <td>Wald ratio</td>
-                    <td>1</td>
-                    <td>-0.37</td>
-                    <td>0.0089</td>
-                    <td>4.39E-05</td>
-                  </tr>
-                </table>
-                  
-                  <br>
-                  
-                <a href="visualisation.html" class="btn btn-primary">Enter tool</a>
-                  
-              </div>
-            </div>
+      </div>
 
-            <div class="spacer-150"> </div>
-            <div class="spacer-150"> </div>                
-            <div class="container-fluidd col-sm-2 col-md-2 col-lg-2 col-xl-2">
+      <!-- Navbar -->
+      <nav class="navbar navbar-custom" id='navbar'>
+        <a href="index.html" style="text-decoration: none;"><span class="navbar-brand mb-0 h1"><img class="icon-brand" src="img/MiRANA_white.png"><em>beta</em> </span></a>
+        <a href="index.html" style="text-decoration: none;"><h1 id="title" class="centerTxts">Network visualisation tool</h1></a>
+      </nav>
+
+      <!-- Content -->
+      <div class='d-flex flex-column justify-content-center content-align-center'>
+
+      <!-- About -->
+      <div class="d-flex flex-row">
+        <div>
+          <div class="card m-3">
+            <div class="card-body">
+              <h5 class="card-title">About MiRANA</h5>
+              <p class="card-text">
+                This MR Automatic Network Arranger (MiRANA) tool is intended to help 
+                researchers <strong>visualise</strong>, <strong>explore</strong> and <strong>convey</strong> 
+                patterns of interactions  
+                between traits in Mendelian Randomisation (MR) analyses. This is the 
+                first tool for visualising MR estimates as networks.
+                  <br><br>
+                  Create a graph in just a few steps:
+                  <ol>
+                      <li>Store MR estimates in a table (.csv file)</li>
+                      <li>Upload the file to the tool</li>
+                      <li>Click generate graph</li>
+                      <li>Optionally, format and re-arrange the graph</li>
+                  </ol>
+                  This open-source project 
+                  (<a href="https://github.com/CMorenoStokoe/network-mr-vis-tool">
+                    code <i class="fab fa-github"></i></a>
+                  ) 
+                  was developed by the Dynamic Genetics lab group at the University of 
+                  Bristol School of Psychological Science and the Medical Research 
+                  Council's (MRC) Integrative Epidemiology Unit (IEU).
+              </p>
             </div>
-                
-            </div>
-            
+          </div>
         </div>
-    </div>
-    
-    <footer class="footer" id="footContainer">
-        <nav class="navbar navbar-custom-foot">
-        <a href="https://dynamicgenetics.org/" target="_blank" ><img class="icon-footer" src="img/dynamicGenetics.png"></a>
-        </nav>
-    </footer>
+        <div>
+          <div class="card m-3">
+            <img class="card-img-top" id="mainImg" src="img/examples/example1.png" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Gallery</h5>
+              <p class="card-text">View examples of MiRANA visualisations of MR estimates.</p>
+              <a href="#gallery"><button type="button" class="btn btn-primary">Browse gallery</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+          
+      <!-- Getting started -->
+      <div class="card btmCard m-3">
+        <div class="card-body">
+          <h5 class="card-title">Getting started</h5>
+          <p class="card-text">
+            Please ensure that your data is a spreadsheet file (.csv)
+            formatted exactly like the example below (default output from 
+            the mr method in R). Check out our Wiki user guide for more help.
+          </p>
+           <table id="helpTable" style="width:100%">
+            <tr>
+              <th>id.exposure</th>
+              <th>id.outcome</th>
+              <th>outcome</th>
+              <th>exposure</th>
+              <th>method</th>
+              <th>nsnp</th>
+              <th>b</th>
+              <th>se</th>
+              <th>pval</th>
+            </tr>
+            <tr>
+              <td>1018</td>
+              <td>1189</td>
+              <td>OCD</td>
+              <td>Well-being</td>
+              <td>Wald ratio</td>
+              <td>1</td>
+              <td>1</td>
+              <td>1.78</td>
+              <td>0.89</td>
+            </tr>
+            <tr>
+              <td>1018</td>
+              <td>1239</td>
+              <td>Education</td>
+              <td>Well-being</td>
+              <td>Wald ratio</td>
+              <td>1</td>
+              <td>-0.37</td>
+              <td>0.0089</td>
+              <td>4.39E-05</td>
+            </tr>
+          </table>
+          <br>
+          <a href='https://osf.io/tr62v/wiki/home/'><button class="btn btn-secondary" type="button" id="btn-help">
+            <i class="fab fa-wikipedia-w"></i> User Guide
+          </button></a>
+          <a href="visualisation.html" class="btn btn-primary">Enter tool</a>
+        </div>
+      </div>
+
+      <!--Gallery-->
+      <div class="jumbotron jumbotron-fluid text-center mt-5" style='background: ghostwhite;' id='gallery'>
+          <h1 class="display-4">Gallery</h1>
+          <hr class="my-4">
+          <p class="lead">
+            Visualisations made with MiRANA.</p>
+      </div>
+
+      </div>
+
+      <div class="card-deck m-5">
+
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/visualisation.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Observational data</h5>
+            <p class="card-text">An arrangement of observational estimates, correlations, between factors related to bilingualism and cognition.</p>
+          </div>
+          <div class="card-footer">
+            <a href='https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7082826/'> Data from this paper</a><br>
+            <small class="text-muted">Tip: Check 'observational data' and use a different data structure to display observational data.</small>
+          </div>
+        </div>
+
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/example7.PNG" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Related tree</h5>
+            <p class="card-text">An arrangement of estimates which form a branching and collapsing tree centered around one node.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Tip: Arrange nodes so that edges do not obscure their labels</small>
+          </div>
+        </div>
+
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/example2.PNG" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Three estimates</h5>
+            <p class="card-text">An arrangement of estimates suggesting that schizophrenia causes three different traits, without any other interactions or bi-directional associations.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Tip: Upload only the data you want visualised</small>
+          </div>
+        </div>
         
-    <!-- Scripts -->
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/example4.PNG" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Mixed effects</h5>
+            <p class="card-text">Some traits have a mix of effects and it can be helpful to visually seperate out the positive and negative effects.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Tip: Click and drag to re-arrange nodes</small>
+          </div>
+        </div>
+
+      </div>
+      <div class="card-deck m-5">                  
+
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/example3.PNG" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Pathways</h5>
+            <p class="card-text">An arragement of behavioural and personal factors demonstrates a path-like relationship between variables.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Tip: Upload data with short and clear trait names</small>
+          </div>
+        </div>
+
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/example5.PNG" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Absence of relationships</h5>
+            <p class="card-text">Similar to a DAG, the absence of a line between nodes can be used to illustrate where relationships were found, and where they were not.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Tip: Arrange lonely nodes (with no links) first or they might get hidden</small>
+          </div>
+        </div>
+
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/example1.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Massive networks</h5>
+            <p class="card-text">A massively interactive network of mental health, wellbeing and behavioural factors.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Tip: Zoom into the page to capture small details with a screenshot</small>
+          </div>
+        </div>
+
+      </div> <!-- /Card deck -->
+
+      
+      <a class="btn btn-secondary btn-lg w-100" href="#navbar" role="button">Return to the top</a>
+  
+  <footer class="footer" id="">
+      <nav class="navbar navbar-custom-foot">
+      <a href="https://dynamicgenetics.org/" target="_blank" ><img class="icon-footer" src="img/dynamicGenetics.png"></a>
+      
+      <a href="http://www.bristol.ac.uk/integrative-epidemiology/" target="_blank"><img class="icon-footer" src="img/ieu.png"></a>
+      </nav>
+  </footer>
+      
+  <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -157,6 +259,9 @@
     <script src="https://d3js.org/d3-color.v1.min.js"></script>
     <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    </body>
+
+    <!-- Animated banner -->
+    <script src="scripts/homepage-banner.js"></script>
+  </body>
     
 </html>
