@@ -418,9 +418,11 @@ function drawFDG (data, svgId, settings) {
 			.on("end", dragended);
 	} 
 
-	// Auto tick graph
-	setInterval(function(){
-		simulationTick(100, 100); // Every 3 seconds the simulation it ticks once to catch misaligned arrows in a resource effecient manner
-	}, 3000)
+	// Auto tick graph (if enabled)
+	if(settings.simulation.autoUpdate){
+		setInterval(function(){
+			simulationTick(100, 100); // Every 3 seconds the simulation it ticks once to catch misaligned arrows in a resource effecient manner
+		}, 3000)
+	}
 
 };

@@ -145,6 +145,7 @@ var defaultSettings = {
 	},
 	simulation: {
 		strength: -3000, // Higher values = less cohesion
+		autoUpdate: false, // Enables auto-updating of graph
 		animation: { // Enabled states
 			hoverToEnlarge: true, // Animate and enlarge the node on mouseover and mouseout
 			hoverToEnlarge_opacity: false, // Remove opacity changes from hover function
