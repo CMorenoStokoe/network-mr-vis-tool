@@ -87,15 +87,12 @@ function identifyDataFields(csv, requiredFields){
     const body = csv.slice(1);
 
     // Identify fields in header
-    for (const [key, value] of Object.entries(header)) {
-        fields.push(value);
-    }
+    for (const [key, value] of Object.entries(header)) {fields.push(value);}
+        settings.data.fields = fields; // Save header fields
 
     // Check data for errors and display to user
-    checkForErrors(requiredFields, fields, body, header);    
-
-    // Save header fields
-    settings.data.fields = fields;
+    const errors = checkForErrors(requiredFields, fields, body, header);    
+        settings.data.errors = errors; // Save error status
 
     // Return fields
     return(fields)
@@ -130,6 +127,8 @@ function checkForErrors(requiredFields, fields, body, header){
         // Trigger Modal
         $('#modal-errors').modal('show');
     }
+
+    return(errors.length > 0);
 }
 
 // Make JSON format of data savable
@@ -143,4 +142,28 @@ function makeJSONSavable(edgeDataFields, btnId, data){
 
     // Append file to link in download button
     document.getElementById(btnId).setAttribute("href",    jsonFile    );
+}
+
+// Verify the data separate to processing it
+function errorWithUpload(callback){
+    var errors = settings.data.errors;
+    
+    var fileReader = new FileReader();
+        fileReader.onload = function (e) { 
+            
+            // Parse CSV
+            var data = Papa.parse(fileReader.result)['data'];
+            
+            // Check data contains required information
+            var requiredFields = settings.data.requiredFields;
+                if(settings.data.observational){requiredFields = settings.data.requiredFieldsObs;} // If observational data expect different fields
+            
+            identifyDataFields(data, requiredFields);
+
+            // Callback function with whether there was an error or not
+            callback(settings.data.errors);
+        }
+    
+    // Get most recent file uploaded and invoke above function
+    fileReader.readAsText(document.getElementById('upload-mr').files[0]);
 }

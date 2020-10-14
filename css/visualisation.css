@@ -17,9 +17,10 @@
     border-radius: 5px;
     padding: 6px 12px;
     cursor: pointer;
+    color: ghostwhite;
 }
 .sidebar-button-style:hover{
-    color: black;
+    color: rgb(10, 10, 43);
     background-color: ghostwhite;
     cursor: pointer;
 }
@@ -40,6 +41,21 @@
     color: ghostwhite;
     background: none;
     cursor: pointer;
+}
+.dropdown-item:hover{
+    background-color: gold !important;
+}
+.active{
+    background-color: rgb(233, 232, 232) !important;
+    color: rgb(10, 10, 43) !important;
+}
+#btn-settings{
+    background-color: ghostwhite;
+    color: rgb(10, 10, 43);
+}
+#btn-settings:hover{
+    background-color: gold;
+    color: rgb(10, 10, 43);
 }
 
 .sidebar-form{
@@ -77,8 +93,10 @@ text.shadow1{
 }
 text.shadow2{
     stroke: white;
-    stroke-width: 0.1px;
-    opacity: 0.8;
+    stroke-width: 7px;
+    pointer-events: none;
+}
+.label{
     pointer-events: none;
 }
 
@@ -90,6 +108,15 @@ text.shadow2{
     border: 1px solid #ccc !important;
     border-radius: 10px;
     padding: 10px;
+}
+
+/* Preset settings */
+.smallNode{
+    font-size: 0.5rem;
+    padding: 0.25rem;
+}
+.writtenNode{
+    font-size: 0.75rem;
 }
 
 /* Advanced settings bar */

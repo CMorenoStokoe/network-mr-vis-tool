@@ -46,7 +46,6 @@ function createOptions(options, optionPanelId){
 }
 
 // Create buttons for options
-var btnCount = 1; // Count number of buttons for IDs
 function createOptionBtns(options, parentId){
 	
 	// Create options forms for each setting option
@@ -55,31 +54,31 @@ function createOptionBtns(options, parentId){
 		// Create appropriate button for each settings option
 		switch(option.type){
 			case 'checkbox':
-				createCheckbox(option, parentId, btnCount);
+				createCheckbox(option, parentId);
 				break;
 			case 'radio':
-				createRadio(option, parentId, btnCount)
+				createRadio(option, parentId)
 				break;
 			case 'textForm':
-				createTextForm(option, parentId, btnCount);
+				createTextForm(option, parentId);
 				break;
 		}
-		btnCount++; // Increment button count
 	}
 }
 
 // Function to create checkbox buttons 
-function createCheckbox(option, parentId, btnCount){
+function createCheckbox(option, parentId){
 	const name = option.name;
 	const funct = option.funct;
 	const checked = option.default;
+	const id = option.id;
 
 	// Create input button
 	var btn = document.createElement("INPUT");
-		btn.id = `sett-btn-${btnCount}`;
+		btn.id = `sett-btn-${id}`;
 		btn.setAttribute("type", 'checkbox');
 		btn.className = 'm-1 settings-btns'; // Spacing
-		btn.onclick = funct;
+		btn.onchange = funct;
 		btn.checked = checked;
 	
 	// Create label for button
@@ -90,7 +89,7 @@ function createCheckbox(option, parentId, btnCount){
 	
 	// Wrap in div
 	var div = document.createElement("DIV");
-		div.id = `sett-div-${btnCount}`;
+		div.id = `sett-div-${id}`;
 	
 	// Append to DOM
 	document.getElementById(parentId).appendChild(div);
@@ -99,15 +98,16 @@ function createCheckbox(option, parentId, btnCount){
 }
 
 // Function to create text form 
-function createTextForm(option, parentId, btnCount){
+function createTextForm(option, parentId){
 	const name = option.name;
 	const funct = option.funct;
 	const defaultValue = option.default;
 	const size = option.size;
+	const id = option.id;
 
 	// Create input button
 	var btn = document.createElement("INPUT");
-		btn.id = `sett-btn-${btnCount}`;
+		btn.id = `sett-btn-${id}`;
 		btn.setAttribute("type", 'text');
 		btn.className = 'm-1 settings-btns'; // Spacing
 		btn.onchange = funct;
@@ -122,7 +122,7 @@ function createTextForm(option, parentId, btnCount){
 	
 	// Wrap in div
 	var div = document.createElement("DIV");
-		div.id = `sett-div-${btnCount}`;
+		div.id = `sett-div-${id}`;
 	
 	// Append to DOM
 	document.getElementById(parentId).appendChild(div);
@@ -132,17 +132,18 @@ function createTextForm(option, parentId, btnCount){
 
 
 // Function to create radio buttons 
-function createRadio(option, parentId, btnCount){
+function createRadio(option, parentId){
 	const name = option.name;
 	const funct = option.funct;
 	const checked = option.default;
+	const id = option.id;
 
 	// Create input button
 	var btn = document.createElement("INPUT");
-		btn.id = `sett-btn-${btnCount}`;
+		btn.id = `sett-btn-${id}`;
 		btn.setAttribute("type", 'radio');
 		btn.className = 'm-1 settings-btns'; // Spacing
-		btn.onclick = funct;
+		btn.onchange = funct;
 		btn.value = option.value;
 		btn.checked = checked;
 		btn.name = option.group;
@@ -155,10 +156,76 @@ function createRadio(option, parentId, btnCount){
 	
 	// Wrap in div
 	var div = document.createElement("DIV");
-		div.id = `sett-div-${btnCount}`;
+		div.id = `sett-div-${id}`;
 	
 	// Append to DOM
 	document.getElementById(parentId).appendChild(div);
 	document.getElementById(div.id).appendChild(btn);
 	document.getElementById(div.id).appendChild(label);	
+}
+
+// Buttons for presets
+function createPresets(){
+
+	// Define presets
+	const presets = [
+		{
+			id: 0,
+			name: 'Default',
+			colors: ['#000','red','blue'],
+			nodeShape: 'far fa-circle',
+		},
+		{
+			id: 1,
+			name: 'Academic',
+			colors: ['gold','red','blue'],
+			nodeShape: 'fas fa-square',
+		},
+		{
+			id: 2,
+			name: 'Clinical',
+			colors: ['#000','#b83b5e','#008891'],
+			nodeShape: 'fas fa-signature writtenNode',
+		},
+		{
+			id: 3,
+			name: 'Industrial',
+			colors: ['#000','#ff9642','#646464'],
+			nodeShape: 'fas fa-circle smallNode',
+		},
+		{
+			id: 4,
+			name: 'Design 1',
+			colors: ['#01c5c4','#999','#b9fffc'],
+			nodeShape: 'fas fa-circle',
+		},
+		{
+			id: 5,
+			name: 'Design 2',
+			colors: ['#00587a','#008891','#0f3057'],
+			nodeShape: 'far fa-circle',
+		}
+	]
+
+	for(const preset of presets){
+
+		// Style preset
+		const html = `
+			<i class="${preset.nodeShape}" style='color: ${preset.colors[0]}'></i>
+			<i class="fas fa-long-arrow-alt-up" style='color: ${preset.colors[1]}'></i>
+			<i class="fas fa-long-arrow-alt-down" style='color: ${preset.colors[2]}'></i>
+			${preset.name}
+		`
+
+		// Format button
+		const presetBtn = document.getElementById(`preset-${preset.id}`);
+			presetBtn.innerHTML = html;
+			presetBtn.addEventListener("click", function(){
+				for(const preset of presets){document.getElementById(`preset-${preset.id}`).className = 'dropdown-item'};
+				loadPreset(preset.id);
+				document.getElementById('preset-text').innerText = preset.name;
+				this.className = 'dropdown-item active';
+				generateGraph();
+			});
+	}
 }
