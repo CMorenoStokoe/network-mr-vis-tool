@@ -52,7 +52,7 @@ h1, h2, h3, h4, h5, h6{
     color: white !important;
 }
 .navbar-custom{
-    background-color: #2b333b;
+    background: linear-gradient(to bottom left, rgb(10, 10, 43),rgb(5, 5, 30), rgb(0, 0, 30), rgb(10, 10, 43));
     border-bottom: 3px solid !important;
     border-color: cadetblue !important;
     width: 100%;
@@ -64,6 +64,10 @@ h1, h2, h3, h4, h5, h6{
 }
 .icon-brand{
     width:200px;
+}
+#banner{
+    
+    background: linear-gradient(to bottom right, rgb(10, 10, 43),rgb(5, 5, 30), rgb(0, 0, 30), rgb(10, 10, 43));
 }
 
 /*FOOT*/
