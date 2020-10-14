@@ -18,7 +18,7 @@ function animateBanner(){
     const svg = d3.select('#svg-intro'),
         width = +svg.attr("width"),
         height = +svg.attr("height"),
-        viewBox = +svg.attr("viewBox", `0 0 100 100`);
+        viewBox = +svg.attr("viewBox", `0 0 178 100`);
     console.log(`Got SVG (${width} x ${height})`);
 
     // Format SVG
@@ -29,8 +29,9 @@ function animateBanner(){
     setInterval(function(){
         
         // Randomly place node
-        let x = Math.random()*100;
+        let x = Math.random()*178;
         let y = Math.random()*100;
+            if(x<20 && y<30){x = Math.random()*178;y = Math.random()*100;} // Except the top left
 
         // Draw line to previous node behind this node
         if(Math.random()>0.5){

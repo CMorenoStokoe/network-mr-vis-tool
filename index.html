@@ -25,15 +25,14 @@
       
       <!-- Jumbotron-->
       <div class='d-flex flex-column content-align-center justify-content-center' style='position: absolute; top:0 ; opacity: 0.9;'>
-        <div class="jumbotron" style='width: 400px'>
+        <div class="jumbotron" style='width: 400px; color: white; text-shadow: 0 0 8px black; background: none !important;'>
           <h1 class="display-4">
             <strong>Visualise</strong>,<br>
             <strong>explore</strong>,<br>
             <strong>convey</strong>.<br>
             
           </h1>
-          <hr class="my-4">
-          <p class="lead">
+          <p class="lead my-4">
             Discover interaction effects with the MiRANA network visualisation tool.</p>
           <p>Designed for Mendelian Randomisation in Genetic Epidemiology and Psychology</p>
           <a class="btn btn-primary btn-lg" href="#navbar" role="button">Learn more</a>
@@ -157,8 +156,19 @@
       </div>
 
       </div>
-
       <div class="card-deck m-5">
+
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/mendel.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">External integration</h5>
+            <p class="card-text">MiRANA was designed to be used in external data visualisation applications. The underlying framework is highly customisable and has support for interactive visualisation. It is pictured here powering a data visualisation game.</p>
+          </div>
+          <div class="card-footer">
+            <a href='https://www.morenostok.io/mendel'> Featured in this game</a><br>
+            <small class="text-muted">Get in touch if you are interested in using MiRANA visualisations for your own projects.</small>
+          </div>
+        </div>
 
         <div class="card card-in-deck">
           <img class="card-img-top" src="img/examples/visualisation.png" alt="Card image cap">
@@ -173,40 +183,52 @@
         </div>
 
         <div class="card card-in-deck">
-          <img class="card-img-top" src="img/examples/example7.PNG" alt="Card image cap">
+          <img class="card-img-top" src="img/examples/example-academic.png" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Related tree</h5>
-            <p class="card-text">An arrangement of estimates which form a branching and collapsing tree centered around one node.</p>
+            <h5 class="card-title">Academic style preset</h5>
+            <p class="card-text">A style preset with a DAG-like appearance and journal compliant font. Style presets are available to make formatting MiRANA visualisations even faster.</p>
           </div>
           <div class="card-footer">
-            <small class="text-muted">Tip: Arrange nodes so that edges do not obscure their labels</small>
+            <a href='https://osf.io/43dw6/'> Data from this study</a><br>
+            <small class="text-muted">Tip: You can choose a font to be compliant with journals.</small>
           </div>
         </div>
 
         <div class="card card-in-deck">
-          <img class="card-img-top" src="img/examples/example2.PNG" alt="Card image cap">
+          <img class="card-img-top" src="img/examples/example-clinical.png" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Three estimates</h5>
-            <p class="card-text">An arrangement of estimates suggesting that schizophrenia causes three different traits, without any other interactions or bi-directional associations.</p>
+            <h5 class="card-title">Clinical style preset</h5>
+            <p class="card-text">A style preset with a focussed design and clinical color scheme. This is another available in-tool style preset.</p>
           </div>
           <div class="card-footer">
-            <small class="text-muted">Tip: Upload only the data you want visualised</small>
-          </div>
-        </div>
-        
-        <div class="card card-in-deck">
-          <img class="card-img-top" src="img/examples/example4.PNG" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Mixed effects</h5>
-            <p class="card-text">Some traits have a mix of effects and it can be helpful to visually seperate out the positive and negative effects.</p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Tip: Click and drag to re-arrange nodes</small>
+            <small class="text-muted">Tip: Use colors to emphasise positive and negative effects.</small>
           </div>
         </div>
 
       </div>
-      <div class="card-deck m-5">                  
+      <div class="card-deck m-5">
+
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/example-industrial.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Industrial style preset </h5>
+            <p class="card-text">A commercial style preset highlighting positive effects; makes formatting MiRANA visualisations even faster.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Tip: Experiment to see whether placing nodes in the middle or to the right is best for your visualisation.</small>
+          </div>
+        </div>
+        
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/example-design2.png" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Designer style preset </h5>
+            <p class="card-text">A stylised design preset available to make formatting MiRANA visualisations even faster.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Tip: Color theory can help to decide which colors complement eachother.</small>
+          </div>
+        </div>
 
         <div class="card card-in-deck">
           <img class="card-img-top" src="img/examples/example3.PNG" alt="Card image cap">
@@ -215,7 +237,7 @@
             <p class="card-text">An arragement of behavioural and personal factors demonstrates a path-like relationship between variables.</p>
           </div>
           <div class="card-footer">
-            <small class="text-muted">Tip: Upload data with short and clear trait names</small>
+            <small class="text-muted">Tip: Upload data with short and clear trait names.</small>
           </div>
         </div>
 
@@ -226,9 +248,45 @@
             <p class="card-text">Similar to a DAG, the absence of a line between nodes can be used to illustrate where relationships were found, and where they were not.</p>
           </div>
           <div class="card-footer">
-            <small class="text-muted">Tip: Arrange lonely nodes (with no links) first or they might get hidden</small>
+            <small class="text-muted">Tip: Arrange lonely nodes (with no links) first or they might get hidden.</small>
           </div>
         </div>
+
+      </div>
+      <div class="card-deck m-5">     
+
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/example7.PNG" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Related tree</h5>
+            <p class="card-text">An arrangement of estimates which form a branching and collapsing tree centered around one node.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Tip: Arrange nodes so that edges do not obscure their labels.</small>
+          </div>
+        </div>
+
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/example2.PNG" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Three estimates</h5>
+            <p class="card-text">An arrangement of estimates suggesting that schizophrenia causes three different traits, without any other interactions or bi-directional associations.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Tip: Upload only the data you want visualised.</small>
+          </div>
+        </div>
+        
+        <div class="card card-in-deck">
+          <img class="card-img-top" src="img/examples/example4.PNG" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Mixed effects</h5>
+            <p class="card-text">Some traits have a mix of effects and it can be helpful to visually seperate out the positive and negative effects.</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Tip: Click and drag to re-arrange nodes.</small>
+          </div>
+        </div>            
 
         <div class="card card-in-deck">
           <img class="card-img-top" src="img/examples/example1.png" alt="Card image cap">
@@ -237,7 +295,7 @@
             <p class="card-text">A massively interactive network of mental health, wellbeing and behavioural factors.</p>
           </div>
           <div class="card-footer">
-            <small class="text-muted">Tip: Zoom into the page to capture small details with a screenshot</small>
+            <small class="text-muted">Tip: Zoom into the page to capture small details with a screenshot.</small>
           </div>
         </div>
 
