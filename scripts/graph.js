@@ -132,14 +132,14 @@ function drawFDG (data, svgId, settings) {
 
 	// Add rectangle for node label background (if enabled)
 	if(!(settings.nodes.labels.background == 'none')){
-		
+
 		const circles = node.append("rect")
 			.attr("rx", 12)
 			.attr("ry", 12)
-			.attr("x", -(settings.nodes.circleRadius*2 + 6))
-			.attr("y", settings.nodes.circleRadius*2)
-			.attr("width", settings.nodes.circleRadius*4 + 12)
-			.attr("height", 25)
+			.attr("x", settings.nodes.labels.backgroundPosX)
+			.attr("y", settings.nodes.labels.backgroundPosY)
+			.attr("width", settings.nodes.labels.backgroundWidth)
+			.attr("height", settings.nodes.labels.backgroundHeight)
 			.attr("stroke", 'black')
 			.attr("stroke-width", '1px')
 			.attr("fill", settings.nodes.labels.background)
@@ -158,6 +158,8 @@ function drawFDG (data, svgId, settings) {
         .style("cursor", 'default')
 		.style("user-select", 'none')
 		.style("fill", settings.nodes.labels.color)
+		.style("stroke", settings.nodes.labels.outlineColor)
+		.style("stroke-width", settings.nodes.labels.outlineWidth)
 		.attr("class", settings.nodes.labels.class)
 		.attr('text-anchor', settings.nodes.labels.anchor)
 		.attr('x', settings.nodes.labels.posX) // Offset from node by radius with padding

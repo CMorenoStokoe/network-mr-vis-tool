@@ -35,6 +35,7 @@ Uploaded CSV contains the columns:
 
     // Create settings buttons for changing settings
     createOptions(options, 'div-settings'); // options = list of settings options in settings-options
+    createPresets(); // Presets for settings
 
 
 /* Draw graph */
@@ -56,11 +57,8 @@ function generateGraph(){
 
         // Extract MR estimate edges from CSV
         var edges = extractEdges(data);
-        console.log('Edges', edges)
-
-        // Ignore directionality of observational data so it's easier to visualise
-        if(settings.data.observational){edges = convertObservationalData(edges);} 
-        console.log('extracted edges', edges)
+            if(settings.data.observational){edges = convertObservationalData(edges);} // Ignore observational data directionality of so it's easier to visualise
+            console.log('Extracted edges', edges)
         
         // Data cleaning and formatting
 

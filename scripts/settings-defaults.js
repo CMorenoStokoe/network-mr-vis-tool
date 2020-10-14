@@ -28,6 +28,7 @@ var defaultSettings = {
 		requiredFields: ['id.outcome','id.exposure', 'exposure', 'outcome', 'pval', 'method'],
 		requiredFieldsObs: ['measurex', 'measurey', 'effectSize', 'pval'],
 		fields: null, // Edge properties identified in CSV data file
+		errors: false, // Whether errors were identified in the CSV format
 		observational: false,
 	},
 	nodes: {
@@ -62,10 +63,16 @@ var defaultSettings = {
 			posX: 19, // Node radius + padding
 			posY: 6, // Center text vertically on node
 			anchor: 'none', // Special placement of text
-			fontSize: '19px',
-			class: '', // Gives labels a custom CSS class
+			fontSize: 19,
+			class: 'label', // Gives labels a custom CSS class
 			color: 'black', // Text color
+			outlineWidth: 0.1,
+				outlineColor: 'none',
 			background: 'none',
+				backgroundPosX: function(){if(settings.nodes.labels.anchor=='none'){return settings.nodes.labels.posX-2}else{return -(settings.nodes.labels.backgroundWidth())/2}},
+				backgroundPosY: -15,
+				backgroundWidth: function(){return(settings.nodes.labels.fontSize * 8)},
+				backgroundHeight: 25,
 		},
 		icons: {
 			enabled: false,

@@ -16,8 +16,7 @@ This is called by the main script, given the result of processing the uploaded f
 
 // Get range of edge beta weights
 function getBetaRange(edges){
-    console.log(edges)
-    var bMin = edges[0].b;
+    var bMin = Math.abs(edges[0].b);
     var bMax = 0;
 
     // Get absolute beta magnitudes
@@ -25,7 +24,6 @@ function getBetaRange(edges){
         if(Math.abs(edge.b) > bMax){bMax = Math.abs(edge.b)};
         if(Math.abs(edge.b) < bMin){bMin = Math.abs(edge.b)};
     }
-
     return({min: bMin, max: bMax});
 }
 

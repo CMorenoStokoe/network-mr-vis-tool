@@ -50,8 +50,7 @@
 
                     <!-- Logo at top of sidebar-->
                     <div class='h-10 text-center justify-content-center align-items-center'>
-                        
-                        <div> <!-- Logo -->
+                        <div>
                             <a href="index.html" style="text-decoration: none;">
                                 <span class="navbar-brand">
                                     <img class="icon-brand" src="img/MiRANA_white.png">
@@ -60,28 +59,41 @@
                         </div>
                     </div>
                     
-                    <!-- Sidebar menu -->
+                    
+                    <!-- Upload data button -->
                     <div class='mt-auto h-30 text-center justify-content-center align-items-center'>
 
-                        <!-- Upload data button -->
                         <div class='my-auto p-2'> 
                             <label for="upload-mr" class="sidebar-button-style" id='upload-label'>
                                 <i class="fas fa-file-upload p-2" style='font-size:4em;' id='upload-label-icon'></i>
                                 <h5 id='upload-label-txt'>Upload data</h5>
                             </label>
                             <form enctype="multipart/form-data" id="uploadForm" style="display: none"><br>
-                            <input id="upload-mr" type="file" onchange="
-                                var filename = document.getElementById('upload-mr').value;
-                                document.getElementById('upload-label-txt').innerHTML = filename.substr(filename.lastIndexOf('\\') + 1);
-                                document.getElementById('upload-label-txt').style = 'font-size: 12px;';
-                                document.getElementById('upload-label-icon').className = 'fas fa-check-circle p-2';
-                            "/><br>
-                            </form> 
-                            <br>
-                            <!--
-                            <a class='sidebar-link p-2' href='exampleMRdata.csv' target='_blank'>
-                                <i class="fas fa-file-download"></i> Demo data
-                            </a>-->
+                                <input id="upload-mr" type="file" onchange="
+    
+                                    // Upload file
+                                    var filename = document.getElementById('upload-mr').value;
+                                    
+                                    // Verify that the file is correctly formatted and compatible
+                                    errorWithUpload(
+                                        function(errors){
+                                            if(errors){
+                                                // Display error
+                                                document.getElementById('upload-label-txt').innerHTML = `ERROR with: ${filename.substr(filename.lastIndexOf('\\') + 1)}`;
+                                                document.getElementById('upload-label-txt').style = 'font-size: 12px;';
+                                                document.getElementById('upload-label-icon').className = 'fas fa-times-circle p-2';
+                                            }else{
+                                                // Display success
+                                                document.getElementById('upload-label-txt').innerHTML = filename.substr(filename.lastIndexOf('\\') + 1);
+                                                document.getElementById('upload-label-txt').style = 'font-size: 12px;';
+                                                document.getElementById('upload-label-icon').className = 'fas fa-check-circle p-2';
+                                            }
+                                        }
+                                    )
+                                    
+
+                                "/><br><br>
+                            </form>
                         </div>
 
                     </div>
@@ -92,24 +104,37 @@
                         <!-- Set Pval -->
                         <div class='my-auto p-2'> 
                             <h5> Options </h5><hr>
-                            Pval=<input type="text" id="pval_limit" value='auto' size='2' class='sidebar-form'>
+                            Pval=<input type="text" id="pval_limit" value='auto' size='4' class='sidebar-form'>
                         </div>
-
-                        <!-- Advanced settings button -->
-                        <button class='btn sidebar-button-style2' id='btn-settings'><i class="fas fa-cogs"></i> Advanced </button>
+                        <div class="dropdown p-2">
+                            <button class="btn sidebar-button-style2 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Style: <span class="badge badge-warning" id='preset-text'>Default</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <button class="dropdown-item active" style="cursor: pointer;" id='preset-0'>Default</button>
+                              <button class="dropdown-item" style="cursor: pointer;" id='preset-1'>Academic</button>
+                              <button class="dropdown-item" style="cursor: pointer;" id='preset-2'>Clinical</button>
+                              <button class="dropdown-item" style="cursor: pointer;" id='preset-3'>Industrial</button>
+                              <button class="dropdown-item" style="cursor: pointer;" id='preset-4'>Designer 1</button>
+                              <button class="dropdown-item" style="cursor: pointer;" id='preset-5'>Designer 2</button>
+                              <div class="dropdown-divider"></div>
+                              <!-- Advanced settings button -->
+                              <button class='btn sidebar-button-style2 h-100 w-100' id='btn-settings'><i class="fas fa-cogs"></i> Advanced settings </button>
+                            </div>
+                        </div>
                         <br><br>
-
-                        <!-- User guide button -->
-                        <a class='sidebar-link' href='https://osf.io/tr62v/wiki/home/'><i class="fas fa-info-circle"></i> User guide</a>
                     </div>
                     
                     <div class='mt-auto h-10 text-center justify-content-center align-items-center'>
-
-                        <!-- Generate graph -->
                         <div class='my-auto p-2'> 
-                            <button class="btn sidebar-button-style3" id="btn-action">Generate graph</button>
-                        </div>
 
+                            <!-- Generate graph button -->
+                            <button class="btn sidebar-button-style3" id="btn-action">Generate graph</button>
+                            
+                            <!-- User guide button -->
+                            <br><br><a class='sidebar-link' href='https://osf.io/tr62v/wiki/home/'><i class="fas fa-info-circle"></i> User guide</a>
+
+                        </div>
                     </div>
 
                     <!-- Content at bottom of sidebar -->
@@ -126,7 +151,7 @@
             </div>
 
             <!-- Graph -->
-            <div class="col-md-9" id='film-panel' >
+            <div class="col-md-9" id='film-panel'>
 
                 <!-- On graph buttons -->
                 <div class="dropleft" style='position: absolute; top: 10; right: 10;'>
@@ -149,7 +174,7 @@
                         <i class="fas fa-quote-right"></i> Cite
                     </button>
                     <div class="dropdown-menu p-2">
-                        Moreno-Stokoe, C.M., Davis, O.S.P. (2020). MiRANA: Network MR visualisation tool. GitHub repository: https://github.com/CMorenoStokoe/network-mr-vis-tool.
+                        Moreno-Stokoe, C.M., Davis, O.S., Haworth, C.M.A., (2020). MiRANA Network MR visualisation tool, www.morenostok.io/mirana.
                     </div>
                     
 

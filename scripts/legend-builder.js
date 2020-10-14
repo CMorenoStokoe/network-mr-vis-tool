@@ -124,7 +124,7 @@ function createLegend(legendId, parentId, settings){
     
     g = svg.append("g")
     
-    const titlePos = {x: 0, y: svg.attr("height")-200};
+    const titlePos = {x: 10, y: svg.attr("height")-200};
         if(!(settings.links.scaleToBeta.method == 'none')){
             titlePos.y = svg.attr("height")-275; // If need to draw scale, draw legend higher
         };
@@ -140,7 +140,9 @@ function createLegend(legendId, parentId, settings){
         .attr("x", titlePos.x)
         .attr("y", titlePos.y)
         .text('Legend')
-        .style("font-size", "18px")
+        .style("fill", settings.nodes.labels.color)
+        .style("font-size", settings.nodes.labels.fontSize)
+        .style("font-family", settings.nodes.labels.font)
         .style("font-weight", 400)
         .attr("alignment-baseline","middle")
 
@@ -149,7 +151,9 @@ function createLegend(legendId, parentId, settings){
         .attr("x", keyPos.x)
         .attr("y", keyPos.y)
         .text('Key')
-        .style("font-size", "15px")
+        .style("fill", settings.nodes.labels.color)
+        .style("font-size", settings.nodes.labels.fontSize*0.75)
+        .style("font-family", settings.nodes.labels.font)
         .style("font-weight", 400)
         .attr("alignment-baseline","middle")
 
@@ -160,7 +164,9 @@ function createLegend(legendId, parentId, settings){
             .attr("x", keyPos.x)
             .attr("y", keyPos.y+20)
             .text('Positive link')
-            .style("font-size", "15px")
+            .style("fill", settings.nodes.labels.color)
+            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
             .style("font-weight", 300)
         g.append("line")
@@ -169,7 +175,7 @@ function createLegend(legendId, parentId, settings){
             .attr('x2',keyPos.x+50) 
             .attr('y2',keyPos.y+40)
             .style("stroke", settings.links.colPos)
-            .style("stroke-width", settings.links.scaleToBeta.scaleFactor)
+            .style("stroke-width", 3)
             .attr("marker-end", 'url(#end-pos)');
 
         // Negative line
@@ -177,7 +183,9 @@ function createLegend(legendId, parentId, settings){
             .attr("x", keyPos.x)
             .attr("y", keyPos.y+60)
             .text('Negative link')
-            .style("font-size", "15px")
+            .style("fill", settings.nodes.labels.color)
+            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
             .style("font-weight", 300)
         g.append("line")
@@ -186,7 +194,7 @@ function createLegend(legendId, parentId, settings){
         .attr('x2',keyPos.x+50) 
         .attr('y2',keyPos.y+80)
             .style("stroke", settings.links.colNeg)
-            .style("stroke-width", settings.links.scaleToBeta.scaleFactor)
+            .style("stroke-width", 3)
             .attr("marker-end", 'url(#end-neg)');
 
         // Bi-directional links
@@ -194,8 +202,10 @@ function createLegend(legendId, parentId, settings){
             .attr("x", keyPos.x)
             .attr("y", keyPos.y+100)
             .text('Bi-directional link')
-            .style("font-size", "15px")
+            .style("fill", settings.nodes.labels.color)
             .attr("alignment-baseline","middle")
+            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-family", settings.nodes.labels.font)
             .style("font-weight", 300)
         g.append("line")
         .attr('x1',keyPos.x)  
@@ -203,7 +213,7 @@ function createLegend(legendId, parentId, settings){
         .attr('x2',keyPos.x+50) 
         .attr('y2',keyPos.y+120)
             .style("stroke", settings.links.colPos)
-            .style("stroke-width", settings.links.scaleToBeta.scaleFactor)
+            .style("stroke-width", 3)
             .attr("marker-end", 'url(#end-pos-bi)');
         g.append("line")
         .attr('x1',keyPos.x+50)  
@@ -211,7 +221,7 @@ function createLegend(legendId, parentId, settings){
         .attr('x2',keyPos.x) 
         .attr('y2',keyPos.y+130)
             .style("stroke", settings.links.colNeg)
-            .style("stroke-width", settings.links.scaleToBeta.scaleFactor)
+            .style("stroke-width", 3)
             .attr("marker-end", 'url(#end-neg-bi)');
             
 
@@ -223,7 +233,9 @@ function createLegend(legendId, parentId, settings){
             .attr("x", scalePos.x)
             .attr("y", scalePos.y)
             .text('Scale')
-            .style("font-size", "15px")
+            .style("fill", settings.nodes.labels.color)
+            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-family", settings.nodes.labels.font)
             .style("font-weight", 400)
             .attr("alignment-baseline","middle")
             
@@ -232,13 +244,17 @@ function createLegend(legendId, parentId, settings){
             .attr("x", scalePos.x)
             .attr("y", scalePos.y+20)
             .text(Number(settings.data.betaRange.min).toPrecision(3))
-            .style("font-size", "15px")
+            .style("fill", settings.nodes.labels.color)
+            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
         g.append("text") // End
             .attr("x", scalePos.x+90)
             .attr("y", scalePos.y+20)
             .text(Number(settings.data.betaRange.max).toPrecision(3))
-            .style("font-size", "15px")
+            .style("fill", settings.nodes.labels.color)
+            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
 
         // Build 4 lines of widths along the current beta width scale
@@ -253,7 +269,7 @@ function createLegend(legendId, parentId, settings){
                 .attr('y1',scalePos.y+40) 
                 .attr('x2',scalePos.x+2+i) 
                 .attr('y2',scalePos.y+40)
-                .style("stroke", 'black')
+                .style("stroke", settings.nodes.labels.color)
                 .style("stroke-width", currentLineWeight)
         }
 
@@ -262,13 +278,17 @@ function createLegend(legendId, parentId, settings){
             .attr("x", scalePos.x)
             .attr("y", scalePos.y+60)
             .text('Min')
-            .style("font-size", "15px")
+            .style("fill", settings.nodes.labels.color)
+            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
         g.append("text") // End
             .attr("x", scalePos.x+90)
             .attr("y", scalePos.y+60)
             .text('Max')
-            .style("font-size", "15px")
+            .style("fill", settings.nodes.labels.color)
+            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
     }
 
