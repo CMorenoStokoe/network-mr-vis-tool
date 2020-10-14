@@ -31,7 +31,7 @@ function animateBanner(){
         // Randomly place node
         let x = Math.random()*178;
         let y = Math.random()*100;
-            if(x<40 && y<30){x = Math.random()*178;y = Math.random()*100;} // Except the top left
+            if(x<60 && y<50){x = Math.random()*178;y = Math.random()*100;} // Except the top left
 
         // Draw line to previous node behind this node
         if(Math.random()>0.5){
