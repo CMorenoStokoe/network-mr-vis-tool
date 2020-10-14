@@ -53,11 +53,11 @@ function addNode(position={x:0,y:0}, size=5, interval=5000, id=`node${Math.floor
 
         // Show as icon
         var image = d3.select('#svg-intro').append("svg:image")
-        .attr("xlink:href",  `img/epicons/${icons[Math.floor(Math.random()*labels.length)]}.png`)
-        .attr("x", position.x)
-        .attr("y", position.y)
-        .attr("height", size)
-        .attr("width", size)
+        .attr("xlink:href",  `img/epicons/${icons[Math.floor(Math.random()*icons.length)]}.png`)
+        .attr("x", position.x - size)
+        .attr("y", position.y - size)
+        .attr("height", size*2)
+        .attr("width", size*2)
         .attr('id', id)
         .style('filter', 'brightness(150%)')
         .style('opacity', 0)
@@ -169,25 +169,26 @@ const labels=[
     'Sleeplessness',
 ]
 
-const icons = [
-    'mh_depression2', //Depression, 
-    'mh_anxiety2', //Worry, 
-    'wellbeing2_alt', //Wellbeing, 
-    'social_loneliness', //Loneliness, 
-    'sleep_insomnia', //Sleeplessness, 
-    'sleep_insomnia', //ICD10 Insomni, 
-    'wellbeing2_alt', //Happiness, 
-    'mh_ocd2', //Neuroticism, 
-    'drinking', //Alcohol, 
-    'education_schoolYears', //Education, 
-    'bmi', //BMI, 
-    'intelligence', //Intelligence, 
-    'eveningness', //Eveningness, 
-    'social_chatBubble', //Not socialising, 
-    'smoking', //Smoking, 
-    'exercise_bike', //Exercise, 
-    'caffeine', //Coffee intake, 
-    'chd_alt', //CHD, 
-    'sleep', //Sleep duration, 
-    'diabetes', //Diabetes
+const icons = [    
+    'bmi',
+    'caffeine',
+    'chd_alt',
+    'diabetes',
+    'drinking',
+    'drugs',
+    'education_schoolYears',
+    'eveningness',
+    'exercise_bike',
+    'gaming',
+    'intelligence_alt',
+    //'mh_anxiety2',
+    //'mh_depression2',
+    'mh_ocd2',
+    'phone',
+    'sleep',
+    'smoking',
+    'social_chatBubble_alt',
+    'social_loneliness_alt',
+    //'wellbeing2_alt',
+    'work_nightShifts',
 ]
