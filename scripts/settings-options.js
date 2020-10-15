@@ -228,7 +228,10 @@ const options = [
         buttons:[
             { 
                 name: 'Background color', 
-                funct: function(){document.getElementById('svg-main').style.backgroundColor=this.value;},
+                funct: function(){
+                    document.getElementById('svg-main').style.backgroundColor=this.value;
+                    document.body.style.backgroundColor=this.value;
+                },
                 type: 'textForm',
                 default: 'ghostwhite',
                 size: 8,
