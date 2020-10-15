@@ -1,0 +1,4 @@
+id.exposure,id.outcome,outcome,exposure,method,nsnp,b,se,pval,color.exposure,color.outcome
+1018,1189,OCD || id:1189,Wellbeing || id:1018,Wald ratio,1,-0.245318185,1.785519573,1.00E-63,red,blue
+1018,1239,Education || id:1239,Wellbeing || id:1018,Wald ratio,1,-0.36755352,0.089957475,1.00E-63,red,green
+1018,961,Smoking || id:961,Wellbeing || id:1018,Wald ratio,1,-2.966779341,4.347944608,1.00E-63,red,orange
