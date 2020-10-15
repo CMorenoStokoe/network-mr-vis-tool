@@ -39,6 +39,9 @@ function extractNodes(edges){
                 // If setting enabled, color node from CSV values
                 if(settings.nodes.fillFromCSV){nodeInfo.color = edge[`color.${field}`]}
 
+                // If setting enabled, add icons from CSV values
+                if(settings.nodes.icons){nodeInfo.icon = edge[`icon.${field}`]}
+
                 // Push to list and record its creation
                 nodes.push(nodeInfo);
                 nodesRecorded.push(id);
