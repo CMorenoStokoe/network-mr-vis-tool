@@ -73,6 +73,7 @@ var defaultSettings = {
 				backgroundPosY: -15,
 				backgroundWidth: function(){return(settings.nodes.labels.fontSize * 8)},
 				backgroundHeight: 25,
+			extras: null,
 		},
 		icons: {
 			enabled: false,

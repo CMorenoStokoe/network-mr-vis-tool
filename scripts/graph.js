@@ -119,7 +119,8 @@ function drawFDG (data, svgId, settings) {
 	if(settings.nodes.icons.enabled == true){
 			
 		var images = node.append("svg:image")
-			.attr("xlink:href",  function(d) { return d.icon;})
+			.attr("id", d => `icon_${d.id}`)
+			.attr("xlink:href",  d=>d.icon)
 			.attr("x", settings.nodes.icons.position)
 			.attr("y", settings.nodes.icons.position)
 			.attr("height", settings.nodes.icons.size)
@@ -130,10 +131,13 @@ function drawFDG (data, svgId, settings) {
 			.attr("width", settings.nodes.icons.size);
 	}
 
+	const labels = node.append("g")
+		.style('opacity', 0);
+
 	// Add rectangle for node label background (if enabled)
 	if(!(settings.nodes.labels.background == 'none')){
 
-		const circles = node.append("rect")
+		const labelBackground = labels.append("rect")
 			.attr("rx", 12)
 			.attr("ry", 12)
 			.attr("x", settings.nodes.labels.backgroundPosX)
@@ -143,15 +147,14 @@ function drawFDG (data, svgId, settings) {
 			.attr("stroke", 'black')
 			.attr("stroke-width", '1px')
 			.attr("fill", settings.nodes.labels.background)
-			.attr('opacity', 0.9)
-			.attr('class', 'nodeLabel_bg');
+			.style('opacity', 0.9);
 
 	}
 
 	// Add node labels (if enabled)
 	if(settings.nodes.labels.enabled){
 		
-		var nodeText = node.append("text")
+		var nodeText = labels.append("text")
 		.text(settings.nodes.labels.content)
 		.style("font-size", settings.nodes.labels.fontSize)
 		.style("font-family", settings.nodes.labels.font)
@@ -160,12 +163,14 @@ function drawFDG (data, svgId, settings) {
 		.style("fill", settings.nodes.labels.color)
 		.style("stroke", settings.nodes.labels.outlineColor)
 		.style("stroke-width", settings.nodes.labels.outlineWidth)
-		.attr("class", settings.nodes.labels.class)
 		.attr('text-anchor', settings.nodes.labels.anchor)
 		.attr('x', settings.nodes.labels.posX) // Offset from node by radius with padding
 		.attr('y', settings.nodes.labels.posY);
 
 	}
+
+	// Add any extra shapes to nodes (if enabled)
+	if(settings.nodes.labels.extras){settings.nodes.labels.extras(labels)};
 	
 	// Add arrows (if enabled)
 	if(settings.arrows.enabled){
@@ -311,10 +316,7 @@ function drawFDG (data, svgId, settings) {
 				.attr("y", settings.nodes.onHover.enter.calcIconPosition)
 				.attr("height", settings.nodes.onHover.enter.calcIconSize)
 				.attr("width", settings.nodes.onHover.enter.calcIconSize);
-			d3.select(this.parentNode).select("text").transition() // Label animation
-				.duration(300)
-				.style("opacity", 1)
-			d3.select(this.parentNode).select("rect").transition() // Label background rect animation
+			d3.select(this.parentNode).select("g").transition() // Label animation
 				.duration(300)
 				.style("opacity", 1)
 		}
@@ -343,12 +345,9 @@ function drawFDG (data, svgId, settings) {
 
 			// Make labels transparent again on reduction (if enabled)
 			if(settings.simulation.animation.hoverToEnlarge_opacity){
-				d3.select(this.parentNode).select("text").transition() // Label animation
+				d3.select(this.parentNode).select("g").transition() // Label animation
 					.duration(300)
 					.style("opacity", 0)
-				d3.select(this.parentNode).select("rect").transition() // Label background rect animation
-					.duration(300)
-					.style("opacity", 0);
 			}
 		}
 
