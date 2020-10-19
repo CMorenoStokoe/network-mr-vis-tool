@@ -132,7 +132,7 @@ function drawFDG (data, svgId, settings) {
 	}
 
 	const labels = node.append("g")
-		.style('opacity', 0);
+		.attr('class', 'label');
 
 	// Add rectangle for node label background (if enabled)
 	if(!(settings.nodes.labels.background == 'none')){
@@ -155,17 +155,17 @@ function drawFDG (data, svgId, settings) {
 	if(settings.nodes.labels.enabled){
 		
 		var nodeText = labels.append("text")
-		.text(settings.nodes.labels.content)
-		.style("font-size", settings.nodes.labels.fontSize)
-		.style("font-family", settings.nodes.labels.font)
-        .style("cursor", 'default')
-		.style("user-select", 'none')
-		.style("fill", settings.nodes.labels.color)
-		.style("stroke", settings.nodes.labels.outlineColor)
-		.style("stroke-width", settings.nodes.labels.outlineWidth)
-		.attr('text-anchor', settings.nodes.labels.anchor)
-		.attr('x', settings.nodes.labels.posX) // Offset from node by radius with padding
-		.attr('y', settings.nodes.labels.posY);
+			.text(settings.nodes.labels.content)
+			.style("font-size", settings.nodes.labels.fontSize)
+			.style("font-family", settings.nodes.labels.font)
+			.style("cursor", 'default')
+			.style("user-select", 'none')
+			.style("fill", settings.nodes.labels.color)
+			.style("stroke", settings.nodes.labels.outlineColor)
+			.style("stroke-width", settings.nodes.labels.outlineWidth)
+			.attr('text-anchor', settings.nodes.labels.anchor)
+			.attr('x', settings.nodes.labels.posX) // Offset from node by radius with padding
+			.attr('y', settings.nodes.labels.posY);
 
 	}
 
