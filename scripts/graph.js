@@ -105,7 +105,7 @@ function drawFDG (data, svgId, settings) {
 			.attr("id", d => d.id)
 		)
 		.call(drag(simulation));
-		console.log(settings.simulation.animation.listenForMouseEventsOn)
+		
 	// Add node circles
 	const circles = node.append("circle")
 		.data(nodes)
@@ -114,8 +114,8 @@ function drawFDG (data, svgId, settings) {
 		.attr("fill", settings.nodes.fill)
 		.attr('opacity', settings.nodes.opacity)
 		.attr("stroke-width", settings.nodes.strokeWidth)
-		.on("mouseenter", function(){console.log(settings.simulation.animation.listenForMouseEventsOn);if(settings.simulation.animation.listenForMouseEventsOn == 'circles'){return mouseover}})
-		.on("mouseleave", function(){if(settings.simulation.animation.listenForMouseEventsOn == 'circles'){return mouseout}})
+		.on("mouseenter", mouseover)
+		.on("mouseleave", mouseout)
 		.on('mouseenter.fade', fade(0.1))
 		.on('mouseleave.fade', fade(1));
 
@@ -128,8 +128,8 @@ function drawFDG (data, svgId, settings) {
 			.attr("x", settings.nodes.icons.position)
 			.attr("y", settings.nodes.icons.position)
 			.attr("height", settings.nodes.icons.size)
-			.on("mouseenter", function(){if(settings.simulation.animation.listenForMouseEventsOn == 'icons'){return mouseover}})
-			.on("mouseleave", function(){if(settings.simulation.animation.listenForMouseEventsOn == 'icons'){return mouseout}})
+			.on("mouseenter", mouseover)
+			.on("mouseleave", mouseout)
 			.on('mouseenter.fade', fade(0.1))
 			.on('mouseleave.fade', fade(1))
 			.attr("width", settings.nodes.icons.size);
@@ -302,10 +302,10 @@ function drawFDG (data, svgId, settings) {
 	
 	
 	// Enlarge nodes on mouse over
-	function mouseover() {
+	function mouseover(){
 
 		// If enabled
-		if(settings.simulation.animation.hoverToEnlarge){
+		if(settings.simulation.animation.listenForMouseEventsOn == d3.select(this).node().nodeName){
 
 			// Update simulation for edges to react to different circle sizes
 			simulationTick(300);
@@ -327,10 +327,10 @@ function drawFDG (data, svgId, settings) {
 	}
 
 	// Return to normal size
-	function mouseout() { 
+	function mouseout(){
 		
 		// If enabled
-		if(settings.simulation.animation.hoverToEnlarge){
+		if(settings.simulation.animation.listenForMouseEventsOn == d3.select(this).node().nodeName){
 
 			// Update simulation for edges to react to different circle sizes
 			simulationTick(300);
@@ -347,12 +347,10 @@ function drawFDG (data, svgId, settings) {
 				.attr("height", settings.nodes.onHover.exit.calcIconSize)
 				.attr("width", settings.nodes.onHover.exit.calcIconSize);
 
-			// Make labels transparent again on reduction (if enabled)
-			if(settings.simulation.animation.hoverToEnlarge_opacity){
-				d3.select(this.parentNode).select("g").transition() // Label animation
-					.duration(300)
-					.style("opacity", 0)
-			}
+			// Make labels transparent again on reduction
+			d3.select(this.parentNode).select("g").transition() // Label animation
+				.duration(300)
+				.style("opacity", 0)
 		}
 
 	}
