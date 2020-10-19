@@ -155,9 +155,7 @@ var defaultSettings = {
 		strength: -3000, // Higher values = less cohesion
 		autoUpdate: false, // Enables auto-updating of graph
 		animation: { // Enabled states
-			listenForMouseEventsOn: 'circles',
-			hoverToEnlarge: true, // Animate and enlarge the node on mouseover and mouseout
-			hoverToEnlarge_opacity: false, // Remove opacity changes from hover function
+			listenForMouseEventsOn: 'none', // On hover events for this element tagName only (e.g.,: 'image', 'circle')
 		},
 	},
 }
