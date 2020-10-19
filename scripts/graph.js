@@ -105,7 +105,7 @@ function drawFDG (data, svgId, settings) {
 			.attr("id", d => d.id)
 		)
 		.call(drag(simulation));
-
+		console.log(settings.simulation.animation.listenForMouseEventsOn)
 	// Add node circles
 	const circles = node.append("circle")
 		.data(nodes)
@@ -113,7 +113,11 @@ function drawFDG (data, svgId, settings) {
 		.attr("stroke", settings.nodes.strokeColor)
 		.attr("fill", settings.nodes.fill)
 		.attr('opacity', settings.nodes.opacity)
-		.attr("stroke-width", settings.nodes.strokeWidth);
+		.attr("stroke-width", settings.nodes.strokeWidth)
+		.on("mouseenter", function(){console.log(settings.simulation.animation.listenForMouseEventsOn);if(settings.simulation.animation.listenForMouseEventsOn == 'circles'){return mouseover}})
+		.on("mouseleave", function(){if(settings.simulation.animation.listenForMouseEventsOn == 'circles'){return mouseout}})
+		.on('mouseenter.fade', fade(0.1))
+		.on('mouseleave.fade', fade(1));
 
 	// Add icons to nodes (if enabled)
 	if(settings.nodes.icons.enabled == true){
@@ -124,8 +128,8 @@ function drawFDG (data, svgId, settings) {
 			.attr("x", settings.nodes.icons.position)
 			.attr("y", settings.nodes.icons.position)
 			.attr("height", settings.nodes.icons.size)
-			.on("mouseenter", mouseover)
-			.on("mouseleave", mouseout)
+			.on("mouseenter", function(){if(settings.simulation.animation.listenForMouseEventsOn == 'icons'){return mouseover}})
+			.on("mouseleave", function(){if(settings.simulation.animation.listenForMouseEventsOn == 'icons'){return mouseout}})
 			.on('mouseenter.fade', fade(0.1))
 			.on('mouseleave.fade', fade(1))
 			.attr("width", settings.nodes.icons.size);

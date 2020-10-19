@@ -153,8 +153,11 @@
             <!-- Graph -->
             <div class="col-md-9" style='position: relative;'>
 
-                <!-- Film over SVG -->
-                <div class='w-100 h-100' id='film-panel' style='position: absolute; top:0; left:0;'></div>
+                <!-- Grey film before graph is drawn -->
+                <div class='w-100 h-100' id='film-panel' style='position: absolute; top:0; left:0;'>
+                    <img src='img/MiRANA_white.png' id='film-logo'>
+                    <h5 id='film-text'>Graph making tool</h5>
+                </div>
 
                 <!-- On graph buttons -->
                 <div class="dropleft" style='position: absolute; top: 10; right: 10;'>
@@ -185,10 +188,6 @@
 
                 <!-- svg -->
                 <svg height='600' width='800' id="svg-main"></svg>
-                
-                <!-- Grey film before graph is drawn -->
-                <img src='img/MiRANA_white.png' id='film-logo'>
-                <h5 id='film-text'>Graph making tool</h5>
 
                 <!-- Legend -->
                 <div id='div-legend'></div>
@@ -241,7 +240,6 @@
         <script src="scripts/node-properties.js"></script>
         <script src="scripts/edge-properties.js"></script>
             <!-- GUI -->
-        <script src="scripts/decorative-film.js"></script>
         <script src="scripts/settings-btn-builder.js"></script>
         <script src="scripts/legend-builder.js"></script>
             <!-- Graph -->

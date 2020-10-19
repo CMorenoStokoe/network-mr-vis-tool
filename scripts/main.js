@@ -99,7 +99,7 @@ function generateGraph(){
         nodes = extractNodes(edges);
 
         // Clear gray film over canvas area
-        clearDecorativeFilm('film-panel', 'film-text', 'film-logo');
+        $('#film-panel').hide();
 
         // Format edges and nodes for D3
         edges = formatForD3(edges); // Add source and target fields
