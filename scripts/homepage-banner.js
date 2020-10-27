@@ -3,7 +3,7 @@ Splash cinematic script
 */
 
 // Animate welcome banner on page load
-window.onload = animateBanner;
+animateBanner();
 
 // Function to animate the welcome banner
 function animateBanner(){

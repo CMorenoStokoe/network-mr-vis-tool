@@ -99,25 +99,27 @@ var defaultSettings = {
 		colPos: 'red',
 		opacity: 1,
 		outline: false,
-			outlineCalcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(b*settings.links.scaleToBeta.scaleFactor))+2;}, // Method to calculate scale
+			outlineCalcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(Math.abs(b)*settings.links.scaleToBeta.scaleFactor))+2;}, // Method to calculate scale
 			outlineWidth: d => settings.links.outlineCalcScaledWidth(d.proportionalBeta) + 1,
 			outlineColor: 'black',
-			outlineArrow: d=>settings.arrows.selectArrow(d.b, d.offset, outline = true),
+			outlineArrow: d=>settings.arrows.selectArrow(Math.abs(d.b), d.offset, outline = true),
 			outlineArrowWeight: 8,
 			outlineArrowPos: 0,
 		scaleToBeta:{
 			method: 'percentOfMax',
 			minWidth: 1, // Minimum scaled edge width 
 			scaleFactor: 3, // Factor to scale width by beta
-			calcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(b*settings.links.scaleToBeta.scaleFactor));}, // Method to calculate scale
+			calcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(Math.abs(b)*settings.links.scaleToBeta.scaleFactor));}, // Method to calculate scale
 		},
 		colorEdge: function(b, c1, c2){if(b<0){return(c1);}else{return(c2);}},
 		color: d => settings.links.colorEdge(d.b, settings.links.colNeg, settings.links.colPos),
 		width: d => settings.links.scaleToBeta.calcScaledWidth(d.proportionalBeta),
 		bidirectional:{
 			enabled: true,
-			lineOffset: 2, // Offset for each line in bidirectional links
-			calcLineOffset: function(bidirectional){switch(bidirectional){case '1st': return(settings.links.bidirectional.lineOffset); case '2nd': return(settings.links.bidirectional.lineOffset*-1); default: return(0);}},
+			lineOffset: 2, // Deprecated: Static offset for each line in bidirectional links
+			calcLineOffset: function(b1, b2){return ( // Calculate line offset by width of lines
+				settings.links.scaleToBeta.calcScaledWidth(b1) 
+				+ settings.links.scaleToBeta.calcScaledWidth(b2))/2},
 		},
 		multiEdges:{
 			enabled: true,

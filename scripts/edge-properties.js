@@ -29,14 +29,14 @@ function getBetaRange(edges){
 
 // Weight edges by percentage beta magnitudes
 function makeEdgeBetasProportional(edges, betaRange, method){
-    range = betaRange.max - betaRange.min;
+    var range = betaRange.max - betaRange.min;
 
     switch(method){
         case 'percentOfMax':
-
+            
             // Calculate relative weight of betas compared to the min/max values to give a % of the max beta weight in the dataset
             for(const edge of edges){ // % is actually decimal value 0-1
-                edge.proportionalBeta = (Math.abs(edge.b) - betaRange.min) / range; 
+                edge.proportionalBeta = (Math.abs(edge.b) - betaRange.min) / range;
             }
             break;
 
@@ -49,30 +49,50 @@ function makeEdgeBetasProportional(edges, betaRange, method){
 
 // Identify bidirectional relationships
 function markBidirectionalEdges(edges){
-    bidirectionalEdges={}
+    const bidirectionalEdges = [];
 
+    // Identify bidirectional edges
     for(const edge of edges){
-        bidirectionalEdges[edge.id] = null;
-
         for(const edge2 of edges){
 
             // Identify bidirectional relationships
             if(edge.exposure == edge2.outcome && edge.outcome == edge2.exposure){
-
-                // Record edges as bidirectional
-                bidirectionalEdges[edge.id] = '1st'; // Number denotes 1st/2nd link in relationship
-                bidirectionalEdges[edge2.id] = '2nd';
-
-                break;
+                bidirectionalEdges.push([{id: edge.id, b: edge.b},{id: edge2.id, b: edge2.b}]);
             }
         }
     }
-    
-    // Mark bidirectional relationships
-    for(const edge of edges){
-        edge.offset = settings.links.bidirectional.calcLineOffset(bidirectionalEdges[edge.id]);
-    }
 
+    // Apply offset if any bidirectional edges are present
+    if(bidirectionalEdges.length>0){
+
+        // For each bidirectional pair of edges
+        for(const bidirectionalEdge of bidirectionalEdges){
+            const edge1 = bidirectionalEdge[0];
+            const edge2 = bidirectionalEdge[1];
+    
+            // Look up the corresponding edges and set offset 
+            for(const edge of edges){
+                switch(edge.id){
+                    case edge1.id:
+                        edge.bidirectional = true;
+                        edge.offset = settings.links.bidirectional.calcLineOffset(edge1.b, edge2.b);
+                        break;
+                    case edge2.id:
+                        edge.bidirectional = true;
+                        edge.offset = -settings.links.bidirectional.calcLineOffset(edge1.b, edge2.b);
+                        break;
+                    default: // Offset if not bidirectional
+                        if(!(edge.offset)){edge.offset = 0;} // Default to 0 offset if offset not already specified
+                        break;
+                }
+            }
+        }
+    } else { // Else if no bidirectional links in data
+
+        // Set all edges to have zero offset
+        for(const edge of edges){edge.offset = 0};
+    }
+    
     return(edges); 
 }
 
