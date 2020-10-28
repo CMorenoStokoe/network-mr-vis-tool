@@ -40,7 +40,7 @@ function makeEdgeBetasProportional(edges, betaRange, method){
             }
             break;
 
-        default: console.log('Err: Scaling method not recognised')
+        default: console.log(`Warn: Scaling method not recognised (${method}). Edge betas not scaled by MiRANA; could result in poor beta weight visibility.`)
 
     }
 

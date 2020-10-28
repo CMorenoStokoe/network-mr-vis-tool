@@ -141,8 +141,8 @@ function drawFDG (data, svgId, settings) {
 	if(!(settings.nodes.labels.background == 'none')){
 
 		const labelBackground = labels.append("rect")
-			.attr("rx", 12)
-			.attr("ry", 12)
+			.attr("rx", settings.nodes.labels.cornerRounding)
+			.attr("ry", settings.nodes.labels.cornerRounding)
 			.attr("x", settings.nodes.labels.backgroundPosX)
 			.attr("y", settings.nodes.labels.backgroundPosY)
 			.attr("width", settings.nodes.labels.backgroundWidth)
