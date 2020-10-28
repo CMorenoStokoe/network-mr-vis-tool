@@ -47,7 +47,6 @@ function drawFDG (data, svgId, settings) {
 
 	// Function to force tick update the simulation
 	function simulationTick(duration = 300, frequency = 10){
-		console.log('tick')
 
 		// Start update ticks
 		var timer = setInterval(function(){
@@ -71,7 +70,7 @@ function drawFDG (data, svgId, settings) {
 		.join(
 			enter => enter.append("line")
 				.attr("id", d => `edge_${d.id}_outline`)
-				.attr("biDirectAdjust", d => d.biDirectAdjust)
+				.attr("offset", d => d.offset)
 				.attr("stroke-width", settings.links.outlineWidth)
 				.attr("stroke", settings.links.outlineColor) 
 				.attr("stroke-opacity", settings.links.opacity / 2) 
@@ -87,7 +86,7 @@ function drawFDG (data, svgId, settings) {
 		.join(
 			enter => enter.append("line")
 				.attr("id", d => `edge_${d.id}`)
-				.attr("biDirectAdjust", d => d.biDirectAdjust)
+				.attr("offset", d => d.offset)
 				.attr("stroke-width", settings.links.width)
 				.attr("stroke", settings.links.color) 
 				.attr("stroke-opacity", settings.links.opacity) 
@@ -142,8 +141,8 @@ function drawFDG (data, svgId, settings) {
 	if(!(settings.nodes.labels.background == 'none')){
 
 		const labelBackground = labels.append("rect")
-			.attr("rx", 12)
-			.attr("ry", 12)
+			.attr("rx", settings.nodes.labels.cornerRounding)
+			.attr("ry", settings.nodes.labels.cornerRounding)
 			.attr("x", settings.nodes.labels.backgroundPosX)
 			.attr("y", settings.nodes.labels.backgroundPosY)
 			.attr("width", settings.nodes.labels.backgroundWidth)
@@ -281,10 +280,15 @@ function drawFDG (data, svgId, settings) {
 				targetX = targetX - cosPhi;
 				targetY = targetY - sinPhi;   
 			}
+
+			// Offset bi-directional edges
+			sourceX -= d.offset*0.75;  
+			sourceY -= d.offset*0.75; 
+			targetX -= d.offset*0.75;  
+			targetY -= d.offset*0.75;
 			
 			// Return coords in x,y
 			return ({x1: sourceX, y1:sourceY, x2:targetX, y2:targetY});
-			//return([sourceX,sourceY,targetX,targetY])
 		}
 
 	node // Ensure nodes cannot leave SVG

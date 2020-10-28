@@ -86,7 +86,9 @@ function generateGraph(){
             } else { // If using causal data
                 
                 // Detect, mark and display bidirectional edges differently (if enabled)
-                markBidirectionalEdges(edges);
+                if(settings.links.bidirectional.enabled){
+                    markBidirectionalEdges(edges);
+                }
             }
             
             // Scale edges to beta weights (if enabled)

@@ -26,14 +26,15 @@ function generateGraphFromJSON(nodes, edges, svgId, settings, pval=null){
         // Filter out self loop edges
         edges = removeSelfloopEdges(edges);
         
-        // Detect, mark and display bidirectional edges differently
-        edges = markBidirectionalEdges(edges); 
-        
         // Scale edges to beta weights (if enabled)
         if(!(settings.links.scaleToBeta.method=='none')){
             settings.data.betaRange = getBetaRange(edges);
             makeEdgeBetasProportional(edges, settings.data.betaRange, settings.links.scaleToBeta.method); // Scale edges by their beta weight proportional to the min/max beta values in the data set
         }
+
+        // Detect, mark and display bidirectional edges differently
+        edges = markBidirectionalEdges(edges);
+        
 
     data = {nodes: nodes, links: edges}; // Format expected by D3 graphing utility
 
