@@ -147,10 +147,10 @@ function drawFDG (data, svgId, settings) {
 			.attr("y", settings.nodes.labels.backgroundPosY)
 			.attr("width", settings.nodes.labels.backgroundWidth)
 			.attr("height", settings.nodes.labels.backgroundHeight)
-			.attr("stroke", 'black')
-			.attr("stroke-width", '1px')
+			.attr("stroke", settings.nodes.labels.stroke)
+			.attr("stroke-width", settings.nodes.labels.strokeWidth)
 			.attr("fill", settings.nodes.labels.background)
-			.style('opacity', 0.9);
+			.style('opacity', settings.nodes.labels.opacity);
 
 	}
 
@@ -251,16 +251,23 @@ function drawFDG (data, svgId, settings) {
 				return({source: sourceR - outlineOffset, target: targetR - outlineOffset})
 			}
 
+			// Calculate offset for bidirectional
+			let offset = 0;
+			if(settings.links.bidirectional.enabled){
+				offset = settings.links.bidirectional.offset(d.offset);
+			}
+
 			// Get circle radii
 			circleRadii = getCircleRadii(d);
 
-			var sinTheta = circleRadii.source * Math.sin(theta);
-			var cosTheta = circleRadii.source * Math.cos(theta);
-			var sinPhi = circleRadii.target * Math.sin(phi);
-			var cosPhi = circleRadii.target * Math.cos(phi);
+			var sinTheta = circleRadii.source * Math.sin(theta + offset);
+			var cosTheta = circleRadii.source * Math.cos(theta + offset);
+			var sinPhi = circleRadii.target * Math.sin(phi + offset);
+			var cosPhi = circleRadii.target * Math.cos(phi + offset);
 
 			// Set the position of the link's end point at the source node
 			// such that it is on the edge closest to the target node
+
 			if (d.target.y > d.source.y) {
 				sourceX = sourceX + sinTheta;
 				sourceY = sourceY + cosTheta;
@@ -280,12 +287,6 @@ function drawFDG (data, svgId, settings) {
 				targetX = targetX - cosPhi;
 				targetY = targetY - sinPhi;   
 			}
-
-			// Offset bi-directional edges
-			sourceX -= d.offset*0.75;  
-			sourceY -= d.offset*0.75; 
-			targetX -= d.offset*0.75;  
-			targetY -= d.offset*0.75;
 			
 			// Return coords in x,y
 			return ({x1: sourceX, y1:sourceY, x2:targetX, y2:targetY});
