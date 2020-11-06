@@ -53,6 +53,7 @@ var defaultSettings = {
 		strokeColor: 'rgba(0, 0, 0, 0.9)',
 		strokeWidth: 2,
 		fill: 'white',
+		colorSchemeForInterpolation: function(value){return d3.interpolateRdYlGn(value)},
 		opacity: 1,
 		fillFromCSV: false,
 		class: 'permanentLabels',
@@ -75,6 +76,9 @@ var defaultSettings = {
 				backgroundHeight: 25,
 				cornerRounding: 12,
 			extras: null,
+			stroke: 'black',
+			strokeWidth: '1px',
+			opacity: 0.9,
 		},
 		icons: {
 			enabled: false,
@@ -98,7 +102,7 @@ var defaultSettings = {
 	links: {
 		colNeg: 'blue',
 		colPos: 'red',
-		opacity: 1,
+		opacity: 0.9,
 		outline: false,
 			outlineCalcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(Math.abs(b)*settings.links.scaleToBeta.scaleFactor))+2;}, // Method to calculate scale
 			outlineWidth: d => settings.links.outlineCalcScaledWidth(d.proportionalBeta) + 1,
@@ -108,7 +112,7 @@ var defaultSettings = {
 			outlineArrowPos: 0,
 		scaleToBeta:{
 			method: 'percentOfMax',
-			minWidth: 1, // Minimum scaled edge width 
+			minWidth: 1.25, // Minimum scaled edge width 
 			scaleFactor: 3, // Factor to scale width by beta
 			calcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(Math.abs(b)*settings.links.scaleToBeta.scaleFactor));}, // Method to calculate scale
 		},
@@ -117,7 +121,11 @@ var defaultSettings = {
 		width: d => settings.links.scaleToBeta.calcScaledWidth(d.proportionalBeta),
 		bidirectional:{
 			enabled: true,
-			lineOffset: 2, // Deprecated: Static offset for each line in bidirectional links
+			offsetEdges: true, // Offset bi-directional edges
+			offset: function(offset){  // Offset each bidirectional edge
+				if(!(offset==0)){
+					return Math.abs(offset / 100) + 0.075; // Offset by a minimum angle plus an amount based on edge thickness to prevent large edges covering up small edges
+				} else { return 0 }}, 
 			calcLineOffset: function(b1, b2){return ( // Calculate line offset by width of lines
 				settings.links.scaleToBeta.calcScaledWidth(b1) 
 				+ settings.links.scaleToBeta.calcScaledWidth(b2))/2},
@@ -138,18 +146,25 @@ var defaultSettings = {
 		arrowType: d=>settings.arrows.selectArrow(d.b, d.offset),
 		selectArrow: function(b, offset, outline=false){ 
 			if(outline){
-				switch(true){
+				switch(true){ // If outline
 					case b < 0 && offset == 0: return('url(#end-neg_outline)'); // Negative uni-directional estimate
 					case b >= 0 && offset == 0: return('url(#end-pos_outline)'); // Positive uni-directional estimate
 					case b >= 0 && offset != 0: return('url(#end-pos-bi_outline)'); // Negative bi-directional estimate
 					case b < 0 && offset != 0: return('url(#end-neg-bi_outline)'); // Positive bi-directional estimate
 				}
-			}else{
+			} else if (settings.links.bidirectional.enabled) { // If bidirectional arrows enabled
 				switch(true){
 					case b < 0 && offset == 0: return('url(#end-neg)'); // Negative uni-directional estimate
 					case b >= 0 && offset == 0: return('url(#end-pos)'); // Positive uni-directional estimate
 					case b >= 0 && offset != 0: return('url(#end-pos-bi)'); // Negative bi-directional estimate
 					case b < 0 && offset != 0: return('url(#end-neg-bi)'); // Positive bi-directional estimate
+				}
+			} else { // If bidirectional arrows disabled
+				switch(true){
+					case b < 0 && offset == 0: return('url(#end-neg)'); // Negative uni-directional estimate
+					case b >= 0 && offset == 0: return('url(#end-pos)'); // Positive uni-directional estimate
+					case b >= 0 && offset != 0: return('url(#end-pos)'); // Negative bi-directional estimate
+					case b < 0 && offset != 0: return('url(#end-neg)'); // Positive bi-directional estimate
 				}
 			}
 		}

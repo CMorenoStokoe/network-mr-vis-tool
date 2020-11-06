@@ -56,7 +56,7 @@ const options = [
                 name: 'Opacity', 
                 funct: function(){settings.links.opacity=this.value;},
                 type: 'textForm',
-                default: '100%',
+                default: '90%',
                 size: 4,
                 id: 'e-o',
             },
@@ -89,8 +89,8 @@ const options = [
             { 
                 name: 'Arrows: Bi-directional arrows', 
                 funct: function(){
-                    settings.links.bidirectional.enabled = !(settings.data.observational);
-                    settings.links.multiEdges.enabled = !(settings.data.observational);
+                    settings.links.bidirectional.enabled = !(settings.links.bidirectional.enabled);
+                    settings.links.multiEdges.enabled = !(settings.links.bidirectional.enabled);
                 },
                 type: 'checkbox',
                 default: true,  
@@ -281,6 +281,7 @@ function loadPreset(style){
         {formId: 'sett-btn-e-cn', value: 'blue'},
         {formId: 'sett-btn-e-cp', value: 'red'},
         {formId: 'sett-btn-e-w', value: 1},
+        {formId: 'sett-btn-e-o', value: '90%'},
         {formId: 'sett-btn-l-pr', value: true, checkbox: true},
         {formId: 'sett-btn-l-cbg', value: 'none'},
         {formId: 'sett-btn-n-o', value: '100%'},
@@ -303,6 +304,7 @@ function loadPreset(style){
                 {formId: 'sett-btn-l-pm', value: true, checkbox: true},
                 {formId: 'sett-btn-l-cbg', value: 'yellow'},
                 {formId: 'sett-btn-n-o', value: '0%'},
+                {formId: 'sett-btn-e-o', value: '100%'},
                 {formId: 'sett-btn-e-w', value: 2},
                 {formId: 'sett-btn-n-s', value: 30},
                 {formId: 'sett-btn-g-ff', value: 'Times new roman'},
@@ -316,6 +318,7 @@ function loadPreset(style){
                 {formId: 'sett-btn-e-cn', value: '#008891'},
                 {formId: 'sett-btn-e-cp', value: '#b83b5e'},
                 {formId: 'sett-btn-e-w', value: 2},
+                {formId: 'sett-btn-e-o', value: '100%'},
                 {formId: 'sett-btn-n-o', value: '0%'},
                 {formId: 'sett-btn-n-s', value: 30},
                 {formId: 'sett-btn-g-ff', value: 'Helvetica'},
@@ -325,6 +328,7 @@ function loadPreset(style){
             setPreset([
                 {formId: 'sett-btn-e-cn', value: '#646464'},
                 {formId: 'sett-btn-e-cp', value: '#ff9642'},
+                {formId: 'sett-btn-e-o', value: '100%'},
                 {formId: 'sett-btn-n-cf', value: 'black'},
                 {formId: 'sett-btn-n-co', value: 'none'},
                 {formId: 'sett-btn-n-s', value: 5},
@@ -336,6 +340,7 @@ function loadPreset(style){
                 {formId: 'sett-btn-l-pm', value: true, checkbox: true},
                 {formId: 'sett-btn-e-cn', value: '#b9fffc'},
                 {formId: 'sett-btn-e-cp', value: 'white'},
+                {formId: 'sett-btn-e-o', value: '100%'},
                 {formId: 'sett-btn-n-cf', value: '#01c5c4'},
                 {formId: 'sett-btn-n-co', value: 'none'},
                 {formId: 'sett-btn-n-s', value: 50},
@@ -349,6 +354,7 @@ function loadPreset(style){
             setPreset([
                 {formId: 'sett-btn-e-cn', value: '#0f3057'},
                 {formId: 'sett-btn-e-cp', value: '#008891'},
+                {formId: 'sett-btn-e-o', value: '100%'},
                 {formId: 'sett-btn-n-cf', value: '#e7e7de'},
                 {formId: 'sett-btn-n-co', value: '#00587a'},
                 {formId: 'sett-btn-n-s', value: 10},
