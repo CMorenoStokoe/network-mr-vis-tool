@@ -138,3 +138,14 @@ h1, h2, h3, h4, h5, h6{
         column-count: 3;
     }
 } 
+
+/* Buttons */
+.btn-custom{
+    background-color: gold;
+    color: rgb(10, 10, 43);
+    text-shadow: none;
+}
+.btn-custom:hover{
+    background-color:  rgb(10, 10, 43);
+    color: gold;
+}
