@@ -110,6 +110,7 @@ var defaultSettings = {
 			outlineArrow: d=>settings.arrows.selectArrow(Math.abs(d.b), d.offset, outline = true),
 			outlineArrowWeight: 8,
 			outlineArrowPos: 0,
+			outlineOffset: d=>-(settings.links.outlineWidth(d))*3+2, //-6-(20*Math.abs(d.b_pct)/100)}
 		scaleToBeta:{
 			method: 'percentOfMax',
 			minWidth: 1.25, // Minimum scaled edge width 
@@ -173,7 +174,7 @@ var defaultSettings = {
 		strength: -3000, // Higher values = less cohesion
 		autoUpdate: false, // Enables auto-updating of graph
 		animation: { // Enabled states
-			listenForMouseEventsOn: 'none', // On hover events for this element tagName only (e.g.,: 'image', 'circle')
+			listenForMouseEventsOn: 'circle', // On hover events for this element tagName only (e.g.,: 'image', 'circle')
 		},
 	},
 }
