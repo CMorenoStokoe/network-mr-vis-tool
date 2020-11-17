@@ -34,6 +34,7 @@ var defaultSettings = {
 	nodes: {
 		shape: 'circle',
 		circleRadius: 15,
+		scaleCircleArea: d=>settings.nodes.circleRadius / 100 * (100 + d),
 		onHover: {
 			enter:{
 				calcCircleRadius: function(){return settings.nodes.circleRadius*2},
@@ -53,7 +54,7 @@ var defaultSettings = {
 		strokeColor: 'rgba(0, 0, 0, 0.9)',
 		strokeWidth: 2,
 		fill: 'white',
-		colorSchemeForInterpolation: function(value){return d3.interpolateRdYlGn(value)},
+		colorSchemeForInterpolation: d => d.change<0 ? d3.interpolateGnBu(1-1*d.change_bar/100) : d3.interpolateOrRd(1*d.change_bar/100),
 		opacity: 1,
 		fillFromCSV: false,
 		class: 'permanentLabels',
