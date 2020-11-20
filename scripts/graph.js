@@ -237,18 +237,22 @@ function drawFDG (data, svgId, settings) {
 			var theta = Math.atan((targetX - sourceX) / (targetY - sourceY));
 			var phi = Math.atan((targetY - sourceY) / (targetX - sourceX));
 
-			// Custom function to return circle radii
+			// Return circle radii
 			function getCircleRadii(d){
-				var outlineOffset = 0;
-				if(outline){outlineOffset = -(d.b_pct*settings.links.scaleToBeta.scaleFactor/100/2)+1;}
 
+				// Get circle radius
 				var sourceR = d3.selectAll("circle")
 					.filter(function(i) {return i.id == d.source.id;})
 					.attr('r');
 				var targetR = d3.selectAll("circle")
 					.filter(function(i) {return i.id == d.target.id;})
 					.attr('r');
-				return({source: sourceR - outlineOffset, target: targetR - outlineOffset})
+
+				// Offset outline arrow to be behind main arrow (if enabled)
+				var outlineOffset = 0;
+				if(outline){ outlineOffset = settings.links.outlineOffset(d);}
+
+				return({source: sourceR, target: targetR - outlineOffset})
 			}
 
 			// Calculate offset for bidirectional
@@ -310,7 +314,7 @@ function drawFDG (data, svgId, settings) {
 	function mouseover(){
 
 		// If enabled
-		if(settings.simulation.animation.listenForMouseEventsOn == d3.select(this).node().nodeName){
+		if(settings.simulation.animation.listenForMouseEventsOn === d3.select(this).node().nodeName){
 
 			// Update simulation for edges to react to different circle sizes
 			simulationTick(300);
@@ -372,6 +376,7 @@ function drawFDG (data, svgId, settings) {
 	}
 	//Fade rules for hovering over nodes
 	function fade(opacity) {
+
 		return d => {
 		node.style('opacity', function (o) {
 			const thisOpacity = isConnected(d, o) ? 1 : opacity;

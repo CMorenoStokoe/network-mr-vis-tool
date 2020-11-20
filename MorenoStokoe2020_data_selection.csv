@@ -1,0 +1,6 @@
+﻿id.exposure,id.outcome,outcome,exposure,method,nsnp,b,se,pval,analysis_type,icon.exposure,icon.outcome
+ieu-a-1187,ieu-a-1018,Wellbeing,Depression,Inverse variance weighted,27,-0.112098692,0.028688531,9.33E-05,Network,https://www.morenostok.io/epicons/gen3/mh_depression2.png,https://www.morenostok.io/epicons/gen3/wellbeing2_alt.png
+ieu-a-1187,ukb-b-3957,Sleeplessness,Depression,Inverse variance weighted,33,0.088357897,0.019794448,8.05E-06,Network,https://www.morenostok.io/epicons/gen3/mh_depression2.png,https://www.morenostok.io/epicons/gen3/sleep_insomnia.png
+ieu-a-1018,ukb-b-3957,Sleeplessness,Wellbeing,Inverse variance weighted,3,-0.064409803,0.054430426,0.236673682,Main,https://www.morenostok.io/epicons/gen3/wellbeing2_alt.png,https://www.morenostok.io/epicons/gen3/sleep_insomnia.png
+ukb-b-3957,ieu-a-1187,Depression,Sleeplessness,Inverse variance weighted,7,2.872374238,0.283443119,3.91E-24,Network,https://www.morenostok.io/epicons/gen3/sleep_insomnia.png,https://www.morenostok.io/epicons/gen3/mh_depression2.png
+ukb-b-3957,ieu-a-1018,Wellbeing,Sleeplessness,Inverse variance weighted,80,-0.303440544,0.060105618,4.45E-07,Main,https://www.morenostok.io/epicons/gen3/sleep_insomnia.png,https://www.morenostok.io/epicons/gen3/wellbeing2_alt.png

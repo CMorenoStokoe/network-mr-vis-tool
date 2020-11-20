@@ -34,6 +34,7 @@ var defaultSettings = {
 	nodes: {
 		shape: 'circle',
 		circleRadius: 15,
+		scaleCircleArea: d=>settings.nodes.circleRadius / 100 * (100 + d),
 		onHover: {
 			enter:{
 				calcCircleRadius: function(){return settings.nodes.circleRadius*2},
@@ -53,7 +54,7 @@ var defaultSettings = {
 		strokeColor: 'rgba(0, 0, 0, 0.9)',
 		strokeWidth: 2,
 		fill: 'white',
-		colorSchemeForInterpolation: function(value){return d3.interpolateRdYlGn(value)},
+		colorSchemeForInterpolation: d => d.change<0 ? d3.interpolateGnBu(1-1*d.change_bar/100) : d3.interpolateOrRd(1*d.change_bar/100),
 		opacity: 1,
 		fillFromCSV: false,
 		class: 'permanentLabels',
@@ -110,6 +111,7 @@ var defaultSettings = {
 			outlineArrow: d=>settings.arrows.selectArrow(Math.abs(d.b), d.offset, outline = true),
 			outlineArrowWeight: 8,
 			outlineArrowPos: 0,
+			outlineOffset: d=>-(settings.links.outlineWidth(d))*3+2, //-6-(20*Math.abs(d.b_pct)/100)}
 		scaleToBeta:{
 			method: 'percentOfMax',
 			minWidth: 1.25, // Minimum scaled edge width 
@@ -173,7 +175,7 @@ var defaultSettings = {
 		strength: -3000, // Higher values = less cohesion
 		autoUpdate: false, // Enables auto-updating of graph
 		animation: { // Enabled states
-			listenForMouseEventsOn: 'none', // On hover events for this element tagName only (e.g.,: 'image', 'circle')
+			listenForMouseEventsOn: 'circle', // On hover events for this element tagName only (e.g.,: 'image', 'circle')
 		},
 	},
 }
