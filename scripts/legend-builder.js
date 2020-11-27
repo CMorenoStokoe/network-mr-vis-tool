@@ -144,9 +144,11 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
     // Add BG (if enabled)
     if(customLabels){
         g.append("rect")
-            .attr('width', scalePos)
-            .attr('height', scalePos)
-            .stle('fill', 'white')
+            .attr('x', 0)
+            .attr('y', titlePos.y - 30)
+            .attr('width', 175)
+            .attr('height', scalePos.y)
+            .style('fill', 'white')
     }
 
     // Legend title
