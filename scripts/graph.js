@@ -29,15 +29,14 @@ function drawFDG (data, svgId, settings) {
 	var links = data.links;
 	var nodes = data.nodes;
 	
-	// Select SVG DOM element
-	const svg = d3.select(svgId),
+	// Select SVG DOM elements
+	let svg = d3.select(svgId),
         width = +svg.attr("width"),
         height = +svg.attr("height"),
-		viewBox = +svg.attr("viewBox", `0 0 ${width} ${height}`);
-    console.log(`Got SVG (${width} x ${height})`);
+		viewBox = +svg.attr("viewBox", settings.simulation.forceViewbox ? `0 0 ${settings.simulation.viewbox.x} ${settings.simulation.viewbox.y}`  : `0 0 ${width} ${height}`);
 
 	// Set up simulation 
-	const center = [width-100, height-100];
+	const center = settings.simulation.forceViewbox ? [settings.simulation.viewbox.x-100, settings.simulation.viewbox.y-100] : [width-100, height-100];
 	const simulation = d3.forceSimulation(nodes)
 		.force("link", d3.forceLink(links).id(d => d.id))
 		.force("charge", d3.forceManyBody().strength(settings.simulation.strength))
@@ -175,6 +174,8 @@ function drawFDG (data, svgId, settings) {
 	// Add any extra shapes to nodes (if enabled)
 	if(settings.nodes.labels.extras){settings.nodes.labels.extras(labels)};
 	
+	settings.simulation.forceViewbox = 1250;
+	
 	// Add arrows (if enabled)
 	if(settings.arrows.enabled){
 
@@ -205,7 +206,7 @@ function drawFDG (data, svgId, settings) {
 			.append("svg:path")
 			.attr("d", d=>d.d);
 	};
-	  
+
 	// Simulation properties
 	simulation
 		.on("tick", ticked);
@@ -300,11 +301,11 @@ function drawFDG (data, svgId, settings) {
 		.attr("transform", d => `translate(
 			${
 				Math.max(settings.nodes.circleRadius*2, 
-				Math.min(width - settings.nodes.circleRadius*2, d.x)) 
+				Math.min(settings.simulation.viewbox.x - settings.nodes.circleRadius*2, d.x)) 
 			}, 
 			${
 				Math.max(settings.nodes.circleRadius, 
-				Math.min(height - settings.nodes.circleRadius, d.y))
+				Math.min(settings.simulation.viewbox.y - settings.nodes.circleRadius, d.y))
 			}
 		)`);
 	}

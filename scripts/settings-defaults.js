@@ -171,7 +171,15 @@ var defaultSettings = {
 			}
 		}
 	},
+	legend: {
+		fontSize: function(){return settings.nodes.labels.fontSize},
+	},
 	simulation: {
+		forceViewbox: false,
+		viewbox: {
+			x: 1250,
+			y: 1250,
+		},
 		strength: -3000, // Higher values = less cohesion
 		autoUpdate: false, // Enables auto-updating of graph
 		animation: { // Enabled states
