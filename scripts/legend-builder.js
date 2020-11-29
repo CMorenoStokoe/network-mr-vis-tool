@@ -88,7 +88,8 @@ function createLegend_legacy(legendId, parentId, settings){
     };
 
     // Legend content
-    const html = `<h5> Legend: </h5>
+    const html = `
+        <h5> Legend: </h5>
         ${edgeWidthLegend}
         <br>
         <strong>Key</strong><br>
@@ -120,8 +121,9 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
 
     // Select the svg area
     var svg = d3.select("#svg-main");
-        width = svg.attr("width");
-        height = svg.attr("height");
+        width = svg.attr("width")*settings.simulation.zoom;
+        height = svg.attr("height")*settings.simulation.zoom;
+        console.log(width, height)
         
     console.log({x: svg.attr("width"), y: svg.attr("height")})
     // Set SVG coordinates to draw legend elements to
@@ -130,9 +132,9 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
         g.attr('id', 'graph-legend');
     
     
-    const titlePos = {x: 10, y: svg.attr("height")-200};
+    const titlePos = {x: 10, y: svg.attr("height")-210};
         if(!(settings.links.scaleToBeta.method == 'none')){
-            titlePos.y = svg.attr("height")-275; // If need to draw scale, draw legend higher
+            titlePos.y = svg.attr("height")-285; // If need to draw scale, draw legend higher
         };
     const keyPos = {};
         keyPos.x=titlePos.x;
@@ -157,7 +159,7 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
         .attr("y", titlePos.y)
         .text('Legend')
         .style("fill", color)
-        .style("font-size", settings.nodes.labels.fontSize)
+        .style("font-size", settings.legend.fontSize*2)
         .style("font-family", settings.nodes.labels.font)
         .style("font-weight", 400)
         .attr("alignment-baseline","middle")
@@ -168,7 +170,7 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
         .attr("y", keyPos.y)
         .text('Key')
         .style("fill", color)
-        .style("font-size", settings.nodes.labels.fontSize*0.75)
+        .style("font-size", settings.legend.fontSize*0.75)
         .style("font-family", settings.nodes.labels.font)
         .style("font-weight", 400)
         .attr("alignment-baseline","middle")
@@ -181,7 +183,7 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
             .attr("y", keyPos.y+20)
             .text(customLabels ? customLabels.pos : 'Positive link')
             .style("fill", color)
-            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-size", settings.legend.fontSize*0.75)
             .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
             .style("font-weight", 300)
@@ -200,7 +202,7 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
             .attr("y", keyPos.y+60)
             .text(customLabels ? customLabels.neg : 'Negative link')
             .style("fill", color)
-            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-size", settings.legend.fontSize*0.75)
             .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
             .style("font-weight", 300)
@@ -221,7 +223,7 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
                 .text('Bi-directional link')
                 .style("fill", color)
                 .attr("alignment-baseline","middle")
-                .style("font-size", settings.nodes.labels.fontSize*0.75)
+                .style("font-size", settings.legend.fontSize*0.75)
                 .style("font-family", settings.nodes.labels.font)
                 .style("font-weight", 300)
             g.append("line")
@@ -251,7 +253,7 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
             .attr("y", customLabels ? scalePos.y-30 : scalePos.y)
             .text('Scale')
             .style("fill", color)
-            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-size", settings.legend.fontSize*0.75)
             .style("font-family", settings.nodes.labels.font)
             .style("font-weight", 400)
             .attr("alignment-baseline","middle")
@@ -262,7 +264,7 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
                 .attr("y", scalePos.y)
                 .text(customLabels.scale)
                 .style("fill", color)
-                .style("font-size", settings.nodes.labels.fontSize*0.75)
+                .style("font-size", settings.legend.fontSize*0.75)
                 .style("font-family", settings.nodes.labels.font)
                 .style("font-weight", 300)
                 .attr("alignment-baseline","middle")
@@ -274,7 +276,7 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
             .attr("y", scalePos.y+20)
             .text(customLabels ? customLabels.min : Number(settings.data.betaRange.min).toPrecision(3))
             .style("fill", color)
-            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-size", settings.legend.fontSize*0.75)
             .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
         g.append("text") // End
@@ -282,7 +284,7 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
             .attr("y", scalePos.y+20)
             .text(customLabels ? customLabels.max : Number(settings.data.betaRange.max).toPrecision(3))
             .style("fill", color)
-            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-size", settings.legend.fontSize*0.75)
             .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
 
@@ -308,7 +310,7 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
             .attr("y", scalePos.y+60)
             .text('Min')
             .style("fill", color)
-            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-size", settings.legend.fontSize*0.75)
             .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
         g.append("text") // End
@@ -316,7 +318,7 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
             .attr("y", scalePos.y+60)
             .text('Max')
             .style("fill", color)
-            .style("font-size", settings.nodes.labels.fontSize*0.75)
+            .style("font-size", settings.legend.fontSize*0.75)
             .style("font-family", settings.nodes.labels.font)
             .attr("alignment-baseline","middle")
     }
