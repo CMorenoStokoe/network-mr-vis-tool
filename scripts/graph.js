@@ -190,7 +190,15 @@ function drawFDG (data, svgId, settings) {
 			{id: "end-neg_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.links.outlineArrowWeight, pos: settings.links.outlineArrowPos},
 			{id: "end-pos-bi_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,0", wgt: settings.links.outlineArrowWeight, pos: settings.links.outlineArrowPos}, 
 			{id: "end-neg-bi_outline", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,0", wgt: settings.links.outlineArrowWeight, pos: settings.links.outlineArrowPos},
-		])     
+			{id: "end-pos-lg", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.arrows.size*2, pos: settings.arrows.position},
+			{id: "end-neg-lg", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.arrows.size*2, pos: settings.arrows.position},
+			{id: "end-pos_outline-lg", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.links.outlineArrowWeight*2, pos: settings.links.outlineArrowPos},
+			{id: "end-neg_outline-lg", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.links.outlineArrowWeight*2, pos: settings.links.outlineArrowPos},
+			{id: "end-pos-xl", col: settings.links.colPos, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.arrows.size*3, pos: settings.arrows.position},
+			{id: "end-neg-xl", col: settings.links.colNeg, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.arrows.size*3, pos: settings.arrows.position},
+			{id: "end-pos_outline-xl", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.links.outlineArrowWeight*3, pos: settings.links.outlineArrowPos},
+			{id: "end-neg_outline-xl", col: settings.links.outlineColor, d:"M 0,-3 L 5,0 L 0,3", wgt: settings.links.outlineArrowWeight*3, pos: settings.links.outlineArrowPos},
+		])
 		.enter().append("svg:marker")
 		 // Do not scale arrow to edge width, causes positioning troubles
 			.attr("id", d=>d.id) // Populated from given id in data above
