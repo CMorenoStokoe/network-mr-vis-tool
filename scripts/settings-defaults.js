@@ -136,6 +136,7 @@ var defaultSettings = {
 			enabled: true,
 			calcLineOffset: function(numberOfLinks, currentLink){return(-numberOfLinks + (currentLink*2))},
 		},
+		dashArray: 'none',
 	},
 	arrows: {
 		enabled: true,

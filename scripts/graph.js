@@ -89,7 +89,8 @@ function drawFDG (data, svgId, settings) {
 				.attr("stroke-width", settings.links.width)
 				.attr("stroke", settings.links.color) 
 				.attr("stroke-opacity", settings.links.opacity) 
-				.attr("marker-end", settings.arrows.arrowType),
+				.attr("marker-end", settings.arrows.arrowType)
+				.style("stroke-dasharray", settings.links.dashArray),
 	);
 
 	// Add nodes
