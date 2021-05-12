@@ -45,8 +45,13 @@ const options = [
             { 
                 name: 'Width: Scale to beta', 
                 funct: function(){
-                    settings.links.scaleToBeta.method = 'none'; 
-                    settings.links.width = function(){return(settings.links.scaleToBeta.minWidth)};
+                    if(settings.links.scaleToBeta.method == 'percentOfMax'){
+                        settings.links.scaleToBeta.method = 'none'; 
+                        settings.links.width = function(){return(settings.links.scaleToBeta.minWidth*1.5)};
+                    } else {
+                        settings.links.scaleToBeta.method = 'percentOfMax'; 
+                        settings.links.width = d => settings.links.scaleToBeta.calcScaledWidth(d.proportionalBeta);
+                    }
                 },
                 type: 'checkbox',
                 default: true,  

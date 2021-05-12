@@ -114,7 +114,7 @@ var defaultSettings = {
 			outlineOffset: d=>-(settings.links.outlineWidth(d))*3+2, //-6-(20*Math.abs(d.b_pct)/100)}
 		scaleToBeta:{
 			method: 'percentOfMax',
-			minWidth: 1.25, // Minimum scaled edge width 
+			minWidth: 2, // Minimum scaled edge width 
 			scaleFactor: 3, // Factor to scale width by beta
 			calcScaledWidth: function(b){return(settings.links.scaleToBeta.minWidth+(Math.abs(b)*settings.links.scaleToBeta.scaleFactor));}, // Method to calculate scale
 		},
@@ -184,7 +184,7 @@ var defaultSettings = {
 		strength: -3000, // Higher values = less cohesion
 		autoUpdate: false, // Enables auto-updating of graph
 		animation: { // Enabled states
-			listenForMouseEventsOn: 'circle', // On hover events for this element tagName only (e.g.,: 'image', 'circle')
+			listenForMouseEventsOn: 'none', // On hover events for this element tagName only (e.g.,: 'image', 'circle')
 		},
 	},
 }

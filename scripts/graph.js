@@ -92,6 +92,18 @@ function drawFDG (data, svgId, settings) {
 				.attr("marker-end", settings.arrows.arrowType)
 				.style("stroke-dasharray", settings.links.dashArray),
 	);
+		
+	// Add beta weights
+	const betas = link.append("text")
+		.text(0)
+		.style("font-size", settings.nodes.labels.fontSize)
+		.style("font-family", settings.nodes.labels.font)
+		.style("cursor", 'default')
+		.style("user-select", 'none')
+		.style("fill", settings.nodes.labels.color)
+		.style("stroke", settings.nodes.labels.outlineColor)
+		.style("stroke-width", settings.nodes.labels.outlineWidth)
+		.attr('text-anchor', settings.nodes.labels.anchor);
 
 	// Add nodes
 	const node = svg.append("g")
