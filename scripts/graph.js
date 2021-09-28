@@ -231,8 +231,13 @@ function drawFDG (data, svgId, settings) {
 	// Simulation properties
 	simulation
 		.on("tick", ticked);
-		
+	
+	var tick_count = 0;
 	function ticked() {
+		if(settings.simulation.tickLimit){
+			tick_count ++;
+			if(tick_count>settings.simulation.tickLimit){return;}
+		}
 
 	if(settings.links.outline){
 		

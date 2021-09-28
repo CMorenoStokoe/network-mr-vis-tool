@@ -186,5 +186,6 @@ var defaultSettings = {
 		animation: { // Enabled states
 			listenForMouseEventsOn: 'none', // On hover events for this element tagName only (e.g.,: 'image', 'circle')
 		},
+		tickLimit: false, // If set, disables graph animation after n ticks (e.g., a value of 30 ticks stops the animation after about 0.5 seconds)
 	},
 }
