@@ -1,0 +1,4 @@
+id.exposure,id.outcome,exposure,outcome,method,nsnp,b,se,pval
+A,B,A,B,Wald ratio,1,1,1,0.05
+C,D,C,D,Wald ratio,1,1,1,0.05
+E,F,E,F,Wald ratio,1,1,1,0.05

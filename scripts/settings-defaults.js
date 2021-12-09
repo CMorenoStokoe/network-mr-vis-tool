@@ -30,6 +30,7 @@ var defaultSettings = {
 		fields: null, // Edge properties identified in CSV data file
 		errors: false, // Whether errors were identified in the CSV format
 		observational: false,
+		decimalPlacesToShow: '3'
 	},
 	nodes: {
 		shape: 'circle',
@@ -137,6 +138,26 @@ var defaultSettings = {
 			calcLineOffset: function(numberOfLinks, currentLink){return(-numberOfLinks + (currentLink*2))},
 		},
 		dashArray: 'none',
+		labels: {
+			enabled: true,
+			offset: 0.75,
+			content: 'both',
+			fontSize: 10,
+			sciNotation: false,
+			selectContent: (d) => {
+				const labelB = settings.links.labels.sciNotation===false ? 
+					`b=${ Number(d.b).toFixed(Number( settings.data.decimalPlacesToShow ))}` :
+					`b=${ Number(d.b).toExponential(2)}`;
+				const labelP = `p=${ Number(d.pval).toExponential(2)}`;
+				switch(settings.links.labels.content){
+					case 'b': return labelB;
+					case 'p': return labelP;
+					default: return `${labelB}, ${labelP}`
+				}
+			}
+			,
+			color: d => settings.nodes.labels.color
+		}
 	},
 	arrows: {
 		enabled: true,

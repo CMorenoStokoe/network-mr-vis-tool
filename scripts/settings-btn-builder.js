@@ -34,15 +34,24 @@ function createOptions(options, optionPanelId){
 		var div = document.createElement("DIV");
 			div.id = `settGroup-div-${groupCount}`;
 			div.innerHTML = `<p><strong>${optionGroup.groupTitle}</strong></p><hr>`;
-			div.className = 'col-md';
+			div.className = optionGroup.groupTitle==='Colours' ? 'mt-2 p-3 w-100' : 'mt-2 col-4';
 		document.getElementById(optionPanelId).appendChild(div);
-		
+
 		// Create buttons for this option group and append in this div
-		createOptionBtns(optionGroup.buttons, div.id);
+		if(optionGroup.groupTitle==='Colours'){
+			// Separate colour options for better display
+			var colorDiv = document.createElement("DIV");
+				colorDiv.className = 'card-columns';
+				colorDiv.id = 'colorDiv';
+			div.appendChild(colorDiv);
+			createOptionBtns(optionGroup.buttons, 'colorDiv');
+		} else {
+			// Display other options normally
+			createOptionBtns(optionGroup.buttons, div.id);
+		}
 		
 		groupCount++; // Increment group count for IDs
 	}
-
 }
 
 // Create buttons for options

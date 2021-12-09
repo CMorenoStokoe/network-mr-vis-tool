@@ -16,22 +16,6 @@ const options = [
         groupTitle: 'Edges',
         buttons:[
             { 
-                name: 'Color: -ve', 
-                funct: function(){settings.links.colNeg=this.value;},
-                type: 'textForm',
-                default: 'blue',
-                size: 8,
-                id: 'e-cn',
-            },
-            { 
-                name: 'Color: +ve', 
-                funct: function(){settings.links.colPos=this.value;},
-                type: 'textForm',
-                default: 'red',
-                size: 8,
-                id: 'e-cp',
-            },
-            { 
                 name: 'Width', 
                 funct: function(){
                     settings.links.scaleToBeta.minWidth=Number(this.value);
@@ -43,7 +27,15 @@ const options = [
                 id: 'e-w',
             },
             { 
-                name: 'Width: Scale to beta', 
+                name: 'Opacity', 
+                funct: function(){settings.links.opacity=this.value;},
+                type: 'textForm',
+                default: '90%',
+                size: 4,
+                id: 'e-o',
+            },
+            { 
+                name: 'Scale widths to beta', 
                 funct: function(){
                     if(settings.links.scaleToBeta.method == 'percentOfMax'){
                         settings.links.scaleToBeta.method = 'none'; 
@@ -58,41 +50,7 @@ const options = [
                 id: 'e-s2b',
             },
             { 
-                name: 'Opacity', 
-                funct: function(){settings.links.opacity=this.value;},
-                type: 'textForm',
-                default: '90%',
-                size: 4,
-                id: 'e-o',
-            },
-            { 
-                name: 'Filter: By method', 
-                funct: function(){settings.data.mrMethods=this.value;},
-                type: 'textForm',
-                default: 'all methods',
-                size: 20,
-                id: 'e-f',
-            },
-            { 
-                name: 'Causal data', 
-                funct: function(){settings.data.observational = this.value},
-                type: 'radio',
-                default: true,
-                value: 'Causal data',
-                group: 'Data',
-                id: 'e-dc',
-            },
-            { 
-                name: 'Observational data*', 
-                funct: function(){settings.data.observational = this.value},
-                type: 'radio',
-                default: false,
-                value: 'Observational data',
-                group: 'Data',
-                id: 'e-do',
-            },
-            { 
-                name: 'Arrows: Bi-directional arrows', 
+                name: 'Enable bi-directional arrows', 
                 funct: function(){
                     settings.links.bidirectional.enabled = !(settings.links.bidirectional.enabled);
                     settings.links.multiEdges.enabled = !(settings.links.bidirectional.enabled);
@@ -106,22 +64,6 @@ const options = [
     {
         groupTitle: 'Labels',
         buttons:[
-            { 
-                name: 'Color: Background', 
-                funct: function(){settings.nodes.labels.background=this.value;},
-                type: 'textForm',
-                default: 'none',
-                size: 10,
-                id: 'l-cbg',
-            },
-            { 
-                name: 'Color: Text shadow', 
-                funct: function(){settings.nodes.labels.outlineColor=this.value;},
-                type: 'textForm',
-                default: 'none',
-                size: 10,
-                id: 'l-ts',
-            },
             { 
                 name: 'Display names', 
                 funct: function(){
@@ -158,7 +100,7 @@ const options = [
                 id: 'l-dic',
             },
             { 
-                name: 'Better names: Rename traits', 
+                name: 'Shorten labels', 
                 funct: function(){settings.data.cleaning.enabled = toggleSetting(settings.data.cleaning.enabled);console.log(settings.data.cleaning.enabled)},
                 type: 'checkbox',
                 default: true,
@@ -188,22 +130,6 @@ const options = [
         groupTitle: 'Nodes',
         buttons:[
             { 
-                name: 'Color: Fill', 
-                funct: function(){settings.nodes.fill=this.value;},
-                type: 'textForm',
-                default: 'white',
-                size: 8,
-                id: 'n-cf',
-            },
-            { 
-                name: 'Color: Outline', 
-                funct: function(){settings.nodes.strokeColor=this.value;},
-                type: 'textForm',
-                default: 'black',
-                size: 8,
-                id: 'n-co',
-            },
-            { 
                 name: 'Opacity', 
                 funct: function(){settings.nodes.opacity=this.value;},
                 type: 'textForm',
@@ -220,7 +146,15 @@ const options = [
                 id: 'n-s',
             },
             { 
-                name: 'Per-node coloring*', 
+                name: 'Spacing', 
+                funct: function(){settings.simulation.strength=-this.value*30;},
+                type: 'textForm',
+                default: 100,
+                size: 5,
+                id: 'g-s',
+            },
+            { 
+                name: 'Enable per-node coloring*', 
                 funct: function(){settings.nodes.fillFromCSV = true; settings.nodes.fill = d => d.color;},
                 type: 'checkbox',
                 default: false,
@@ -229,24 +163,83 @@ const options = [
         ]
     },
     {
-        groupTitle: 'General',
+        groupTitle: 'Edge labels',
         buttons:[
             { 
-                name: 'Background color', 
-                funct: function(){
-                    document.getElementById('svg-main').style.backgroundColor=this.value;
-                    document.body.style.backgroundColor=this.value;
-                },
-                type: 'textForm',
-                default: 'ghostwhite',
-                size: 8,
-                id: 'g-cbg',
+                name: 'Enable edge labels', 
+                funct: function(){settings.links.labels.enabled = toggleSetting(settings.links.labels.enabled);},
+                type: 'checkbox',
+                default: true,
+                id: 'l-e',
             },
+            { 
+                name: 'Show beta and p', 
+                funct: function(){settings.links.labels.content=this.value},
+                type: 'radio',
+                default: true,
+                value: 'both',
+                group: 'Edge label content',
+                id: 'l-e-cbo',
+            },
+            { 
+                name: 'Show betas', 
+                funct: function(){settings.links.labels.content=this.value;},
+                type: 'radio',
+                default: false,
+                value: 'b',
+                group: 'Edge label content',
+                id: 'l-e-cb',
+            },
+            { 
+                name: 'Show p values',
+                funct: function(){settings.links.labels.content=this.value},
+                type: 'radio',
+                default: false,
+                value: 'p',
+                group: 'Edge label content',
+                id: 'l-e-cp',
+            },
+            { 
+                name: 'Betas: Use scientific notation', 
+                funct: function(){settings.links.labels.sciNotation = toggleSetting(settings.links.labels.sciNotation);},
+                type: 'checkbox',
+                default: false,
+                id: 'l-e-sn',  
+            },
+            { 
+                name: 'Betas: Decimal places', 
+                funct: function(){settings.data.decimalPlacesToShow=this.value;},
+                type: 'textForm',
+                default: '3',
+                size: 3,
+                id: 'l-e-dp',
+            },
+            { 
+                name: 'Distance from edge', 
+                funct: function(){settings.links.labels.offset=this.value;},
+                type: 'textForm',
+                default: 0.75,
+                size: 3,
+                id: 'l-e-o',
+            },
+            { 
+                name: 'Font size', 
+                funct: function(){settings.links.labels.fontSize=this.value;},
+                type: 'textForm',
+                default: 10,
+                size: 3,
+                id: 'l-e-fs',
+            },
+        ]
+    },
+    {
+        groupTitle: 'Fonts',
+        buttons:[
             { 
                 name: 'Font', 
                 funct: function(){settings.nodes.labels.font=this.value;},
                 type: 'textForm',
-                default: 'Rubik, sans-serif',
+                default: 'Rubik',
                 size: 15,
                 id: 'g-ff',
             },
@@ -258,8 +251,92 @@ const options = [
                 size: 3,
                 id: 'g-fs',
             },
+        ]
+    },
+    {
+        groupTitle: 'Data',
+        buttons:[
             { 
-                name: 'Text color', 
+                name: 'Filter edges by method', 
+                funct: function(){settings.data.mrMethods=this.value;},
+                type: 'textForm',
+                default: 'all methods',
+                size: 20,
+                id: 'e-f',
+            },
+            { 
+                name: 'Data type: Causal', 
+                funct: function(){settings.data.observational = this.value},
+                type: 'radio',
+                default: true,
+                value: 'Causal data',
+                group: 'Data',
+                id: 'e-dc',
+            },
+            { 
+                name: 'Data type: Observational*', 
+                funct: function(){settings.data.observational = this.value},
+                type: 'radio',
+                default: false,
+                value: 'Observational data',
+                group: 'Data',
+                id: 'e-do',
+            },
+        ]
+    },
+    {
+        groupTitle: 'Colours',
+        buttons:[
+            { 
+                name: 'Nodes: Fill', 
+                funct: function(){settings.nodes.fill=this.value;},
+                type: 'textForm',
+                default: 'white',
+                size: 8,
+                id: 'n-cf',
+            },
+            { 
+                name: 'Nodes: Outline', 
+                funct: function(){settings.nodes.strokeColor=this.value;},
+                type: 'textForm',
+                default: 'black',
+                size: 8,
+                id: 'n-co',
+            },
+            { 
+                name: 'Node labels: Fill', 
+                funct: function(){settings.nodes.labels.background=this.value;},
+                type: 'textForm',
+                default: 'none',
+                size: 10,
+                id: 'l-cbg',
+            },
+            { 
+                name: 'Node labels: Shadow', 
+                funct: function(){settings.nodes.labels.outlineColor=this.value;},
+                type: 'textForm',
+                default: 'none',
+                size: 10,
+                id: 'l-ts',
+            },
+            { 
+                name: 'Edges: Negative', 
+                funct: function(){settings.links.colNeg=this.value;},
+                type: 'textForm',
+                default: 'blue',
+                size: 8,
+                id: 'e-cn',
+            },
+            { 
+                name: 'Edges: Positive', 
+                funct: function(){settings.links.colPos=this.value;},
+                type: 'textForm',
+                default: 'red',
+                size: 8,
+                id: 'e-cp',
+            },
+            { 
+                name: 'Text', 
                 funct: function(){settings.nodes.labels.color=this.value;},
                 type: 'textForm',
                 default: 'black',
@@ -267,12 +344,15 @@ const options = [
                 id: 'g-fc',
             },
             { 
-                name: 'Node spacing', 
-                funct: function(){settings.simulation.strength=this.value;},
+                name: 'Background', 
+                funct: function(){
+                    document.getElementById('svg-main').style.backgroundColor=this.value;
+                    document.body.style.backgroundColor=this.value;
+                },
                 type: 'textForm',
-                default: -3000,
-                size: 5,
-                id: 'g-s',
+                default: 'ghostwhite',
+                size: 8,
+                id: 'g-cbg',
             },
         ]
     }

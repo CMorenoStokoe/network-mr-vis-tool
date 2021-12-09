@@ -93,17 +93,43 @@ function drawFDG (data, svgId, settings) {
 				.style("stroke-dasharray", settings.links.dashArray),
 	);
 		
-	// Add beta weights
-	const betas = link.append("text")
-		.text(0)
-		.style("font-size", settings.nodes.labels.fontSize)
-		.style("font-family", settings.nodes.labels.font)
-		.style("cursor", 'default')
-		.style("user-select", 'none')
-		.style("fill", settings.nodes.labels.color)
-		.style("stroke", settings.nodes.labels.outlineColor)
-		.style("stroke-width", settings.nodes.labels.outlineWidth)
-		.attr('text-anchor', settings.nodes.labels.anchor);
+	// Add edge labels (adapted from: https://observablehq.com/@xianwu/force-directed-graph-network-graph-with-arrowheads-and-lab)
+	const edgepaths = svg.append("g")
+		.attr("class", "linkPaths")
+		.selectAll(".edgepath") //make path go along with the link provide position for link labels
+        .data(links)
+        .enter()
+        .append('path')
+			.attr('class', 'edgepath')
+			.attr('fill-opacity', 0)
+			.attr('stroke-opacity', 0)
+			.attr('stroke-width', settings.links.width)
+			.attr('id', d => `edgepath_${d.id}`)
+			.style("pointer-events", "none");
+	
+	const edgelabels = svg.append("g")
+		.attr("class", "linkLabels")
+		.selectAll(".edgelabel")
+		.data(links)
+		.enter()
+		.append('text')
+			.style("pointer-events", "none")
+			.attr('class', 'edgelabel')
+			.attr('id', d => `edgelabel_${d.id}`)
+			.attr('font-size', settings.links.labels.fontSize)
+			.attr("dy", `${settings.links.labels.offset}rem`)
+			.attr('fill', settings.links.labels.color)
+		
+	if(settings.links.labels.enabled){
+
+		edgelabels.append('textPath') //To render text along the shape of a <path>, enclose the text in a <textPath> element that has an href attribute with a reference to the <path> element.
+			.attr('xlink:href', d => `#edgepath_${d.id}`)
+			.style("text-anchor", "middle")
+			.style("pointer-events", "none")
+			.attr("startOffset", "50%")
+			.text(d=>settings.links.labels.selectContent(d));
+
+	}
 
 	// Add nodes
 	const node = svg.append("g")
@@ -248,7 +274,22 @@ function drawFDG (data, svgId, settings) {
 			.attr("y2", d => getNodeEdge(d, outline=true).y2);
 	}
 
-	link // Draw arrows to changing node edges (Adapted from: https://stackoverflow.com/questions/15495762/linking-nodes-of-variable-radius-with-arrows?rq=1)
+	// Edge labels
+	edgepaths.attr('d', d => 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y);
+	edgelabels.attr('transform',function(d,i){ // auto rotate edge labels (from: http://bl.ocks.org/jhb/5955887)
+		if (d.target.x<d.source.x){
+			let bbox = this.getBBox();
+			rx = bbox.x+bbox.width/2;
+			ry = bbox.y+bbox.height/2;
+			return 'rotate(180 '+rx+' '+ry+')';
+			}
+		else {
+			return 'rotate(0)';
+			}
+	});
+
+	// Draw arrows to changing node edges (Adapted from: https://stackoverflow.com/questions/15495762/linking-nodes-of-variable-radius-with-arrows?rq=1)
+	link 
 		.attr("x1", d => getNodeEdge(d).x1)
 		.attr("y1", d => getNodeEdge(d).y1)
 		.attr("x2", d => getNodeEdge(d).x2)

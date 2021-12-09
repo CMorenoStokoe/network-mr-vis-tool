@@ -1,0 +1,4 @@
+id.exposure,id.outcome,exposure,outcome,method,nsnp,b,se,pval
+A,B,Number of days week of moderate physical activity 10 minutes,Illness or injury or bereavement or stress in last 2 years Financial difficulties,Wald ratio,1,1,1,0.05
+B,C,Illness or injury or bereavement or stress in last 2 years Financial difficulties,Leisure social activities Pub or social club,Wald ratio,1,4,1,0.05
+C,A,Leisure social activities Pub or social club,Number of days week of moderate physical activity 10 minutes,Wald ratio,1,8,1,0.05

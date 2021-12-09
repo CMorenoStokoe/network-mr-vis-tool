@@ -123,7 +123,6 @@ function createLegend(legendId, parentId, settings, blackText = false, customLab
     var svg = d3.select("#svg-main");
         width = svg.attr("width")*settings.simulation.zoom;
         height = svg.attr("height")*settings.simulation.zoom;
-        console.log(width, height)
         
     console.log({x: svg.attr("width"), y: svg.attr("height")})
     // Set SVG coordinates to draw legend elements to

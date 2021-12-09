@@ -1,0 +1,15 @@
+id.exposure,id.outcome,exposure,outcome,method,nsnp,b,se,pval
+A,B,A,B,Wald ratio,1,1,1,0.001
+C,D,C,D,Wald ratio,1,1,1,0.05
+E,F,E,F,Wald ratio,1,1,1,0.05
+G,I,G,I,Wald ratio,1,1,1,0.05
+H,K,H,K,Wald ratio,1,1,1,0.05
+I,L,I,L,Wald ratio,1,1,1,0.05
+J,A,J,A,Wald ratio,1,1,1,0.05
+K,B,K,B,Wald ratio,1,1,1,0.05
+E,I,E,F,Wald ratio,1,1,1,0.05
+G,H,G,I,Wald ratio,1,1,1,0.05
+H,C,H,K,Wald ratio,1,1,1,0.05
+I,B,I,L,Wald ratio,1,1,1,0.05
+J,K,J,A,Wald ratio,1,1,1,0.05
+K,K,K,B,Wald ratio,1,1,1,0.05
