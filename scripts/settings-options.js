@@ -169,7 +169,7 @@ const options = [
                 name: 'Enable edge labels', 
                 funct: function(){settings.links.labels.enabled = toggleSetting(settings.links.labels.enabled);},
                 type: 'checkbox',
-                default: true,
+                default: false,
                 id: 'l-e',
             },
             { 
