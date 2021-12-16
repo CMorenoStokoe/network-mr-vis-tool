@@ -139,7 +139,7 @@ var defaultSettings = {
 		},
 		dashArray: 'none',
 		labels: {
-			enabled: true,
+			enabled: false,
 			offset: 0.75,
 			content: 'both',
 			fontSize: 10,
