@@ -50,6 +50,15 @@ const options = [
                 id: 'e-s2b',
             },
             { 
+                name: 'Enable arrows', 
+                funct: function(){
+                    settings.arrows.enabled = !(settings.arrows.enabled);
+                },
+                type: 'checkbox',
+                default: true,  
+                id: 'e-arr',
+            },
+            { 
                 name: 'Enable bi-directional arrows', 
                 funct: function(){
                     settings.links.bidirectional.enabled = !(settings.links.bidirectional.enabled);

@@ -105,7 +105,7 @@ function checkForErrors(requiredFields, fields, body, header){
     
     // Check all required fields are given
     for(const field of requiredFields){
-        if(!(fields.includes(field))){errors.push(`Field not found in data file: ${field}`);}
+        if(!(fields.includes(field))){errors.push(`Column not found in data file: ${field}`);}
     }
 
     // Check data is longer than 1 rows
