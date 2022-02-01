@@ -15,6 +15,8 @@ Uploaded CSV contains the columns:
 - 'id.exposure'
 - 'id.outcome'
 
+The code for MiRANA is published and protected under the GNU General Public License 3.0
+
 */
 
 
