@@ -13,6 +13,42 @@ The main file uses this collection of options to populate buttons using methods 
 // List of options {label on btn:, function to run:, type of btn:,}
 const options = [ 
     {
+        groupTitle: 'Nodes',
+        buttons:[
+            { 
+                name: 'Opacity', 
+                funct: function(){settings.nodes.opacity=this.value;},
+                type: 'textForm',
+                default: '100%',
+                size: 4,
+                id: 'n-o',
+            },
+            { 
+                name: 'Size', 
+                funct: function(){settings.nodes.circleRadius=this.value;},
+                type: 'textForm',
+                default: 15,
+                size: 4,
+                id: 'n-s',
+            },
+            { 
+                name: 'Spacing', 
+                funct: function(){settings.simulation.strength=-this.value*30;},
+                type: 'textForm',
+                default: 100,
+                size: 5,
+                id: 'g-s',
+            },
+            { 
+                name: 'Enable per-node coloring*', 
+                funct: function(){settings.nodes.fillFromCSV = true; settings.nodes.fill = d => d.color;},
+                type: 'checkbox',
+                default: false,
+                id: 'n-cpn',  
+            },
+        ]
+    },
+    {
         groupTitle: 'Edges',
         buttons:[
             { 
@@ -71,7 +107,28 @@ const options = [
         ]
     },
     {
-        groupTitle: 'Labels',
+        groupTitle: 'Fonts',
+        buttons:[
+            { 
+                name: 'Font', 
+                funct: function(){settings.nodes.labels.font=this.value;},
+                type: 'textForm',
+                default: 'Rubik',
+                size: 15,
+                id: 'g-ff',
+            },
+            { 
+                name: 'Font size', 
+                funct: function(){settings.nodes.labels.fontSize=this.value;},
+                type: 'textForm',
+                default: 19,
+                size: 3,
+                id: 'g-fs',
+            },
+        ]
+    },
+    {
+        groupTitle: 'Node labels',
         buttons:[
             { 
                 name: 'Display names', 
@@ -132,42 +189,6 @@ const options = [
                 value: 'middle',
                 group: 'Label placement',
                 id: 'l-pm',
-            },
-        ]
-    },
-    {
-        groupTitle: 'Nodes',
-        buttons:[
-            { 
-                name: 'Opacity', 
-                funct: function(){settings.nodes.opacity=this.value;},
-                type: 'textForm',
-                default: '100%',
-                size: 4,
-                id: 'n-o',
-            },
-            { 
-                name: 'Size', 
-                funct: function(){settings.nodes.circleRadius=this.value;},
-                type: 'textForm',
-                default: 15,
-                size: 4,
-                id: 'n-s',
-            },
-            { 
-                name: 'Spacing', 
-                funct: function(){settings.simulation.strength=-this.value*30;},
-                type: 'textForm',
-                default: 100,
-                size: 5,
-                id: 'g-s',
-            },
-            { 
-                name: 'Enable per-node coloring*', 
-                funct: function(){settings.nodes.fillFromCSV = true; settings.nodes.fill = d => d.color;},
-                type: 'checkbox',
-                default: false,
-                id: 'n-cpn',  
             },
         ]
     },
@@ -238,27 +259,6 @@ const options = [
                 default: 10,
                 size: 3,
                 id: 'l-e-fs',
-            },
-        ]
-    },
-    {
-        groupTitle: 'Fonts',
-        buttons:[
-            { 
-                name: 'Font', 
-                funct: function(){settings.nodes.labels.font=this.value;},
-                type: 'textForm',
-                default: 'Rubik',
-                size: 15,
-                id: 'g-ff',
-            },
-            { 
-                name: 'Font size', 
-                funct: function(){settings.nodes.labels.fontSize=this.value;},
-                type: 'textForm',
-                default: 19,
-                size: 3,
-                id: 'g-fs',
             },
         ]
     },
